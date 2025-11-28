@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="da">
+    <head>
+    <meta charset="UTF-8" />
+    <title>Mikkel Schrøders Portfolio</title>
+    <meta name="viewport" content="width=device-width, user-scalable=no" />
+    <link rel="stylesheet" href="style.css" />
+
+    <link rel="stylesheet"
+            href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+            integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA=="
+            crossorigin="anonymous" referrerpolicy="no-referrer" />
+    </head>
+
+    <body>
+        <video class="baggrund-video" autoplay muted loop playsinline>
+            <source src="bg-video.mp4" type="video/mp4">
+        </video>
+
+        <!-- Hoved-skærm ovenpå baggrunden -->
+        <div class="app-skaerm">
+
+            <!-- Topbjælke -->
+            <header class="topbjaelke glas-pill">
+                <div class="status-ikoner">
+                    <i class="fa-solid fa-wifi"></i>
+                    <i class="fa-solid fa-battery-three-quarters"></i>
+                    <i class="fa-regular fa-envelope"></i>
+                </div>
+
+                <div>
+                    <img src="logo-pladsholder.png" alt="Logo" class="logo-billede">
+                </div>
+
+                <div class="ur-tekst">
+                    <script>
+                        function opdater_ur() {
+                            const ur_element = document.querySelector(".ur-tekst");
+                            if (!ur_element) return;
+
+                            const nu = new Date();
+                            const timer = String(nu.getHours()).padStart(2, "0");
+                            const minutter = String(nu.getMinutes()).padStart(2, "0");
+
+                            ur_element.textContent = timer + ":" + minutter;
+                        }
+
+                        opdater_ur();
+                        setInterval(opdater_ur, 1000);
+                    </script>
+                </div>
+            </header>
+
+            <main class="indhold-gitter">
+                <article class="indhold-boks glas-boks">
+                    <div class="indhold-boks-indre">
+                        <i class="fa-regular fa-user indhold-ikon"></i>
+                        <div class="indhold-tekst">
+                        <span class="indhold-titel">Om Mig</span>
+                        <span class="indhold-undertekst">Lær mig at kende</span>
+                    </div>
+                </article>
+
+                <article class="indhold-boks glas-boks">
+                    <div class="indhold-boks-indre">
+                        <i class="fa-solid fa-code indhold-ikon"></i>
+                        <div class="indhold-tekst">
+                        <span class="indhold-titel">Kodning</span>
+                        <span class="indhold-undertekst">Mine kodeprojekter</span>
+                    </div>
+                </article>
+
+                <article class="indhold-boks glas-boks">
+                    <div class="indhold-boks-indre">
+                        <i class="fa-solid fa-bezier-curve indhold-ikon"></i>
+                        <div class="indhold-tekst">
+                        <span class="indhold-titel">grafisk design</span>
+                        <span class="indhold-undertekst">stærke visuelle udtryk</span>
+                    </div>
+                </article>
+
+                <article class="indhold-boks glas-boks">
+                    <div class="indhold-boks-indre">
+                        <i class="fa-solid fa-video indhold-ikon"></i>
+                        <div class="indhold-tekst">
+                        <span class="indhold-titel">videografi</span>
+                        <span class="indhold-undertekst">historier i bevægelse</span>
+                    </div>
+                </article>
+
+                <article class="indhold-boks glas-boks">
+                    <div class="indhold-boks-indre">
+                        <i class="fa-solid fa-camera indhold-ikon"></i>
+                        <div class="indhold-tekst">
+                        <span class="indhold-titel">fotografi</span>
+                        <span class="indhold-undertekst">stemningsfulde billeder</span>
+                    </div>
+                </article>
+
+                <article class="indhold-boks glas-boks">
+                    <div class="indhold-boks-indre">
+                        <i class="fa-solid fa-palette indhold-ikon"></i>
+                        <div class="indhold-tekst">
+                        <span class="indhold-titel">brand design</span>
+                        <span class="indhold-undertekst">skarpt brandunivers</span>
+                    </div>
+                </article>
+
+                <article class="indhold-boks glas-boks">
+                    <div class="indhold-boks-indre">
+                        <i class="fa-solid fa-laptop indhold-ikon"></i>
+                        <div class="indhold-tekst">
+                        <span class="indhold-titel">web design</span>
+                        <span class="indhold-undertekst">konverterende sider</span>
+                    </div>
+                </article>
+
+                <article class="indhold-boks glas-boks">
+                    <div class="indhold-boks-indre">
+                        <i class="fa-regular fa-pen-to-square indhold-ikon"></i>
+                        <div class="indhold-tekst">
+                        <span class="indhold-titel">blog</span>
+                        <span class="indhold-undertekst">tanker og indblik</span>
+                    </div>
+                </article>
+            </main>
+
+            <footer class="bund-omraade">
+                <div class="bund-dock glas-pill">
+                    <button class="dock-knap glas-indre">
+                        <img src="ob-logo.png" alt="ob logo" class="dock-billede">
+                    </button>
+
+                    <button class="dock-knap glas-indre">
+                        <i class="fa-solid fa-music dock-ikon"></i>
+                    </button>
+
+                    <button class="dock-knap glas-indre">
+                        <i class="fa-regular fa-comment dock-ikon"></i>
+                    </button>
+
+                    <button class="dock-knap glas-indre">
+                        <i class="fa-solid fa-globe dock-ikon"></i>
+                    </button>
+                </div>
+            </footer>
+
+        </div>
+
+    </body>
+</html>
