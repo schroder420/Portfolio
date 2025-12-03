@@ -374,7 +374,7 @@ body {
 
 @media (max-width: 600px) {
     .app-skaerm {
-        height: 70vh;
+        height: 80vh;
         aspect-ratio: 9 / 16;
         padding: 0% 5% 10%;
         font-size: clamp(10px, 2.2vmin, 18px);
@@ -409,6 +409,40 @@ body {
 
     .indhold-undertekst {
         font-size: 0.8em;
+    }
+
+    /* slår hover-effekten fra på bokse */
+    .indhold-boks:hover::before {
+        border-color: rgba(242, 242, 242, 0);
+        opacity: 0;
+        transform: scale(1);
+    }
+
+    .indhold-boks:hover .indhold-ikon,
+    .indhold-boks:hover .indhold-titel {
+        color: rgba(242, 242, 242, 0.5);
+        transform: translateY(0);
+    }
+
+    .indhold-boks:hover .indhold-undertekst {
+        opacity: 0;
+        max-height: 0;
+        transform: translateY(0.3rem);
+    }
+
+    /* slår hover fra på dockknapper */
+    .dock-knap.glas-indre:hover {
+        transform: none;
+        box-shadow: 0 0.8em 1.6em rgba(10, 10, 10, 0.6);
+    }
+
+    .dock-knap:hover .dock-ikon {
+        color: rgba(242, 242, 242, 0.5);
+    }
+
+    .dock-knap:hover .dock-billede {
+        filter: brightness(0) invert(0.95);
+        opacity: 1;
     }
 
     .bund-dock {
