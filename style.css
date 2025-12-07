@@ -805,6 +805,110 @@ body:has(.side:target) .indhold-gitter > .indhold-boks {
 
 
 
+/*  MUSIK-POPUP  */
+
+.musik-popup {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity 0.25s ease;
+    z-index: 50; /* over alt inde i app-skaerm */
+}
+
+.musik-popup--aktiv {
+    pointer-events: auto;
+    opacity: 1;
+}
+
+.musik-popup-kort {
+    width: min(32em, 90%);
+    padding: 1.8em 2em;
+    position: relative;
+}
+
+.musik-popup-luk {
+    position: absolute;
+    right: 1.2em;
+    top: 1.0em;
+    border: none;
+    background: transparent;
+    font-size: 2em;
+    color: rgba(242, 242, 242, 0.8);
+    cursor: pointer;
+}
+
+.musik-popup-indhold {
+    display: flex;
+    gap: 1.4em;
+    align-items: center;
+}
+
+.musik-popup-cover-wrapper {
+    flex: 0 0 7em;
+    border-radius: 1em;
+    overflow: hidden;
+}
+
+.musik-popup-cover {
+    width: 100%;
+    height: auto;
+    display: block;
+}
+
+.musik-popup-tekst {
+    flex: 1 1 auto;
+    font-size: 0.95em;
+}
+
+.musik-popup-label {
+    font-size: 0.8em;
+    text-transform: uppercase;
+    opacity: 0.7;
+    margin-bottom: 0.4em;
+}
+
+.musik-popup-titel {
+    font-size: 1.3em;
+    margin-bottom: 0.1em;
+}
+
+.musik-popup-artist {
+    font-size: 1em;
+    opacity: 0.85;
+    margin-bottom: 0.2em;
+}
+
+.musik-popup-album {
+    font-size: 0.9em;
+    opacity: 0.7;
+    margin-bottom: 0.8em;
+}
+
+.musik-popup-knap {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0.4em 1.1em;
+    border-radius: 999em;
+    border: 0.06em solid rgba(242, 242, 242, 0.7);
+    text-decoration: none;
+    font-size: 0.9em;
+    color: #0a0a0a;
+    background: rgba(242, 242, 242, 0.9);
+}
+
+.musik-popup-fejl {
+    margin-top: 0.6em;
+    font-size: 0.8em;
+    color: #ffb3b3;
+}
+
+
+
 
 
 
