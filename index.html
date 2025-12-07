@@ -1215,7 +1215,7 @@
                         <img src="billeder/ob-logo.png" alt="ob logo" class="dock-billede">
                     </a>
 
-                    <a href="#" class="dock-knap glas-indre dock-musik-knap" id="dock-musik-knap">
+                    <a href="#" class="dock-knap glas-indre dock-musik-knap" id="musik-knap">
                         <i class="fa-solid fa-music dock-ikon"></i>
                     </a>
 
@@ -1227,40 +1227,137 @@
                         <i class="fa-solid fa-globe dock-ikon"></i>
                     </a>
                 </div>
-            </footer>
 
-                        <div class="musik-overlay" id="musik-overlay"></div>
+                            <!-- Musik-popup (skjult som standard) -->
+                            <div id="musik-popup" class="musik-popup">
+                                <div class="musik-popup-kort glas-boks">
+                                    <button class="musik-popup-luk" type="button">&times;</button>
 
-                        <div class="musik-popup glas-boks" id="musik-popup">
-                            <button class="musik-popup-luk" id="musik-popup-luk">
-                                <i class="fa-solid fa-xmark"></i>
-                            </button>
+                                    <div class="musik-popup-indhold">
+                                        <div class="musik-popup-cover-wrapper">
+                                            <img id="musik-popup-cover" src="" alt="Cover" class="musik-popup-cover" />
+                                        </div>
 
-                            <div class="musik-popup-indhold">
-                                <img src="billeder/spotify-placeholder-cover.png"
-                                    alt="Albumcover"
-                                    class="musik-popup-cover"
-                                    id="musik-popup-cover">
+                                        <div class="musik-popup-tekst">
+                                            <p class="musik-popup-label">sidst lyttet på spotify</p>
+                                            <h3 id="musik-popup-titel" class="musik-popup-titel">–</h3>
+                                            <p id="musik-popup-artist" class="musik-popup-artist">–</p>
+                                            <p id="musik-popup-album" class="musik-popup-album"></p>
 
-                                <div class="musik-popup-tekst">
-                                    <p class="musik-popup-label">sidst spillet på spotify</p>
-                                    <h3 class="musik-popup-titel" id="musik-popup-titel">Sangtitel (placeholder)</h3>
-                                    <p class="musik-popup-artist" id="musik-popup-artist">Kunstnernavn</p>
+                                            <a id="musik-popup-link" href="#" target="_blank" rel="noopener noreferrer"
+                                            class="musik-popup-knap">
+                                                afspil på spotify
+                                            </a>
 
-                                    <a href="https://open.spotify.com/user/DIT_SPOTIFY_ID"
-                                    target="_blank"
-                                    rel="noopener"
-                                    class="musik-popup-knap"
-                                    id="musik-popup-link">
-                                        <i class="fa-brands fa-spotify"></i>
-                                        afspil på spotify
-                                    </a>
+                                            <p id="musik-popup-fejl" class="musik-popup-fejl"></p>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
 
-
+            </footer>
         </div>
 
+
+
+
+                            <script>
+                                (function () {
+                                    const musikKnap = document.getElementById("musik-knap");
+                                    const popup = document.getElementById("musik-popup");
+                                    const lukKnap = popup?.querySelector(".musik-popup-luk");
+
+                                    const titelEl = document.getElementById("musik-popup-titel");
+                                    const artistEl = document.getElementById("musik-popup-artist");
+                                    const albumEl = document.getElementById("musik-popup-album");
+                                    const coverEl = document.getElementById("musik-popup-cover");
+                                    const linkEl = document.getElementById("musik-popup-link");
+                                    const fejlEl = document.getElementById("musik-popup-fejl");
+
+                                    let harLoadet = false;
+
+                                    async function hentSpotifyTrack() {
+                                    try {
+                                        fejlEl.textContent = "";
+                                        const res = await fetch("/api/spotify-last-track");
+                                        if (!res.ok) {
+                                        throw new Error("Serverfejl (" + res.status + ")");
+                                        }
+                                        const data = await res.json();
+
+                                        if (!data.track) {
+                                        titelEl.textContent = "Ingen nylig sang";
+                                        artistEl.textContent = "";
+                                        albumEl.textContent = "";
+                                        coverEl.src = "";
+                                        coverEl.style.display = "none";
+                                        linkEl.style.display = "none";
+                                        return;
+                                        }
+
+                                        const t = data.track;
+                                        titelEl.textContent = t.name || "–";
+                                        artistEl.textContent = t.artists || "";
+                                        albumEl.textContent = t.album ? "Album: " + t.album : "";
+
+                                        if (t.cover) {
+                                        coverEl.src = t.cover;
+                                        coverEl.alt = "Cover: " + t.name;
+                                        coverEl.style.display = "block";
+                                        } else {
+                                        coverEl.style.display = "none";
+                                        }
+
+                                        if (t.url) {
+                                        linkEl.href = t.url;
+                                        linkEl.style.display = "inline-flex";
+                                        } else {
+                                        linkEl.style.display = "none";
+                                        }
+
+                                        harLoadet = true;
+                                    } catch (err) {
+                                        console.error("Fejl ved hentSpotifyTrack:", err);
+                                        fejlEl.textContent = "Kunne ikke hente sang lige nu.";
+                                    }
+                                    }
+
+                                    function åbnePopup() {
+                                    if (!popup) return;
+                                    popup.classList.add("musik-popup--aktiv");
+                                    if (!harLoadet) {
+                                        hentSpotifyTrack();
+                                    }
+                                    }
+
+                                    function lukPopup() {
+                                    if (!popup) return;
+                                    popup.classList.remove("musik-popup--aktiv");
+                                    }
+
+                                    if (musikKnap) {
+                                    musikKnap.addEventListener("click", function (e) {
+                                        e.preventDefault();
+                                        åbnePopup();
+                                    });
+                                    }
+
+                                    if (lukKnap) {
+                                    lukKnap.addEventListener("click", function (e) {
+                                        e.preventDefault();
+                                        lukPopup();
+                                    });
+                                    }
+
+                                    // luk ved klik udenfor kortet
+                                    if (popup) {
+                                    popup.addEventListener("click", function (e) {
+                                        if (e.target === popup) {
+                                        lukPopup();
+                                        }
+                                    });
+                                    }
+                                })();
+                            </script>
     </body>
 </html>
