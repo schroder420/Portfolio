@@ -1,61 +1,68 @@
+// /api/spotify-init.js på Vercel (Node serverless)
 export default async function handler(req, res) {
-  const clientId = process.env.SPOTIFY_CLIENT_ID;
-  const clientSecret = process.env.SPOTIFY_CLIENT_SECRET;
-
-  const code = req.query.code;
-
-  if (!code) {
-    return res
-      .status(400)
-      .send("ingen 'code' i query. start login via spotify authorize-link først.");
-  }
-
-  const redirectUri = "https://mikkelschroder.com/api/spotify-init";
-
-  const basicAuth = Buffer.from(`${clientId}:${clientSecret}`).toString("base64");
-
   try {
+    const code = req.query.code;
+    if (!code) {
+      return res.status(400).send("Mangler 'code' i query");
+    }
+
+    // BYT UD til dine egne env-variabler
+    const clientId = process.env.SPOTIFY_CLIENT_ID;
+    const clientSecret = process.env.SPOTIFY_CLIENT_SECRET;
+
+    if (!clientId || !clientSecret) {
+      return res
+        .status(500)
+        .send("Mangler SPOTIFY_CLIENT_ID / SPOTIFY_CLIENT_SECRET i Vercel");
+    }
+
+    const basic = Buffer.from(`${clientId}:${clientSecret}`).toString("base64");
+
+    // VIGTIGT: redirect_uri SKAL være 100% identisk med den i Spotify Dashboard
+    const redirectUri = "https://mikkelschroder.com/api/spotify-init";
+
+    const body = new URLSearchParams({
+      grant_type: "authorization_code",
+      code,
+      redirect_uri: redirectUri,
+    });
+
     const tokenRes = await fetch("https://accounts.spotify.com/api/token", {
       method: "POST",
       headers: {
-        Authorization: `Basic ${basicAuth}`,
+        Authorization: `Basic ${basic}`,
         "Content-Type": "application/x-www-form-urlencoded",
       },
-      body: new URLSearchParams({
-        grant_type: "authorization_code",
-        code: code,
-        redirect_uri: redirectUri,
-      }),
+      body,
     });
 
-    const data = await tokenRes.json();
+    const raw = await tokenRes.text(); // læs ALTID som tekst først
 
     if (!tokenRes.ok) {
-      console.error("spotify token error:", data);
+      console.error(
+        "Spotify token error:",
+        tokenRes.status,
+        tokenRes.statusText,
+        raw
+      );
       return res
         .status(500)
-        .send("fejl ved token exchange – tjek console/logs i vercel.");
+        .send("Spotify token error – se rå svar i Vercel logs.");
     }
 
-    const refreshToken = data.refresh_token;
+    const data = JSON.parse(raw);
 
-    if (!refreshToken) {
-      console.log("response fra spotify:", data);
-      return res
-        .status(500)
-        .send("ingen refresh_token i svar – har du måske allerede brugt koden?");
-    }
+    // Her får du både access_token og refresh_token
+    console.log("SPOTIFY TOKENS:", data);
 
-    // vis den pænt, så du kan kopiere den
-    res.setHeader("Content-Type", "text/html; charset=utf-8");
-    res.status(200).send(`
-      <h1>spotify refresh token</h1>
-      <p>kopiér denne token og gem den som <code>SPOTIFY_REFRESH_TOKEN</code> i vercel:</p>
-      <pre>${refreshToken}</pre>
-      <p>når du har gemt den, kan du slette <code>/api/spotify-init.js</code> eller lade den være.</p>
-    `);
+    // VIGTIGT: Gem refresh_token i en env-var i Vercel bagefter:
+    // data.refresh_token
+
+    return res.send(
+      "Alt godt 👍 Tjek Vercel logs for refresh_token og gem den som env-var."
+    );
   } catch (err) {
-    console.error(err);
-    res.status(500).send("serverfejl – se logs i vercel.");
+    console.error("spotify-init fejl:", err);
+    return res.status(500).send("serverfejl – se logs i vercel.");
   }
 }
