@@ -5,15 +5,21 @@ export default async function handler(req, res) {
     SPOTIFY_REFRESH_TOKEN,
   } = process.env;
 
+  // 0) Tjek env vars
   if (!SPOTIFY_CLIENT_ID || !SPOTIFY_CLIENT_SECRET || !SPOTIFY_REFRESH_TOKEN) {
+    console.error("Spotify env mangler", {
+      SPOTIFY_CLIENT_ID: !!SPOTIFY_CLIENT_ID,
+      SPOTIFY_CLIENT_SECRET: !!SPOTIFY_CLIENT_SECRET,
+      SPOTIFY_REFRESH_TOKEN: !!SPOTIFY_REFRESH_TOKEN,
+    });
     return res.status(500).json({
       error: "missing_env",
-      message: "Spotify env vars mangler",
+      message: "En eller flere SPOTIFY_* env vars mangler.",
     });
   }
 
   try {
-    // 1) Få et friskt access token via refresh token
+    // 1) Få access token via refresh token
     const tokenRes = await fetch("https://accounts.spotify.com/api/token", {
       method: "POST",
       headers: {
@@ -30,10 +36,20 @@ export default async function handler(req, res) {
       }),
     });
 
-    const tokenData = await tokenRes.json();
+    const tokenText = await tokenRes.text();
+    let tokenData = null;
+    try {
+      tokenData = JSON.parse(tokenText);
+    } catch (e) {
+      console.error("Kunne ikke parse token JSON:", tokenText);
+      return res.status(500).json({
+        error: "token_parse_error",
+        raw: tokenText,
+      });
+    }
 
     if (!tokenRes.ok) {
-      console.error("Spotify token error:", tokenData);
+      console.error("Spotify token fejl:", tokenData);
       return res.status(500).json({
         error: "token_error",
         detail: tokenData,
@@ -45,17 +61,26 @@ export default async function handler(req, res) {
 
     let track = null;
 
-    // 2) Første forsøg: sidst lyttede sang
+    // 2) Sidst lyttede
     try {
       const recentRes = await fetch(
         "https://api.spotify.com/v1/me/player/recently-played?limit=1",
         { headers: authHeaders }
       );
 
-      if (recentRes.ok) {
-        const recentData = await recentRes.json();
-        const item = recentData?.items?.[0];
+      const recentText = await recentRes.text();
+      let recentData = null;
 
+      if (recentText) {
+        try {
+          recentData = JSON.parse(recentText);
+        } catch (e) {
+          console.error("recently-played JSON-fejl:", recentText);
+        }
+      }
+
+      if (recentRes.ok && recentData?.items?.length) {
+        const item = recentData.items[0];
         if (item?.track) {
           const t = item.track;
           track = {
@@ -69,17 +94,13 @@ export default async function handler(req, res) {
           };
         }
       } else if (recentRes.status !== 204) {
-        console.error(
-          "recently-played error",
-          recentRes.status,
-          await recentRes.text()
-        );
+        console.error("recently-played fejl:", recentRes.status, recentText);
       }
     } catch (err) {
-      console.error("recently-played fetch failed:", err);
+      console.error("recently-played fetch exception:", err);
     }
 
-    // 3) Fallback: top-sang, hvis der ikke kom noget fra recently played
+    // 3) Fallback: top track
     if (!track) {
       try {
         const topRes = await fetch(
@@ -87,37 +108,42 @@ export default async function handler(req, res) {
           { headers: authHeaders }
         );
 
-        if (topRes.ok) {
-          const topData = await topRes.json();
-          const t = topData?.items?.[0];
-
-          if (t) {
-            track = {
-              name: t.name,
-              artists: t.artists.map((a) => a.name).join(", "),
-              album: t.album.name,
-              url: t.external_urls?.spotify || null,
-              cover: t.album.images?.[0]?.url || null,
-              played_at: null,
-              source: "top_track",
-            };
+        const topText = await topRes.text();
+        let topData = null;
+        if (topText) {
+          try {
+            topData = JSON.parse(topText);
+          } catch (e) {
+            console.error("top-tracks JSON-fejl:", topText);
           }
+        }
+
+        if (topRes.ok && topData?.items?.length) {
+          const t = topData.items[0];
+          track = {
+            name: t.name,
+            artists: t.artists.map((a) => a.name).join(", "),
+            album: t.album.name,
+            url: t.external_urls?.spotify || null,
+            cover: t.album.images?.[0]?.url || null,
+            played_at: null,
+            source: "top_track",
+          };
         } else {
-          console.error("top-tracks error", topRes.status, await topRes.text());
+          console.error("top-tracks fejl:", topRes.status, topText);
         }
       } catch (err) {
-        console.error("top-tracks fetch failed:", err);
+        console.error("top-tracks fetch exception:", err);
       }
     }
 
-    // 4) Sidste fallback: hårdkodet "dummy"-track,
-    // så frontenden ALDRIG ser track === null
+    // 4) Sidste fallback – dummy track (så frontend ALDRIG ser null)
     if (!track) {
       track = {
-        name: "Kunne ikke hente sidste sang",
-        artists: "Spotify API",
+        name: "OB Op I Top",
+        artists: "Arne Lundemann, OB Fans",
         album: "",
-        url: "https://open.spotify.com/user", // kan evt. være din profil
+        url: "https://open.spotify.com/album/2vzh9i4h4kXrvbRWHtn85C?si=-fN3WjbPRZ-ImXX54GFhwQ", // kan evt. være din profil
         cover: null,
         played_at: null,
         source: "fallback",
