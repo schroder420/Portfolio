@@ -12,13 +12,25 @@
             crossorigin="anonymous" referrerpolicy="no-referrer" />
     </head>
 
+                            <script>
+                                function stop_zoom_videoer() {
+                                    const zoom_videoer = document.querySelectorAll(".billede-zoom video");
+                                    zoom_videoer.forEach(function (video) {
+                                        video.pause();
+                                        video.currentTime = 0;
+                                    });
+                                }
+
+                                window.addEventListener("hashchange", stop_zoom_videoer);
+                            </script>
+
     <body>
         <video class="baggrund-video" autoplay muted loop playsinline>
-            <source src="bg-video.mp4" type="video/mp4">
+            <source src="videoer/Moodvideo1.mp4" type="video/mp4">
         </video>
 
         <!-- Hoved-skærm ovenpå baggrunden -->
-        <div class="app-skaerm">
+        <div class="app-skaerm" id="app">
 
             <header class="topbjaelke glas-pill">
                 <div class="status-ikoner">
@@ -51,57 +63,52 @@
             </header>
 
             <main class="indhold-gitter">
-                <article class="indhold-boks glas-boks">
+                <a href="#side-om-mig" class="indhold-boks glas-boks">
                     <div class="indhold-boks-indre">
                         <i class="fa-regular fa-user indhold-ikon"></i>
                         <div class="indhold-tekst">
-                        <span class="indhold-titel">Om Mig</span>
-                        <span class="indhold-undertekst">Lær mig at kende</span>
+                            <span class="indhold-titel">Om Mig</span>
+                            <span class="indhold-undertekst">Lær mig at kende</span>
+                        </div>
                     </div>
-                </article>
-
-                <article class="indhold-boks glas-boks">
+                </a>
+                
+                <a href="#side-kodning" class="indhold-boks glas-boks">
                     <div class="indhold-boks-indre">
                         <i class="fa-solid fa-code indhold-ikon"></i>
                         <div class="indhold-tekst">
-                        <span class="indhold-titel">Kodning</span>
-                        <span class="indhold-undertekst">Mine kodeprojekter</span>
+                            <span class="indhold-titel">kodning</span>
+                            <span class="indhold-undertekst">mine kodeprojekter</span>
+                        </div>
                     </div>
-                </article>
+                </a>
 
-                <article class="indhold-boks glas-boks">
+                <a href="#side-grafisk-design" class="indhold-boks glas-boks">
                     <div class="indhold-boks-indre">
                         <i class="fa-solid fa-bezier-curve indhold-ikon"></i>
                         <div class="indhold-tekst">
-                        <span class="indhold-titel">Grafisk Design</span>
-                        <span class="indhold-undertekst">Nogle af mine designs</span>
+                            <span class="indhold-titel">grafisk design</span>
+                            <span class="indhold-undertekst">nogle af mine designs</span>
+                        </div>
                     </div>
-                </article>
+                </a>
 
-                <article class="indhold-boks glas-boks">
+                <a href="#side-videografi" class="indhold-boks glas-boks">
                     <div class="indhold-boks-indre">
                         <i class="fa-solid fa-video indhold-ikon"></i>
                         <div class="indhold-tekst">
-                        <span class="indhold-titel">Videografi</span>
-                        <span class="indhold-undertekst">Mine videoprojekter <br> samlet ét sted</span>
+                            <span class="indhold-titel">Videografi</span>
+                            <span class="indhold-undertekst">Mine videoprojekter <br> samlet ét sted</span>
+                        </div>
                     </div>
-                </article>
+                </a>
 
                 <article class="indhold-boks glas-boks">
                     <div class="indhold-boks-indre">
-                        <i class="fa-solid fa-camera indhold-ikon"></i>
+                        <i class="fa-solid fa-microphone indhold-ikon"></i>
                         <div class="indhold-tekst">
-                        <span class="indhold-titel">Fotografi</span>
-                        <span class="indhold-undertekst">Mine yndlingsbilleder</span>
-                    </div>
-                </article>
-
-                <article class="indhold-boks glas-boks">
-                    <div class="indhold-boks-indre">
-                        <i class="fa-solid fa-palette indhold-ikon"></i>
-                        <div class="indhold-tekst">
-                        <span class="indhold-titel">Brand Design</span>
-                        <span class="indhold-undertekst">Et udvalg af mine <br> brand designs</span>
+                        <span class="indhold-titel">Musik</span>
+                        <span class="indhold-undertekst">Musikprojekter og Events</span>
                     </div>
                 </article>
 
@@ -116,33 +123,1154 @@
 
                 <article class="indhold-boks glas-boks">
                     <div class="indhold-boks-indre">
+                        <i class="fa-solid fa-palette indhold-ikon"></i>
+                        <div class="indhold-tekst">
+                        <span class="indhold-titel">Skabelon</span>
+                        <span class="indhold-undertekst">Et udvalg af mine <br> brand designs</span>
+                    </div>
+                </article>
+
+                <article class="indhold-boks glas-boks">
+                    <div class="indhold-boks-indre">
                         <i class="fa-regular fa-pen-to-square indhold-ikon"></i>
                         <div class="indhold-tekst">
                         <span class="indhold-titel">Blog</span>
                         <span class="indhold-undertekst">Læs mine tanker om <br> specifikke emner</span>
                     </div>
                 </article>
+
+
+
+
+
+                <section id="side-om-mig" class="side">
+                    <div class="side-kort glas-boks">
+
+                        <div class="side-header">
+                            <a href="#app" class="side-tilbage">
+                                <i class="fa-solid fa-arrow-left"></i>
+                            </a>
+
+                            <h2 class="side-header-titel">Om Mig</h2>
+                        </div>
+
+                        <div class="side-indhold">
+                            <div class="side-billede-wrapper">
+                                <img id="ommigbillede" src="billeder/om-mig-side.png" alt="mikkel schrøder">
+                            </div>
+
+                            <div class="side-tekst-wrapper">
+                                <div class="side-overskrift">
+                                    <h3 class="side-titel">Mikkel Schrøder</h3>
+                                    <p class="side-under">22 år, Odense</p>
+                                </div>
+
+                                <div class="side-tekst">
+                                    <p>
+                                        her kan du skrive din “om mig”-tekst. du kan lave flere afsnit
+                                        og senere smide et billede/illustration ind i venstre side, hvis du vil.
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </section>
+
+
+                        <section id="side-kodning" class="side">
+                            <div class="side-kort glas-boks">
+
+                                <div class="side-header">
+                                    <a href="#app" class="side-tilbage">
+                                        <i class="fa-solid fa-arrow-left"></i>
+                                    </a>
+
+                                    <h2 class="side-header-titel">kodning</h2>
+                                </div>
+
+                                <div class="mappe-liste">
+                                    <!-- mappe 1 -->
+                                    <a href="#side-kodning-portfolio" class="mappe mappe--groen">
+                                        <div class="mappe-top">
+                                            <span class="mappe-label">portfolio</span>
+                                        </div>
+                                        <div class="mappe-indhold">
+                                            <span class="mappe-titel">min portfolio | 100% solo-kodet hjemmeside</span>
+                                            <span class="mappe-tekst">se hvordan jeg har bygget hele denne side fra bundenen kort tekst om hvad reavai er <br>en kort tekst om hvad reavai er</span>
+                                        </div>
+                                    </a>
+
+                                    <!-- mappe 2 -->
+                                    <a href="#side-kodning-simclipper" class="mappe mappe--roed">
+                                        <div class="mappe-top">
+                                            <span class="mappe-label">simclipper</span>
+                                        </div>
+                                        <div class="mappe-indhold">
+                                            <span class="mappe-titel">simclipper | vibe coding projekt</span>
+                                            <span class="mappe-tekst">en kort tekst om hvad simclipper eren kort tekst om hvad reavai er <br>en kort tekst om hvad reavai er</span>
+                                        </div>
+                                    </a>
+
+                                    <!-- mappe 3 -->
+                                    <a href="#side-kodning-reavai" class="mappe mappe--blaa">
+                                        <div class="mappe-top">
+                                            <span class="mappe-label">reavai</span>
+                                        </div>
+                                        <div class="mappe-indhold">
+                                            <span class="mappe-titel">reavai | vibe coding projekt</span>
+                                            <span class="mappe-tekst">en kort tekst om hvad reavai er <br>en kort tekst om hvad reavai er <br>en kort tekst om hvad reavai er</span>
+                                        </div>
+                                    </a>
+                                </div>
+
+                            </div>
+                        </section>
+
+                            <!-- side: kodning → portfolio -->
+                            <section id="side-kodning-portfolio" class="side">
+                                <div class="side-kort glas-boks">
+
+                                    <div class="side-header">
+                                        <a href="#side-kodning" class="side-tilbage">
+                                            <i class="fa-solid fa-arrow-left"></i>
+                                        </a>
+
+                                        <h2 class="side-header-titel">portfolio</h2>
+                                    </div>
+
+                                    <div class="side-tekst">
+                                        <p>
+                                            her kan du skrive mere detaljeret om dit portfolio-projekt.
+                                            hvordan du har bygget siden, hvilke teknologier du har brugt osv.
+                                        </p>
+                                    </div>
+
+                                </div>
+                            </section>
+
+                            <!-- side: kodning → simclipper -->
+                            <section id="side-kodning-simclipper" class="side">
+                                <div class="side-kort glas-boks">
+
+                                    <div class="side-header">
+                                        <a href="#side-kodning" class="side-tilbage">
+                                            <i class="fa-solid fa-arrow-left"></i>
+                                        </a>
+
+                                        <h2 class="side-header-titel">simclipper</h2>
+                                    </div>
+
+                                    <div class="side-tekst">
+                                        <p>
+                                            her kan du beskrive simclipper-projektet. hvad det gør, hvilke features du er stolt af osv.
+                                        </p>
+                                    </div>
+
+                                </div>
+                            </section>
+
+                            <!-- side: kodning → reavai -->
+                            <section id="side-kodning-reavai" class="side">
+                                <div class="side-kort glas-boks">
+
+                                    <div class="side-header">
+                                        <a href="#side-kodning" class="side-tilbage">
+                                            <i class="fa-solid fa-arrow-left"></i>
+                                        </a>
+
+                                        <h2 class="side-header-titel">reavai</h2>
+                                    </div>
+
+                                    <div class="side-tekst">
+                                        <p>
+                                            her beskriver du reavai-projektet. ideen, rollen du har haft, og hvad du vil fremhæve.
+                                        </p>
+                                    </div>
+
+                                </div>
+                            </section>          
+                            
+                <section id="side-grafisk-design" class="side">
+                        <div class="side-kort glas-boks">
+
+                            <div class="side-header">
+                                <a href="#app" class="side-tilbage">
+                                    <i class="fa-solid fa-arrow-left"></i>
+                                </a>
+
+                                <h2 class="side-header-titel">grafisk design</h2>
+                            </div>
+
+                            <div class="side-tekst">
+                                <p>
+                                    her er et udvalg af mine grafiske projekter. tryk på et billede for at se det tættere
+                                    (vi kan senere lave en rigtig “lightbox”, hvis du vil).
+                                </p>
+                            </div>
+
+                            <div class="galleri">
+                                <div class="galleri-gitter">
+                                    <a href="#gd-bellami" class="galleri-element">
+                                        <img src="billeder/bellami.png" alt="grafisk projekt 4" class="galleri-billede">
+                                    </a>
+                                    <a href="#gd-race" class="galleri-element">
+                                        <img src="billeder/race.png" alt="grafisk projekt 4" class="galleri-billede">
+                                    </a>
+
+                                    <a href="#gd-mind" class="galleri-element">
+                                        <img src="billeder/mind.png" alt="grafisk projekt 4" class="galleri-billede">
+                                    </a>
+
+                                    <a href="#gd-playboy" class="galleri-element">
+                                        <img src="billeder/playboy.png" alt="grafisk projekt 4" class="galleri-billede">
+                                    </a>
+
+                                    <a href="#gd-nikolaj" class="galleri-element">
+                                        <img src="billeder/nikolaj.jpg" alt="grafisk projekt 4" class="galleri-billede">
+                                    </a>
+
+                                    <a href="#gd-sodavand" class="galleri-element">
+                                        <img src="billeder/sodavand.png" alt="grafisk projekt 4" class="galleri-billede">
+                                    </a>
+
+                                    <a href="#gd-aco-bogbind" class="galleri-element">
+                                        <img src="billeder/aco-bogbind.png" alt="grafisk projekt 1" class="galleri-billede">
+                                    </a>
+
+                                    <a href="#gd-progression" class="galleri-element">
+                                        <img src="billeder/progression.png" alt="grafisk projekt 4" class="galleri-billede">
+                                    </a>
+
+                                    <a href="#gd-waterman" class="galleri-element">
+                                        <img src="billeder/waterman.png" alt="grafisk projekt 4" class="galleri-billede">
+                                    </a>
+
+                                    <a href="#gd-shubi-kvadrat" class="galleri-element">
+                                        <img src="billeder/shubi-kvadrat.jpg" alt="grafisk projekt 4" class="galleri-billede">
+                                    </a>
+
+                                    <a href="#gd-love" class="galleri-element">
+                                        <img src="billeder/love.png" alt="grafisk projekt 4" class="galleri-billede">
+                                    </a>
+
+                                    <a href="#gd-gambling" class="galleri-element">
+                                        <img src="billeder/gambling.png" alt="grafisk projekt 4" class="galleri-billede">
+                                    </a>
+
+                                    <a href="#gd-adhd" class="galleri-element">
+                                        <img src="billeder/adhd.png" alt="grafisk projekt 2" class="galleri-billede">
+                                    </a>
+
+                                    <a href="#gd-bogmærke" class="galleri-element">
+                                        <img src="billeder/bogmærke.png" alt="grafisk projekt 3" class="galleri-billede">
+                                    </a>
+                                </div>
+                            </div>
+
+                        </div>
+                    </section>
+
+                        <section id="gd-bellami" class="side">
+                            <div class="side-kort glas-boks">
+
+                                <div class="side-header">
+                                    <a href="#side-grafisk-design" class="side-tilbage">
+                                        <i class="fa-solid fa-arrow-left"></i>
+                                    </a>
+                                    <h2 class="side-header-titel">bellami – plakat</h2>
+                                </div>
+
+                                <div class="side-projekt">
+                                    <a href="#gd-bellami-zoom" class="side-projekt-billede-link">
+                                        <img src="billeder/bellami.png"
+                                            alt="bellami plakat"
+                                            class="side-projekt-billede">
+                                    </a>
+                                    <a href="#gd-bellami-kvadrat-zoom" class="side-projekt-billede-link">
+                                        <img src="billeder/bellami-kvadrat.png"
+                                            alt="bellami plakat"
+                                            class="side-projekt-billede">
+                                    </a>
+
+                                    <div class="side-projekt-tekst">
+                                        <p>
+                                            Her skriver du om projektet osv. osv.
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </section>
+
+                            <!-- ZOOM-OVERLAY TIL DET SAMME BILLEDE -->
+                            <div id="gd-bellami-zoom" class="billede-zoom">
+                                <a href="#gd-bellami" class="billede-zoom-luk">&times;</a>
+                                <img src="billeder/bellami.png"
+                                    alt="bellami plakat i stort format"
+                                    class="billede-zoom-billede">
+                            </div>
+                            <div id="gd-bellami-kvadrat-zoom" class="billede-zoom">
+                                <a href="#gd-bellami" class="billede-zoom-luk">&times;</a>
+                                <img src="billeder/bellami-kvadrat.png"
+                                    alt="bellami kvadrat i stort format"
+                                    class="billede-zoom-billede">
+                            </div>
+
+                        <section id="gd-race" class="side">
+                            <div class="side-kort glas-boks">
+
+                                <div class="side-header">
+                                    <a href="#side-grafisk-design" class="side-tilbage">
+                                        <i class="fa-solid fa-arrow-left"></i>
+                                    </a>
+                                    <h2 class="side-header-titel">Race Girls | Hyggeplakat</h2>
+                                </div>
+
+                                <div class="side-projekt">
+                                    <a href="#gd-race-zoom" class="side-projekt-billede-link">
+                                        <img src="billeder/race.png"
+                                            alt="bellami plakat"
+                                            class="side-projekt-billede">
+                                    </a>
+                                    <div class="side-projekt-tekst">
+                                        <p>
+                                            Her skriver du om projektet osv. osv.
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </section>
+
+                            <!-- ZOOM-OVERLAY TIL DET SAMME BILLEDE -->
+                            <div id="gd-race-zoom" class="billede-zoom">
+                                <a href="#gd-race" class="billede-zoom-luk">&times;</a>
+                                <img src="billeder/race.png"
+                                    alt="race girls plakat i stor format"
+                                    class="billede-zoom-billede">
+                            </div>
+                        
+                        <section id="gd-mind" class="side">
+                            <div class="side-kort glas-boks">
+
+                                <div class="side-header">
+                                    <a href="#side-grafisk-design" class="side-tilbage">
+                                        <i class="fa-solid fa-arrow-left"></i>
+                                    </a>
+                                    <h2 class="side-header-titel">Mind | Hyggetegning</h2>
+                                </div>
+
+                                <div class="side-projekt">
+                                    <a href="#gd-mind-zoom" class="side-projekt-billede-link">
+                                        <img src="billeder/mind.png"
+                                            alt="mind tegning"
+                                            class="side-projekt-billede">
+                                    </a>
+
+                                    <div class="side-projekt-tekst">
+                                        <p>
+                                            Her skriver du om projektet osv. osv.
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </section>
+
+                            <!-- ZOOM-OVERLAY TIL DET SAMME BILLEDE -->
+                            <div id="gd-mind-zoom" class="billede-zoom">
+                                <a href="#gd-mind" class="billede-zoom-luk">&times;</a>
+                                <img src="billeder/mind.png"
+                                    alt="mind tegning i stort format"
+                                    class="billede-zoom-billede">
+                            </div>
+
+                        <section id="gd-playboy" class="side">
+                            <div class="side-kort glas-boks">
+
+                                <div class="side-header">
+                                    <a href="#side-grafisk-design" class="side-tilbage">
+                                        <i class="fa-solid fa-arrow-left"></i>
+                                    </a>
+                                    <h2 class="side-header-titel">Playboy | Koncept Plakat</h2>
+                                </div>
+
+                                <div class="side-projekt">
+                                    <a href="#gd-playboy-zoom" class="side-projekt-billede-link">
+                                        <img src="billeder/playboy.png"
+                                            alt="Playboy Koncept Plakat"
+                                            class="side-projekt-billede">
+                                    </a>
+
+                                    <div class="side-projekt-tekst">
+                                        <p>
+                                            Her skriver du om projektet osv. osv.
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </section>
+
+                            <!-- ZOOM-OVERLAY TIL DET SAMME BILLEDE -->
+                            <div id="gd-playboy-zoom" class="billede-zoom">
+                                <a href="#gd-playboy" class="billede-zoom-luk">&times;</a>
+                                <img src="billeder/playboy.png"
+                                    alt="playboy plakat i stort format"
+                                    class="billede-zoom-billede">
+                            </div>
+                        
+                        <section id="gd-nikolaj" class="side">
+                            <div class="side-kort glas-boks">
+
+                                <div class="side-header">
+                                    <a href="#side-grafisk-design" class="side-tilbage">
+                                        <i class="fa-solid fa-arrow-left"></i>
+                                    </a>
+                                    <h2 class="side-header-titel">Nikolaj Jakobsen | Kommerciel Plakat</h2>
+                                </div>
+
+                                <div class="side-projekt">
+                                    <a href="#gd-nikolaj-zoom" class="side-projekt-billede-link">
+                                        <img src="billeder/nikolaj.jpg"
+                                            alt="Nikolaj Jakobsen plakat kvadrat"
+                                            class="side-projekt-billede">
+                                    </a>
+                                    <a href="#gd-nikolaj-plakat-zoom" class="side-projekt-billede-link">
+                                        <img src="billeder/nikolaj-plakat.png"
+                                            alt="Nikolaj Jakobsen plakat"
+                                            class="side-projekt-billede">
+                                    </a>
+
+                                    <div class="side-projekt-tekst">
+                                        <p>
+                                            Her skriver du om projektet osv. osv.
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </section>
+
+                            <!-- ZOOM-OVERLAY TIL DET SAMME BILLEDE -->
+                            <div id="gd-nikolaj-zoom" class="billede-zoom">
+                                <a href="#gd-nikolaj" class="billede-zoom-luk">&times;</a>
+                                <img src="billeder/nikolaj.jpg"
+                                    alt="Nikolaj Jakobsen kvadrat plakat i stort format"
+                                    class="billede-zoom-billede">
+                            </div>
+                            <div id="gd-nikolaj-plakat-zoom" class="billede-zoom">
+                                <a href="#gd-nikolaj-plakat" class="billede-zoom-luk">&times;</a>
+                                <img src="billeder/nikolaj-plakat.png"
+                                    alt="Nikolaj Jakobsen plakat i stort format"
+                                    class="billede-zoom-billede">
+                            </div>
+
+                        <section id="gd-sodavand" class="side">
+                            <div class="side-kort glas-boks">
+
+                                <div class="side-header">
+                                    <a href="#side-grafisk-design" class="side-tilbage">
+                                        <i class="fa-solid fa-arrow-left"></i>
+                                    </a>
+                                    <h2 class="side-header-titel">Harboe Sodavand | Emballage Koncept</h2>
+                                </div>
+
+                                <div class="side-projekt">
+                                    <a href="#gd-sodavand-zoom" class="side-projekt-billede-link">
+                                        <img src="billeder/sodavand.png"
+                                            alt="Emballage koncept for en harboe sodavand"
+                                            class="side-projekt-billede">
+                                    </a>
+
+                                    <div class="side-projekt-tekst">
+                                        <p>
+                                            Her skriver du om projektet osv. osv.
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </section>
+
+                            <!-- ZOOM-OVERLAY TIL DET SAMME BILLEDE -->
+                            <div id="gd-sodavand-zoom" class="billede-zoom">
+                                <a href="#gd-sodavand" class="billede-zoom-luk">&times;</a>
+                                <img src="billeder/sodavand.png"
+                                    alt="Emballage koncept for en harboe sodavand i stort format"
+                                    class="billede-zoom-billede">
+                            </div>
+
+                        <section id="gd-aco-bogbind" class="side">
+                            <div class="side-kort glas-boks">
+
+                                <div class="side-header">
+                                    <a href="#side-grafisk-design" class="side-tilbage">
+                                        <i class="fa-solid fa-arrow-left"></i>
+                                    </a>
+                                    <h2 class="side-header-titel">ACO Bogmærker | Hyggeillustration</h2>
+                                </div>
+
+                                <div class="side-projekt">
+                                    <a href="#gd-aco-bogbind-zoom" class="side-projekt-billede-link">
+                                        <img src="billeder/aco-bogbind.png"
+                                            alt="A Court Of bogmærke koncept"
+                                            class="side-projekt-billede">
+                                    </a>
+                                    <a href="#gd-aco-bagside-zoom" class="side-projekt-billede-link">
+                                        <img src="billeder/aco-bagside.png"
+                                            alt="A Court Of bogmærke bagside koncept"
+                                            class="side-projekt-billede">
+                                    </a>
+
+                                    <div class="side-projekt-tekst">
+                                        <p>
+                                            Her skriver du om projektet osv. osv.
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </section>
+
+                            <!-- ZOOM-OVERLAY TIL DET SAMME BILLEDE -->
+                            <div id="gd-aco-bogbind-zoom" class="billede-zoom">
+                                <a href="#gd-aco-bogbind" class="billede-zoom-luk">&times;</a>
+                                <img src="billeder/aco-bogbind.png"
+                                    alt="A Court Of bogmærke koncept i stort format"
+                                    class="billede-zoom-billede">
+                            </div>
+                            <div id="gd-aco-bagside-zoom" class="billede-zoom">
+                                <a href="#gd-aco-bagside" class="billede-zoom-luk">&times;</a>
+                                <img src="billeder/aco-bagside.png"
+                                    alt="A Court Of bogmærke bagside koncept i stort format"
+                                    class="billede-zoom-billede">
+                            </div>
+
+                        <section id="gd-progression" class="side">
+                            <div class="side-kort glas-boks">
+
+                                <div class="side-header">
+                                    <a href="#side-grafisk-design" class="side-tilbage">
+                                        <i class="fa-solid fa-arrow-left"></i>
+                                    </a>
+                                    <h2 class="side-header-titel">Progression | Hyggetegning</h2>
+                                </div>
+
+                                <div class="side-projekt">
+                                    <a href="#gd-progression-zoom" class="side-projekt-billede-link">
+                                        <img src="billeder/progression.png"
+                                            alt="Progression hyggetegning"
+                                            class="side-projekt-billede">
+                                    </a>
+
+                                    <div class="side-projekt-tekst">
+                                        <p>
+                                            Her skriver du om projektet osv. osv.
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </section>
+
+                            <!-- ZOOM-OVERLAY TIL DET SAMME BILLEDE -->
+                            <div id="gd-progression-zoom" class="billede-zoom">
+                                <a href="#gd-progression" class="billede-zoom-luk">&times;</a>
+                                <img src="billeder/progression.png"
+                                    alt="Progression hyggetegning i stort format"
+                                    class="billede-zoom-billede">
+                            </div>
+
+                        <section id="gd-waterman" class="side">
+                            <div class="side-kort glas-boks">
+
+                                <div class="side-header">
+                                    <a href="#side-grafisk-design" class="side-tilbage">
+                                        <i class="fa-solid fa-arrow-left"></i>
+                                    </a>
+                                    <h2 class="side-header-titel">Waterman | Hyggeplakat</h2>
+                                </div>
+
+                                <div class="side-projekt">
+                                    <a href="#gd-waterman-zoom" class="side-projekt-billede-link">
+                                        <img src="billeder/waterman.png"
+                                            alt="Waterman hyggeplakat"
+                                            class="side-projekt-billede">
+                                    </a>
+
+                                    <div class="side-projekt-tekst">
+                                        <p>
+                                            Her skriver du om projektet osv. osv.
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </section>
+
+                            <!-- ZOOM-OVERLAY TIL DET SAMME BILLEDE -->
+                            <div id="gd-waterman-zoom" class="billede-zoom">
+                                <a href="#gd-waterman" class="billede-zoom-luk">&times;</a>
+                                <img src="billeder/waterman.png"
+                                    alt="Waterman hyggeplakat i stort format"
+                                    class="billede-zoom-billede">
+                            </div>
+
+                        <section id="gd-shubi-kvadrat" class="side">
+                            <div class="side-kort glas-boks">
+
+                                <div class="side-header">
+                                    <a href="#side-grafisk-design" class="side-tilbage">
+                                        <i class="fa-solid fa-arrow-left"></i>
+                                    </a>
+                                    <h2 class="side-header-titel">Shu-Bi-Dua 2.0 | Kommerciel Plakat</h2>
+                                </div>
+
+                                <div class="side-projekt">
+                                    <a href="#gd-shubi-kvadrat-zoom" class="side-projekt-billede-link">
+                                        <img src="billeder/shubi-kvadrat.jpg"
+                                            alt="Shu Bi Dua 2.0 kvadrat plakat"
+                                            class="side-projekt-billede">
+                                    </a>
+                                    <a href="#gd-shubi-plakat-zoom" class="side-projekt-billede-link">
+                                        <img src="billeder/shubi-plakat.png"
+                                            alt="Shu Bi Dua 2.0 plakat"
+                                            class="side-projekt-billede">
+                                    </a>
+
+                                    <div class="side-projekt-tekst">
+                                        <p>
+                                            Her skriver du om projektet osv. osv.
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </section>
+
+                            <!-- ZOOM-OVERLAY TIL DET SAMME BILLEDE -->
+                            <div id="gd-shubi-kvadrat-zoom" class="billede-zoom">
+                                <a href="#gd-shubi-kvadrat" class="billede-zoom-luk">&times;</a>
+                                <img src="billeder/shubi-kvadrat.jpg"
+                                    alt="Shu Bi Dua 2.0 kvadrat plakat i stort format"
+                                    class="billede-zoom-billede">
+                            </div>
+                            <div id="gd-shubi-plakat-zoom" class="billede-zoom">
+                                <a href="#gd-shubi-plakat" class="billede-zoom-luk">&times;</a>
+                                <img src="billeder/shubi-plakat.png"
+                                    alt="Shu Bi Dua 2.0 plakat i stort format"
+                                    class="billede-zoom-billede">
+                            </div>
+
+                        <section id="gd-love" class="side">
+                            <div class="side-kort glas-boks">
+
+                                <div class="side-header">
+                                    <a href="#side-grafisk-design" class="side-tilbage">
+                                        <i class="fa-solid fa-arrow-left"></i>
+                                    </a>
+                                    <h2 class="side-header-titel">Love | Hyggetegning</h2>
+                                </div>
+
+                                <div class="side-projekt">
+                                    <a href="#gd-love-zoom" class="side-projekt-billede-link">
+                                        <img src="billeder/love.png"
+                                            alt="En illustration af 2 mennesker der kigger på stjerner"
+                                            class="side-projekt-billede">
+                                    </a>
+
+                                    <div class="side-projekt-tekst">
+                                        <p>
+                                            Her skriver du om projektet osv. osv.
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </section>
+
+                            <!-- ZOOM-OVERLAY TIL DET SAMME BILLEDE -->
+                            <div id="gd-love-zoom" class="billede-zoom">
+                                <a href="#gd-love" class="billede-zoom-luk">&times;</a>
+                                <img src="billeder/love.png"
+                                    alt="Love i stort format"
+                                    class="billede-zoom-billede">
+                            </div>
+
+                        <section id="gd-gambling" class="side">
+                            <div class="side-kort glas-boks">
+
+                                <div class="side-header">
+                                    <a href="#side-grafisk-design" class="side-tilbage">
+                                        <i class="fa-solid fa-arrow-left"></i>
+                                    </a>
+                                    <h2 class="side-header-titel">Gambling | Hyggeplakat</h2>
+                                </div>
+
+                                <div class="side-projekt">
+                                    <a href="#gd-gambling-zoom" class="side-projekt-billede-link">
+                                        <img src="billeder/gambling.png"
+                                            alt="En plakat der illustrerer det farlige ved gambling"
+                                            class="side-projekt-billede">
+                                    </a>
+
+                                    <div class="side-projekt-tekst">
+                                        <p>
+                                            Her skriver du om projektet osv. osv.
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </section>
+
+                            <!-- ZOOM-OVERLAY TIL DET SAMME BILLEDE -->
+                            <div id="gd-gambling-zoom" class="billede-zoom">
+                                <a href="#gd-gambling" class="billede-zoom-luk">&times;</a>
+                                <img src="billeder/gambling.png"
+                                    alt="Gambling plakat i stort format"
+                                    class="billede-zoom-billede">
+                            </div>
+
+                        <section id="gd-adhd" class="side">
+                            <div class="side-kort glas-boks">
+
+                                <div class="side-header">
+                                    <a href="#side-grafisk-design" class="side-tilbage">
+                                        <i class="fa-solid fa-arrow-left"></i>
+                                    </a>
+                                    <h2 class="side-header-titel">ADHD | Hyggeplakat</h2>
+                                </div>
+
+                                <div class="side-projekt">
+                                    <a href="#gd-adhd-zoom" class="side-projekt-billede-link">
+                                        <img src="billeder/adhd.png"
+                                            alt="En plakat der illustrerer en mand med tankemylder"
+                                            class="side-projekt-billede">
+                                    </a>
+
+                                    <div class="side-projekt-tekst">
+                                        <p>
+                                            Her skriver du om projektet osv. osv.
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </section>
+
+                            <!-- ZOOM-OVERLAY TIL DET SAMME BILLEDE -->
+                            <div id="gd-adhd-zoom" class="billede-zoom">
+                                <a href="#gd-adhd" class="billede-zoom-luk">&times;</a>
+                                <img src="billeder/adhd.png"
+                                    alt="ADHD plakat i stort format"
+                                    class="billede-zoom-billede">
+                            </div>
+
+                        <section id="gd-bogmærke" class="side">
+                            <div class="side-kort glas-boks">
+
+                                <div class="side-header">
+                                    <a href="#side-grafisk-design" class="side-tilbage">
+                                        <i class="fa-solid fa-arrow-left"></i>
+                                    </a>
+                                    <h2 class="side-header-titel">Tegn Selv Bogmærker | Hyggeillustration</h2>
+                                </div>
+
+                                <div class="side-projekt">
+                                    <a href="#gd-bogmærke-zoom" class="side-projekt-billede-link">
+                                        <img src="billeder/bogmærke.png"
+                                            alt="5 Tegn selv bogmærker, de første 5 er mal selv og sidste 3 er tegn selv"
+                                            class="side-projekt-billede">
+                                    </a>
+                                    <a href="#gd-bogmærke-bagside-zoom" class="side-projekt-billede-link">
+                                        <img src="billeder/bogmærke-bagside.png"
+                                            alt="Bagsiden af bogmærkerne"
+                                            class="side-projekt-billede">
+                                    </a>
+
+                                    <div class="side-projekt-tekst">
+                                        <p>
+                                            Her skriver du om projektet osv. osv.
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </section>
+
+                            <!-- ZOOM-OVERLAY TIL DET SAMME BILLEDE -->
+                            <div id="gd-bogmærke-zoom" class="billede-zoom">
+                                <a href="#gd-bogmærke" class="billede-zoom-luk">&times;</a>
+                                <img src="billeder/bogmærke.png"
+                                    alt="Bogmærke illustration i stort format"
+                                    class="billede-zoom-billede">
+                            </div>
+                            <div id="gd-bogmærke-bagside-zoom" class="billede-zoom">
+                                <a href="#gd-bogmærke-bagside" class="billede-zoom-luk">&times;</a>
+                                <img src="billeder/bogmærke-bagside.png"
+                                    alt="Bogmærke illustrations bagside i stort format"
+                                    class="billede-zoom-billede">
+                            </div>
+
+
+
+                                <section id="side-videografi" class="side">
+                                    <div class="side-kort glas-boks">
+
+                                        <div class="side-header">
+                                            <a href="#app" class="side-tilbage">
+                                                <i class="fa-solid fa-arrow-left"></i>
+                                            </a>
+
+                                            <h2 class="side-header-titel">videografi</h2>
+                                        </div>
+
+                                        <div class="side-tekst">
+                                            <p>
+                                                her er et udvalg af mine videoprojekter. tryk på en video for at se mere
+                                                (vi kan senere lave en rigtig player/lightbox, hvis du vil).
+                                            </p>
+                                        </div>
+
+                                        <div class="galleri">
+                                            <div class="galleri-gitter">
+
+                                                <a href="#vid-gpf-swing" class="galleri-element">
+                                                    <img src="videoer/thumbnails/gpf-swing-thumb.png"
+                                                        alt="Grand prix fest videoreklame thumbnail"
+                                                        class="galleri-billede">
+                                                </a>
+
+                                                <a href="#vid-gpf-gulv" class="galleri-element">
+                                                    <img src="videoer/thumbnails/gpf-gulv-thumb.png"
+                                                        alt="Grand prix fest videoreklame thumbnail"
+                                                        class="galleri-billede">
+                                                </a>
+
+                                                <a href="#vid-interview" class="galleri-element">
+                                                    <img src="videoer/thumbnails/interview-thumb.png"
+                                                        alt="interview video thumbnail"
+                                                        class="galleri-billede">
+                                                </a>
+
+                                                <a href="#vid-moving" class="galleri-element">
+                                                    <img src="videoer/thumbnails/moving-thumb.png"
+                                                        alt="Moving Art thumbnail"
+                                                        class="galleri-billede">
+                                                </a>
+
+                                                <a href="#vid-gpf-feje" class="galleri-element">
+                                                    <img src="videoer/thumbnails/gpf-feje-thumb.png"
+                                                        alt="Grand prix fest videoreklame thumbnail"
+                                                        class="galleri-billede">
+                                                </a>
+
+                                                <a href="#vid-gpf-jul" class="galleri-element">
+                                                    <img src="videoer/thumbnails/gpf-jul-thumb.png"
+                                                        alt="Grand prix fest julevideoreklame thumbnail"
+                                                        class="galleri-billede">
+                                                </a> 
+
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </section>
+
+                                    <section id="vid-gpf-swing" class="side side-video-projekt">
+                                    <div class="side-kort glas-boks">
+
+                                        <div class="side-header">
+                                            <a href="#side-videografi" class="side-tilbage">
+                                                <i class="fa-solid fa-arrow-left"></i>
+                                            </a>
+                                            <h2 class="side-header-titel">GPF 26' | Kommerciel Reklamevideo</h2>
+                                        </div>
+
+                                        <div class="side-projekt">
+                                            <a href="#vid-gpf-swing-zoom" class="side-projekt-billede-link">
+                                                <img src="videoer/thumbnails/gpf-swing-thumb.png"
+                                                    alt="Thumbnail til GPF Swing videoen"
+                                                    class="side-projekt-billede">
+                                            </a>
+                                            
+                                            <div class="side-projekt-tekst">
+                                                <p>
+                                                    Her skriver du om projektet osv. osv.
+                                                </p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </section>
+
+                                    <!-- ZOOM-OVERLAY TIL DET SAMME BILLEDE -->
+                                    <div id="vid-gpf-swing-zoom" class="billede-zoom">
+                                        <a href="#vid-gpf-swing" class="billede-zoom-luk">&times;</a>
+
+                                        <video
+                                            class="billede-zoom-billede"
+                                            controls
+                                            autoplay
+                                            muted
+                                            playsinline
+                                        >
+                                            <source src="videoer/gpf-swing.mp4" type="video/mp4">
+                                            Din browser understøtter ikke video-tag&#39;et.
+                                        </video>
+                                    </div>
+
+                                <section id="vid-interview" class="side side-video-projekt">
+                                    <div class="side-kort glas-boks">
+
+                                        <div class="side-header">
+                                            <a href="#side-videografi" class="side-tilbage">
+                                                <i class="fa-solid fa-arrow-left"></i>
+                                            </a>
+                                            <h2 class="side-header-titel">Interview | Klippearbejde</h2>
+                                        </div>
+
+                                        <div class="side-projekt">
+                                            <a href="#vid-interview-zoom" class="side-projekt-billede-link">
+                                                <img src="videoer/thumbnails/interview-thumb.png"
+                                                    alt="Thumbnail til interview videoen"
+                                                    class="side-projekt-billede">
+                                            </a>
+                                            
+                                            <div class="side-projekt-tekst">
+                                                <p>
+                                                    Her skriver du om projektet osv. osv.
+                                                </p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </section>
+
+                                    <!-- ZOOM-OVERLAY TIL DET SAMME BILLEDE -->
+                                    <div id="vid-interview-zoom" class="billede-zoom">
+                                        <a href="#vid-interview" class="billede-zoom-luk">&times;</a>
+
+                                        <video
+                                            class="billede-zoom-billede"
+                                            controls
+                                            autoplay
+                                            muted
+                                            playsinline
+                                        >
+                                            <source src="videoer/interview" type="video/mp4">
+                                            Din browser understøtter ikke video-tag&#39;et.
+                                        </video>
+                                    </div>
+
+                                <section id="vid-gpf-gulv" class="side side-video-projekt">
+                                    <div class="side-kort glas-boks">
+
+                                        <div class="side-header">
+                                            <a href="#side-videografi" class="side-tilbage">
+                                                <i class="fa-solid fa-arrow-left"></i>
+                                            </a>
+                                            <h2 class="side-header-titel">GPF 25' | Kommerciel Reklamevideo</h2>
+                                        </div>
+
+                                        <div class="side-projekt">
+                                            <a href="#vid-gpf-gulv-zoom" class="side-projekt-billede-link">
+                                                <img src="videoer/thumbnails/gpf-gulv-thumb.png"
+                                                    alt="Thumbnail til GPF gulv videoen"
+                                                    class="side-projekt-billede">
+                                            </a>
+                                            
+                                            <div class="side-projekt-tekst">
+                                                <p>
+                                                    Her skriver du om projektet osv. osv.
+                                                </p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </section>
+
+                                    <!-- ZOOM-OVERLAY TIL DET SAMME BILLEDE -->
+                                    <div id="vid-gpf-gulv-zoom" class="billede-zoom">
+                                        <a href="#vid-gpf-gulv" class="billede-zoom-luk">&times;</a>
+
+                                        <video
+                                            class="billede-zoom-billede"
+                                            controls
+                                            autoplay
+                                            muted
+                                            playsinline
+                                        >
+                                            <source src="videoer/gpf-gulv.mp4" type="video/mp4">
+                                            Din browser understøtter ikke video-tag&#39;et.
+                                        </video>
+                                    </div>
+                                
+                                <section id="vid-moving" class="side side-video-projekt">
+                                    <div class="side-kort glas-boks">
+
+                                        <div class="side-header">
+                                            <a href="#side-videografi" class="side-tilbage">
+                                                <i class="fa-solid fa-arrow-left"></i>
+                                            </a>
+                                            <h2 class="side-header-titel">Moving Art | Videoredigering</h2>
+                                        </div>
+
+                                        <div class="side-projekt">
+                                            <a href="#vid-moving-zoom" class="side-projekt-billede-link">
+                                                <img src="videoer/thumbnails/moving-thumb.png"
+                                                    alt="Thumbnail til Moving art videoen"
+                                                    class="side-projekt-billede">
+                                            </a>
+                                            
+                                            <div class="side-projekt-tekst">
+                                                <p>
+                                                    Her skriver du om projektet osv. osv.
+                                                </p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </section>
+
+                                    <!-- ZOOM-OVERLAY TIL DET SAMME BILLEDE -->
+                                    <div id="vid-moving-zoom" class="billede-zoom">
+                                        <a href="#vid-moving" class="billede-zoom-luk">&times;</a>
+
+                                        <video
+                                            class="billede-zoom-billede"
+                                            controls
+                                            autoplay
+                                            muted
+                                            playsinline
+                                        >
+                                            <source src="videoer/moving.mp4" type="video/mp4">
+                                            Din browser understøtter ikke video-tag&#39;et.
+                                        </video>
+                                    </div>
+                                
+                                <section id="vid-gpf-feje" class="side side-video-projekt">
+                                    <div class="side-kort glas-boks">
+
+                                        <div class="side-header">
+                                            <a href="#side-videografi" class="side-tilbage">
+                                                <i class="fa-solid fa-arrow-left"></i>
+                                            </a>
+                                            <h2 class="side-header-titel">GPF 25' | Kommerciel Reklamevideo</h2>
+                                        </div>
+
+                                        <div class="side-projekt">
+                                            <a href="#vid-gpf-feje-zoom" class="side-projekt-billede-link">
+                                                <img src="videoer/thumbnails/gpf-feje-thumb.png"
+                                                    alt="Thumbnail til GPF Feje videoen"
+                                                    class="side-projekt-billede">
+                                            </a>
+                                            
+                                            <div class="side-projekt-tekst">
+                                                <p>
+                                                    Her skriver du om projektet osv. osv.
+                                                </p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </section>
+
+                                    <!-- ZOOM-OVERLAY TIL DET SAMME BILLEDE -->
+                                    <div id="vid-gpf-feje-zoom" class="billede-zoom">
+                                        <a href="#vid-gpf-feje" class="billede-zoom-luk">&times;</a>
+
+                                        <video
+                                            class="billede-zoom-billede"
+                                            controls
+                                            autoplay
+                                            muted
+                                            playsinline
+                                        >
+                                            <source src="videoer/gpf-feje.mp4" type="video/mp4">
+                                            Din browser understøtter ikke video-tag&#39;et.
+                                        </video>
+                                    </div>
+                                
+                                <section id="vid-gpf-jul" class="side side-video-projekt">
+                                    <div class="side-kort glas-boks">
+
+                                        <div class="side-header">
+                                            <a href="#side-videografi" class="side-tilbage">
+                                                <i class="fa-solid fa-arrow-left"></i>
+                                            </a>
+                                            <h2 class="side-header-titel">GPF 26' | Kommerciel Reklamevideo</h2>
+                                        </div>
+
+                                        <div class="side-projekt">
+                                            <a href="#vid-gpf-jul-zoom" class="side-projekt-billede-link">
+                                                <img src="videoer/thumbnails/gpf-jul-thumb.png"
+                                                    alt="Thumbnail til GPF jul videoen"
+                                                    class="side-projekt-billede">
+                                            </a>
+                                            
+                                            <div class="side-projekt-tekst">
+                                                <p>
+                                                    Her skriver du om projektet osv. osv.
+                                                </p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </section>
+
+                                    <!-- ZOOM-OVERLAY TIL DET SAMME BILLEDE -->
+                                    <div id="vid-gpf-jul-zoom" class="billede-zoom">
+                                        <a href="#vid-gpf-jul" class="billede-zoom-luk">&times;</a>
+
+                                        <video
+                                            class="billede-zoom-billede"
+                                            controls
+                                            autoplay
+                                            muted
+                                            playsinline
+                                        >
+                                            <source src="videoer/gpf-jul.mp4" type="video/mp4">
+                                            Din browser understøtter ikke video-tag&#39;et.
+                                        </video>
+                                    </div>
+
+
             </main>
 
             <footer class="bund-omraade">
                 <div class="bund-dock glas-pill">
-                    <button class="dock-knap glas-indre">
+                    <a class="dock-knap glas-indre">
                         <img src="billeder/ob-logo.png" alt="ob logo" class="dock-billede">
-                    </button>
+                    </a>
 
-                    <button class="dock-knap glas-indre">
+                    <a href="#" class="dock-knap glas-indre dock-musik-knap" id="dock-musik-knap">
                         <i class="fa-solid fa-music dock-ikon"></i>
-                    </button>
+                    </a>
 
-                    <button class="dock-knap glas-indre">
+                    <a href="mailto:mikkelschrroederr@gmail.com" class="dock-knap glas-indre">
                         <i class="fa-regular fa-comment dock-ikon"></i>
-                    </button>
+                    </a>
 
-                    <button class="dock-knap glas-indre">
+                    <a class="dock-knap glas-indre">
                         <i class="fa-solid fa-globe dock-ikon"></i>
-                    </button>
+                    </a>
                 </div>
             </footer>
+
+                        <div class="musik-overlay" id="musik-overlay"></div>
+
+                        <div class="musik-popup glas-boks" id="musik-popup">
+                            <button class="musik-popup-luk" id="musik-popup-luk">
+                                <i class="fa-solid fa-xmark"></i>
+                            </button>
+
+                            <div class="musik-popup-indhold">
+                                <img src="billeder/spotify-placeholder-cover.png"
+                                    alt="Albumcover"
+                                    class="musik-popup-cover"
+                                    id="musik-popup-cover">
+
+                                <div class="musik-popup-tekst">
+                                    <p class="musik-popup-label">sidst spillet på spotify</p>
+                                    <h3 class="musik-popup-titel" id="musik-popup-titel">Sangtitel (placeholder)</h3>
+                                    <p class="musik-popup-artist" id="musik-popup-artist">Kunstnernavn</p>
+
+                                    <a href="https://open.spotify.com/user/DIT_SPOTIFY_ID"
+                                    target="_blank"
+                                    rel="noopener"
+                                    class="musik-popup-knap"
+                                    id="musik-popup-link">
+                                        <i class="fa-brands fa-spotify"></i>
+                                        afspil på spotify
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+
 
         </div>
 
