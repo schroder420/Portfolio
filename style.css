@@ -27,12 +27,12 @@ body {
 }
 
 .app-skaerm {
-    height: min(80vh, 42rem);
+    height: min(90vh, 52rem);
     aspect-ratio: 16 / 9;
     width: auto;
     max-width: 100vw;
 
-    padding: 0% 8% 5%;
+    padding: 2% 8% 5%;
     color: #f2f2f2;
 
 /* alt inde i hovedskærmen sklaerer efter den her font-size */
@@ -46,11 +46,12 @@ body {
         "indhold"
         "bund";
     row-gap: 4%;
+    position:relative
 }
 
 .topbjaelke {
     grid-area: top;
-    width: 120%;
+    width: 100%;
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -63,21 +64,20 @@ body {
     align-items: center;
     gap: 0.8em;
     font-size: 2em;
-    color: #f2f2f2 0.5;
     transition: color 0.2s ease;
 }
 
-.ikon-wifi {
-    color: #52ffa3; 
-}
+        .ikon-wifi {
+            color: #52ffa3; 
+        }
 
-.ikon-batteri {
-    color: #ffd164; /* neutral hvid */
-}
+        .ikon-batteri {
+            color: #ffd164; 
+        }
 
-.ikon-clipboard {
-    color: #5e7efd; /* neutral hvid */
-}
+        .ikon-clipboard {
+            color: #5e7efd;
+        }
 
 .logo-billede {
     height: 4em;
@@ -88,12 +88,14 @@ body {
 .ur-tekst {
     font-size: 2em;
     font-weight: 600;
+    color: rgba(242, 242, 242, 0.5);
+
 }
 
 /* gitteret med bokse */
 .indhold-gitter {
     grid-area: indhold;
-    width: 100%;
+    width: 85%;
 
     display: grid;
     grid-template-columns: repeat(4, minmax(6em, 1fr));
@@ -103,13 +105,15 @@ body {
     align-content: center;
     justify-self: center;
     align-self: center;
+    position: relative;
 }
 
-/* hver boks er kvadratisk */
 .indhold-boks {
     position: relative;
     cursor: pointer;
     aspect-ratio: 1 / 1;
+    text-decoration: none;
+    color: inherit;
 
     transition:
         transform 0.22s ease,
@@ -159,7 +163,6 @@ body {
         transform 0.2s ease;
 }
 
-/* ikon-størrelse – skalerer med .app-skaerm */
 .indhold-ikon {
     font-size: 5em;
 }
@@ -234,10 +237,11 @@ body {
     background: transparent;
     padding: 0;
     cursor: pointer;
+    text-decoration: none;
 }
 
 .dock-knap.glas-indre {
-    width: 2em;
+    width: 4em;
     aspect-ratio: 1 / 1;
     display: flex;
     align-items: center;
@@ -255,13 +259,14 @@ body {
 /* ikonfarve + størrelse i dock */
 .dock-ikon {
     color: #f2f2f2;
-    font-size: 1.6em;
+    font-size: 2.4em;
     transition: color 0.2s ease;
+    text-decoration: none;
 }
 
 /* ob-logo */
 .dock-billede {
-    width: 1.8em;
+    width: 2.6em;
     aspect-ratio: 1 / 1;
     object-fit: contain;
     filter: brightness(0) invert(0.95);
@@ -364,6 +369,445 @@ body {
     overflow: hidden;
 }
 
+
+
+/* side-overlay – skjult som standard */
+.side {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s ease;
+}
+
+/* selve kortet på siden */
+.side-kort {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    padding: 2.5em 3em;
+    transform: translateY(0.6em) scale(0.96);
+    opacity: 0;
+    transition:
+        transform 0.35s ease,
+        opacity 0.35s ease;
+}
+
+#side-om-mig .side-kort {
+    padding: 2.5em 3em 2.5em 0;
+}
+
+/* når siden er aktiv */
+.side:target {
+    opacity: 1;
+    pointer-events: auto;
+}
+
+.side:target .side-kort {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+}
+
+.side-header {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    margin-bottom: 1.5em;
+}
+
+.side-tilbage {
+    position: absolute;
+    left: 0;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 2.3em;
+    height: 2.3em;
+    font-size: 3em;
+    border-radius: 999em;
+    text-decoration: none;
+    color: rgba(242, 242, 242, 0.8);
+}
+
+.side-header-titel {
+    font-size: 3em;
+    font-weight: 600;
+}
+
+.side-overskrift {
+    margin-bottom: 1.5em;
+}
+
+.side-titel {
+    font-size: 2.5em;
+    font-weight: 600;
+}
+
+.side-under {
+    font-size: 1.5em;
+    opacity: 0.7;
+}
+
+.side-tekst {
+    font-size: 1em;
+    line-height: 1.5;
+    max-height: 100%;
+    overflow-y: auto;
+}
+
+body:has(.side:target) .indhold-gitter > .indhold-boks {
+    opacity: 0;
+    pointer-events: none;
+    transform: scale(0.96);
+    transition:
+        opacity 0.3s ease,
+        transform 0.3s ease;
+}
+
+#ommigbillede {
+    float: left;
+    width: 30%;
+    margin: 0 1.6% 0 0; 
+}
+
+.mappe-liste {
+    display: flex;
+    flex-direction: column;
+    margin-top: auto;
+    gap: 0;
+    position: relative;
+}
+
+.mappe {
+    position: relative;
+    display: block;
+    width: 100%;
+    margin-inline: auto;
+    color: inherit;
+    border-radius: 1.4em;
+    text-decoration: none;
+
+
+    background: linear-gradient(
+        180deg,
+        rgba(125, 125, 125, 0.35),
+        rgba(125, 125, 125, 0.8)
+    );
+    box-shadow:
+        0 1.4em 3em rgba(0, 0, 0, 0.7),
+        inset 0 0 0 0.06em rgba(242, 242, 242, 0.05);
+
+    padding-top: 3.2em;
+    padding-bottom: 1.4em;
+    min-height: 7em;
+
+    transform: translateY(0);
+    z-index: 0;
+    transition:
+        transform 0.22s ease,
+        box-shadow 0.22s ease,
+        z-index 0s step-end;
+}
+
+.mappe + .mappe {
+    margin-top: -2.5em;
+}
+
+.mappe:hover {
+    transform: translateY(-0.6em);
+    background: linear-gradient(
+        180deg,
+        rgba(125, 125, 125, 0.7),
+        rgba(125, 125, 125, 1)
+    );    
+    box-shadow:
+        0 2em 4em rgba(0, 0, 0, 0.9),
+        inset 0 0 0 0.06em rgba(242, 242, 242, 0.08);
+    z-index: 10;
+}
+
+.mappe-indhold {
+    padding: 0.2em 1.6em 0 1.6em;
+    
+}
+
+.mappe-label {
+    display: block;
+    font-size: 3em;
+    font-weight: 500;
+}
+
+.mappe-titel {
+    display: block;
+    font-size: 2em;
+    font-weight: 500;
+}
+
+.mappe-tekst {
+    display: block;
+    font-size: 1.2em;
+    font-weight: 500;
+}
+
+.mappe-top {
+    position: absolute;
+    left: 0;
+    top: -1em;
+    height: 4em;
+    width: 100%;
+
+    display: flex;
+    align-items: center;
+    padding: 0 1.6em;
+
+    clip-path: polygon(
+        0 0,       /* venstre hjørne løftet */
+        30% 0,     /* fladt stykke højt i venstre */
+        45% 20%,   /* skrå ned */
+        100% 20%,  /* resten af toppen lidt nede */
+        100% 100%,
+        0 100%
+    );
+
+    font-size: 0.9em;
+    font-weight: 600;
+}
+
+/* grøn mappe */
+.mappe--groen .mappe-top {
+    background: linear-gradient(90deg, #1a8a1a, #3cd93c);
+}
+
+.mappe--groen .mappe-titel {
+    color: #66ff66;
+}
+
+/* rød mappe */
+.mappe--roed .mappe-top {
+    background: linear-gradient(90deg, #a11313, #ff4a4a);
+}
+
+.mappe--roed .mappe-titel {
+    color: #ff7a7a;
+}
+
+/* blå mappe */
+.mappe--blaa .mappe-top {
+    background: linear-gradient(90deg, #1240b5, #3c7dff);
+}
+
+.mappe--blaa .mappe-titel {
+    color: #6bb4ff;
+}
+
+
+
+
+.side-kort {
+    display: flex;
+    flex-direction: column;
+    min-height: 0;
+}
+
+.side-tekst {
+    margin-bottom: 0.8em;
+    flex: 0 0 auto;
+    max-height: none;
+    overflow: visible;
+}
+
+.galleri {
+    margin-top: 0.8em;
+    flex: 1 1 0;
+    min-height: 0;
+    overflow-y: auto;
+}
+
+.galleri-gitter {
+    column-count: 3;
+    column-gap: 1.5em;    
+}
+
+
+.galleri-element {
+    position: relative;
+    border-radius: 0.8em;
+    overflow: hidden;
+    cursor: pointer;
+    break-inside: avoid;
+    margin-bottom: 1.5em;
+    display: block;
+}
+
+.galleri-billede {
+    width: 100%;
+    height: auto;
+    display: block;
+    border-radius: inherit;
+    object-fit: contain; 
+    
+    transform: scale(1.01);
+    transition:
+        transform 0.25s ease,
+        filter 0.25s ease;
+}
+
+.galleri-element:hover .galleri-billede {
+    transform: scale(1.06);
+    filter: brightness(1.1);
+}
+
+.galleri-element::after {
+    content: "Klik for at se mere";
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    font-size: 2em;
+    font-weight: bold;
+    letter-spacing: 0.03em;
+    color: #f2f2f2;
+
+    background: radial-gradient(circle at center,
+        rgba(0, 0, 0, 0.8),
+        rgba(0, 0, 0, 0.3)
+    );
+
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.25s ease;
+    border-radius: inherit;
+}
+
+/* vis overlay når man hover */
+.galleri-element:hover::after {
+    opacity: 1;
+}
+
+
+
+
+.side-projekt {
+    display: grid;
+    grid-template-columns: minmax(0, 40%) minmax(0, 1fr); 
+    column-gap: 2em;
+    align-items: flex-start;
+    flex: 1 1 auto;
+    min-height: 0;
+    overflow-y: auto;
+}
+
+.side-projekt-billede-link {
+    grid-column: 1;
+    display: block;
+    margin-bottom: 1em;
+}
+
+.side-projekt-billede {
+    width: 100%;
+    height: auto;
+    max-width: 100%;
+    border-radius: 1em;
+    display: block;
+}
+
+.side-projekt-tekst {
+    grid-column: 2;
+    grid-row: 1 / -1;
+    
+    flex: 1 1 auto;
+    font-size: 1em;
+    line-height: 1.5;
+    max-height: 100%;
+}
+
+
+/* --- ZOOM-OVERLAY TIL PROJEKTBILLEDER --- */
+
+.billede-zoom {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.8);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.25s ease;
+    z-index: 999; /* over alt andet */
+}
+
+/* når hash rammer fx #gd-bellami-zoom */
+.billede-zoom:target {
+    opacity: 1;
+    pointer-events: auto;
+}
+
+/* selve det store billede */
+.billede-zoom-billede {
+    max-height: 90vh;   /* det du bad om */
+    max-width: 90vw;
+    height: auto;
+    width: auto;
+    border-radius: 1em;
+    box-shadow: 0 1.5em 3em rgba(0, 0, 0, 0.8);
+}
+
+/* luk-knap i hjørnet */
+.billede-zoom-luk {
+    position: fixed;
+    top: 1.5rem;
+    right: 2rem;
+    font-size: 2.5rem;
+    color: #f2f2f2;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+
+
+/* alle videoprojekter: billede-link kan bære overlay */
+.side-video-projekt .side-projekt-billede-link {
+    position: relative;
+    display: block;
+}
+
+/* fast overlay der siger man kan trykke for at se videoen */
+.side-video-projekt .side-projekt-billede-link::after {
+    content: "Tryk for at se videoen";
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    font-size: 2.8em;
+    font-weight: bold;
+    color: #f2f2f2;
+    background: radial-gradient(
+        circle at center,
+        rgba(0, 0, 0, 0.4),
+        rgba(0, 0, 0, 0.85)
+    );
+    opacity: 1;
+    pointer-events: none;
+    border-radius: inherit;
+}
+
+
+
+
+
+
+
+
 /* enkel lille animation til bølge */
 @keyframes glas-bolge {
     0%   { transform: translate3d(-5%, -5%, 0) scale(1); }
@@ -374,11 +818,16 @@ body {
 
 @media (max-width: 600px) {
     .app-skaerm {
-        height: 90vh;
+        height: 80vh;
         aspect-ratio: 9 / 16;
         padding: 0% 5% 10%;
         font-size: clamp(10px, 2.2vmin, 18px);
         row-gap: 3%;
+    }
+
+    .topbjaelke {
+        width: 100%;
+        height: 80%;
     }
 
     .indhold-gitter {
@@ -386,7 +835,7 @@ body {
         margin: 0 auto;
         grid-template-columns: repeat(2, minmax(30%, 1fr));
         column-gap: 4vw;
-        row-gap: 4vh;
+        row-gap: 1vh;
     }
 
     .indhold-boks {
@@ -406,10 +855,45 @@ body {
         font-size: 0.8em;
     }
 
+    /* slår hover-effekten fra på bokse */
+    .indhold-boks:hover::before {
+        border-color: rgba(242, 242, 242, 0);
+        opacity: 0;
+        transform: scale(1);
+    }
+
+    .indhold-boks:hover .indhold-ikon,
+    .indhold-boks:hover .indhold-titel {
+        color: rgba(242, 242, 242, 0.5);
+        transform: translateY(0);
+    }
+
+    .indhold-boks:hover .indhold-undertekst {
+        opacity: 0;
+        max-height: 0;
+        transform: translateY(0.3rem);
+    }
+
+    /* slår hover fra på dockknapper */
+    .dock-knap.glas-indre:hover {
+        transform: none;
+        box-shadow: 0 0.8em 1.6em rgba(10, 10, 10, 0.6);
+    }
+
+    .dock-knap:hover .dock-ikon {
+        color: rgba(242, 242, 242, 0.5);
+    }
+
+    .dock-knap:hover .dock-billede {
+        filter: brightness(0) invert(0.95);
+        opacity: 1;
+    }
+
     .bund-dock {
-        width: min(20em, 90%);
+        width: min(25em, 100%);
         gap: 0.9em;
         padding: 0.8em 1.6em;
+        justify-content: center;
     }
 
     .dock-knap.glas-indre {
