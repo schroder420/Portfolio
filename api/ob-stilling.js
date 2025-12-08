@@ -6,15 +6,14 @@ export default async function handler(req, res) {
       return res.status(500).json({ error: "API key mangler (API_SPORTS_KEY)" });
     }
 
-    // Superliga = league 271, season = 2024 (skal opdateres årligt)
     const url = `https://v3.football.api-sports.io/standings?league=271&season=2024`;
 
     const response = await fetch(url, {
       method: "GET",
       headers: {
         "x-apisports-key": API_KEY,
-        "x-rapidapi-host": "v3.football.api-sports.io"
-      }
+        "x-rapidapi-host": "v3.football.api-sports.io",
+      },
     });
 
     const data = await response.json();
@@ -23,15 +22,17 @@ export default async function handler(req, res) {
       return res.status(500).json({ error: "API-Sports returnerede ingen data" });
     }
 
-    // standings array
     const standings = data.response[0].league.standings[0];
 
-    // OB har ID 405
-    const OB = standings.find(t => t.team.id === 405);
+    const OB = standings.find((t) => t.team.id === 405);
 
     if (!OB) {
       return res.status(404).json({ error: "OB ikke fundet i ligaen" });
     }
+
+    const goalsFor = OB.all.goals.for;
+    const goalsAgainst = OB.all.goals.against;
+    const goalDiff = goalsFor - goalsAgainst;
 
     return res.status(200).json({
       team: OB.team.name,
@@ -41,10 +42,11 @@ export default async function handler(req, res) {
       won: OB.all.win,
       draw: OB.all.draw,
       lose: OB.all.lose,
-      goalsFor: OB.all.goals.for,
-      goalsAgainst: OB.all.goals.against
+      goalsFor,
+      goalsAgainst,
+      goalDiff,
+      form: OB.form || null,
     });
-
   } catch (err) {
     console.error("Fejl i OB standings:", err);
     return res.status(500).json({ error: "Serverfejl", details: err.message });
