@@ -143,7 +143,7 @@ export default async function handler(req, res) {
         name: "OB Op I Top",
         artists: "Arne Lundemann, OB Fans",
         album: "",
-        url: "https://open.spotify.com/album/2vzh9i4h4kXrvbRWHtn85C?si=-fN3WjbPRZ-ImXX54GFhwQ", // kan evt. være din profil
+        url: "https://open.spotify.com/album/2vzh9i4h4kXrvbRWHtn85C?si=-fN3WjbPRZ-ImXX54GFhwQ",
         cover: null,
         played_at: null,
         source: "fallback",
