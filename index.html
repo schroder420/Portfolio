@@ -1328,7 +1328,7 @@
 
             <footer class="bund-omraade">
                 <div class="bund-dock glas-pill">
-                    <a class="dock-knap glas-indre">
+                    <a href="#" class="dock-knap glas-indre" id="ob-knap">
                         <img src="billeder/ob-logo.png" alt="ob logo" class="dock-billede">
                     </a>
 
@@ -1370,6 +1370,38 @@
                                     </div>
                                 </div>
                             </div>
+
+
+                            <div id="ob-popup" class="musik-popup">
+                                <div class="musik-popup-kort glas-boks">
+                                    <button class="musik-popup-luk ob-popup-luk" type="button">&times;</button>
+
+                                    <div class="musik-popup-indhold">
+                                        <div class="musik-popup-cover-wrapper">
+                                            <img src="billeder/ob-logo.png" alt="OB logo" class="musik-popup-cover" />
+                                        </div>
+
+                                        <div class="musik-popup-tekst">
+                                            <p class="musik-popup-label">OB i 3F Superligaen</p>
+                                            <h3 id="ob-popup-titel" class="musik-popup-titel">–</h3>
+                                            <p id="ob-popup-tekst" class="musik-popup-artist">–</p>
+                                            <p id="ob-popup-extra" class="musik-popup-album"></p>
+
+                                            <a id="ob-popup-link"
+                                            href="https://superliga.dk"
+                                            target="_blank"
+                                            rel="noopener noreferrer"
+                                            class="musik-popup-knap">
+                                                Se hele stillingen
+                                            </a>
+
+                                            <p id="ob-popup-fejl" class="musik-popup-fejl"></p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+
 
             </footer>
         </div>
@@ -1475,5 +1507,93 @@
                                     }
                                 })();
                             </script>
+
+
+                                    <script>
+                                    (function () {
+                                        const obKnap  = document.getElementById("ob-knap");
+                                        const popup   = document.getElementById("ob-popup");
+                                        const lukKnap = popup?.querySelector(".ob-popup-luk");
+
+                                        const titelEl       = document.getElementById("ob-popup-titel");
+                                        const undertekstEl  = document.getElementById("ob-popup-undertekst");
+                                        const extraEl       = document.getElementById("ob-popup-extra");
+                                        const fejlEl        = document.getElementById("ob-popup-fejl");
+
+                                        let harLoadet = false;
+
+                                        async function hentOBPlacering() {
+                                        try {
+                                            if (fejlEl) fejlEl.textContent = "";
+
+                                            const res = await fetch("/api/ob-stilling");
+                                            if (!res.ok) {
+                                            throw new Error("Serverfejl (" + res.status + ")");
+                                            }
+
+                                            const data = await res.json();
+                                            console.log("OB data:", data);
+
+                                            const { position, points, played, goalDiff, form } = data;
+
+                                            if (titelEl) {
+                                            titelEl.textContent = "OB ligger nr. " + position;
+                                            }
+
+                                            if (undertekstEl) {
+                                            undertekstEl.textContent = `${points} point efter ${played} kampe`;
+                                            }
+
+                                            if (extraEl) {
+                                            extraEl.textContent = goalDiff != null
+                                                ? `Målscore: ${goalDiff >= 0 ? "+" + goalDiff : goalDiff}`
+                                                : (form ? `Form: ${form}` : "");
+                                            }
+
+                                            harLoadet = true;
+                                        } catch (err) {
+                                            console.error("Fejl ved hentOBPlacering:", err);
+                                            if (fejlEl) {
+                                            fejlEl.textContent = "Kunne ikke hente OB's placering lige nu.";
+                                            }
+                                        }
+                                        }
+
+                                        function åbnePopup() {
+                                        if (!popup) return;
+                                        popup.classList.add("musik-popup--aktiv"); 
+                                        if (!harLoadet) {
+                                            hentOBPlacering();
+                                        }
+                                        }
+
+                                        function lukPopup() {
+                                        if (!popup) return;
+                                        popup.classList.remove("musik-popup--aktiv");
+                                        }
+
+                                        if (obKnap) {
+                                        obKnap.addEventListener("click", function (e) {
+                                            e.preventDefault();
+                                            åbnePopup();
+                                        });
+                                        }
+
+                                        if (lukKnap) {
+                                        lukKnap.addEventListener("click", function (e) {
+                                            e.preventDefault();
+                                            lukPopup();
+                                        });
+                                        }
+
+                                        if (popup) {
+                                        popup.addEventListener("click", function (e) {
+                                            if (e.target === popup) {
+                                            lukPopup();
+                                            }
+                                        });
+                                        }
+                                    })();
+                                    </script>
     </body>
 </html>

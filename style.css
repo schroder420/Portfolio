@@ -816,7 +816,7 @@ body:has(.side:target) .indhold-gitter > .indhold-boks {
     opacity: 0;
     transition: opacity 0.25s ease;
     z-index: 50; 
-    margin-bottom: 2%;
+    margin-bottom: 1%;
 }
 
 .musik-popup--aktiv {
