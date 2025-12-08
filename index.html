@@ -1384,7 +1384,7 @@
                                         <div class="musik-popup-tekst">
                                             <p class="musik-popup-label">OB i 3F Superligaen</p>
                                             <h3 id="ob-popup-titel" class="musik-popup-titel">–</h3>
-                                            <p id="ob-popup-tekst" class="musik-popup-artist">–</p>
+                                            <p id="ob-popup-undertekst" class="musik-popup-artist">–</p>
                                             <p id="ob-popup-extra" class="musik-popup-album"></p>
 
                                             <a id="ob-popup-link"
@@ -1511,88 +1511,93 @@
 
                                     <script>
                                     (function () {
-                                        const obKnap  = document.getElementById("ob-knap");
-                                        const popup   = document.getElementById("ob-popup");
-                                        const lukKnap = popup?.querySelector(".ob-popup-luk");
+                                    const obKnap  = document.getElementById("ob-knap");
+                                    const popup   = document.getElementById("ob-popup");
+                                    const lukKnap = popup?.querySelector(".ob-popup-luk");
 
-                                        const titelEl       = document.getElementById("ob-popup-titel");
-                                        const undertekstEl  = document.getElementById("ob-popup-undertekst");
-                                        const extraEl       = document.getElementById("ob-popup-extra");
-                                        const fejlEl        = document.getElementById("ob-popup-fejl");
+                                    const titelEl      = document.getElementById("ob-popup-titel");
+                                    const undertekstEl = document.getElementById("ob-popup-undertekst");
+                                    const extraEl      = document.getElementById("ob-popup-extra");
+                                    const fejlEl       = document.getElementById("ob-popup-fejl");
 
-                                        let harLoadet = false;
+                                    let harLoadet = false;
 
-                                        async function hentOBPlacering() {
+                                    async function hentOBPlacering() {
                                         try {
-                                            if (fejlEl) fejlEl.textContent = "";
+                                        if (fejlEl) fejlEl.textContent = "";
 
-                                            const res = await fetch("/api/ob-stilling");
-                                            if (!res.ok) {
+                                        const res = await fetch("/api/ob-stilling");
+                                        if (!res.ok) {
                                             throw new Error("Serverfejl (" + res.status + ")");
-                                            }
+                                        }
 
-                                            const data = await res.json();
-                                            console.log("OB data:", data);
+                                        const data = await res.json();
+                                        console.log("OB data:", data);
 
-                                            const { position, points, played, goalDiff, form } = data;
+                                        const { team, position, points, played, goalDiff, form } = data;
 
-                                            if (titelEl) {
-                                            titelEl.textContent = "OB ligger nr. " + position;
-                                            }
+                                        if (titelEl) {
+                                            titelEl.textContent = `${team} ligger nr. ${position}`;
+                                        }
 
-                                            if (undertekstEl) {
+                                        if (undertekstEl) {
                                             undertekstEl.textContent = `${points} point efter ${played} kampe`;
-                                            }
+                                        }
 
-                                            if (extraEl) {
-                                            extraEl.textContent = goalDiff != null
-                                                ? `Målscore: ${goalDiff >= 0 ? "+" + goalDiff : goalDiff}`
-                                                : (form ? `Form: ${form}` : "");
+                                        if (extraEl) {
+                                            if (goalDiff != null) {
+                                            extraEl.textContent =
+                                                `Målscore: ${goalDiff >= 0 ? "+" + goalDiff : goalDiff}`;
+                                            } else if (form) {
+                                            extraEl.textContent = `Form: ${form}`;
+                                            } else {
+                                            extraEl.textContent = "";
                                             }
+                                        }
 
-                                            harLoadet = true;
+                                        harLoadet = true;
                                         } catch (err) {
-                                            console.error("Fejl ved hentOBPlacering:", err);
-                                            if (fejlEl) {
+                                        console.error("Fejl ved hentOBPlacering:", err);
+                                        if (fejlEl) {
                                             fejlEl.textContent = "Kunne ikke hente OB's placering lige nu.";
-                                            }
                                         }
                                         }
+                                    }
 
-                                        function åbnePopup() {
+                                    function åbnePopup() {
                                         if (!popup) return;
-                                        popup.classList.add("musik-popup--aktiv"); 
+                                        popup.classList.add("musik-popup--aktiv");
                                         if (!harLoadet) {
-                                            hentOBPlacering();
+                                        hentOBPlacering();
                                         }
-                                        }
+                                    }
 
-                                        function lukPopup() {
+                                    function lukPopup() {
                                         if (!popup) return;
                                         popup.classList.remove("musik-popup--aktiv");
-                                        }
+                                    }
 
-                                        if (obKnap) {
+                                    if (obKnap) {
                                         obKnap.addEventListener("click", function (e) {
-                                            e.preventDefault();
-                                            åbnePopup();
+                                        e.preventDefault();
+                                        åbnePopup();
                                         });
-                                        }
+                                    }
 
-                                        if (lukKnap) {
+                                    if (lukKnap) {
                                         lukKnap.addEventListener("click", function (e) {
-                                            e.preventDefault();
-                                            lukPopup();
+                                        e.preventDefault();
+                                        lukPopup();
                                         });
-                                        }
+                                    }
 
-                                        if (popup) {
+                                    if (popup) {
                                         popup.addEventListener("click", function (e) {
-                                            if (e.target === popup) {
+                                        if (e.target === popup) {
                                             lukPopup();
-                                            }
-                                        });
                                         }
+                                        });
+                                    }
                                     })();
                                     </script>
     </body>
