@@ -1,18 +1,18 @@
 export default async function handler(req, res) {
   const obData = {
     team: "OB",
-    position: 6,             // plads i ligaen
-    points: 26,              // antal point
-    played: 18,              // antal kampe
+    position: 6,
+    points: 26,
+    played: 18,
 
     goalsFor: 32,
     goalsAgainst: 37,
-    goalDiff: 32 - 37,       // så vi kan vise + / -
+    goalDiff: 32 - 37,
 
     lastMatch: {
       opponent: "FC Fredericia",
-      home: false,           // true = OB hjemme, false = OB ude
-      result: "3-1",         // kampresultat set fra OBs side
+      home: false,
+      result: "1-3",
       date: "2025-12-05"
     }
   };
