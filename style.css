@@ -493,7 +493,7 @@ body {
 
 /* kun teksten scroller */
 .side .side-tekst {
-    font-size: 1em;
+    font-size: 1.2em;
     line-height: 1.5;
     min-height: 0;
     overflow-y: auto;
@@ -503,7 +503,7 @@ body {
 
 /* kun teksten scroller */
 .side-tekst {
-    font-size: 1em;
+    font-size: 1.2em;
     line-height: 1.5;
     min-height: 0;
     overflow-y: auto;
@@ -758,7 +758,7 @@ body:has(.side:target) .indhold-gitter > .indhold-boks {
 /* højre kolonne med tekst */
 .side-projekt-tekst {
     flex: 1 1 auto;
-    font-size: 1em;
+    font-size: 1.2em;
     line-height: 1.5;
 }
 
@@ -1199,6 +1199,54 @@ body:has(.side:target) .indhold-gitter > .indhold-boks {
     color: #0a0a0a;
 }
 
+.hjemmeside-link {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 1.5%;
+    gap: 0.55em;
+    text-align: center;
+    font-size: 1em;
+    text-decoration: none;
+    color: #f2f2f2;
+    margin-bottom: 1%;
+}
+
+.hjemmeside-rødknap {
+    background: linear-gradient(90deg, #a11313, #ff4a4a);
+    border-radius: 5em;
+    border: 0.08em solid rgba(242, 242, 242, 0.35);
+    box-shadow:
+        0 1.8em 4.5em rgba(10, 10, 10, 0.65),
+        inset 0 0 0 0.06em rgba(242, 242, 242, 0.03);
+    backdrop-filter: blur(0.5em) saturate(145%) contrast(115%);
+    position: relative;
+    overflow: hidden;
+}
+
+.hjemmeside-grønknap {
+    background: linear-gradient(90deg, #1a8a1a, #3cd93c);
+    border-radius: 5em;
+    border: 0.08em solid rgba(242, 242, 242, 0.35);
+    box-shadow:
+        0 1.8em 4.5em rgba(10, 10, 10, 0.65),
+        inset 0 0 0 0.06em rgba(242, 242, 242, 0.03);
+    backdrop-filter: blur(0.5em) saturate(145%) contrast(115%);
+    position: relative;
+    overflow: hidden;
+}
+
+.hjemmeside-blåknap {
+    background: linear-gradient(90deg, #1240b5, #3c7dff);
+    border-radius: 5em;
+    border: 0.08em solid rgba(242, 242, 242, 0.35);
+    box-shadow:
+        0 1.8em 4.5em rgba(10, 10, 10, 0.65),
+        inset 0 0 0 0.06em rgba(242, 242, 242, 0.03);
+    backdrop-filter: blur(0.5em) saturate(145%) contrast(115%);
+    position: relative;
+    overflow: hidden;
+}
 
 
 
