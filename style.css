@@ -469,10 +469,35 @@ body {
     align-items: flex-end;   /* billede ned i bunden */
 }
 
-/* selve billedet */
+
+/* wrapperen – samme “ramme” som før */
 #ommigbillede {
+    float: left;
+    width: 100%;          /* som du havde tidligere */
+}
+
+/* selve mediet indeni (video OG billede) */
+#ommigbillede video,
+#ommigbillede img {
+    display: block;
     width: 100%;
     height: auto;
+}
+
+/* standard: vis video, skjul billede */
+#ommigbillede video {
+    display: block;
+}
+#ommigbillede .ommig-billede-fallback {
+    display: none;
+}
+
+/* Safari: skjul video, vis billede */
+.is-safari #ommigbillede video {
+    display: none;
+}
+.is-safari #ommigbillede .ommig-billede-fallback {
+    display: block;
 }
 
 /* tekst-kolonnen */
@@ -488,7 +513,7 @@ body {
     flex: 1 1 auto;
     min-height: 0;
     overflow-y: auto;
-    margin-bottom: 2em;
+    margin-bottom: 5em;
 }
 
 /* kun teksten scroller */
@@ -821,8 +846,9 @@ body:has(.side:target) .indhold-gitter > .indhold-boks {
     display: flex;
     align-items: center;
     justify-content: center;
+    text-align: center;
 
-    font-size: 2.8em;
+    font-size: 2em;
     font-weight: bold;
     color: #f2f2f2;
     background: radial-gradient(
