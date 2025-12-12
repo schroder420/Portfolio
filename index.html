@@ -1238,37 +1238,37 @@
                                             <div class="galleri-gitter">
 
                                                 <a href="#vid-gpf-swing" class="galleri-element">
-                                                    <img data-src="videoer/thumbnails/gpf-swing-thumb.webp"
+                                                    <img src="videoer/thumbnails/gpf-swing-thumb.webp"
                                                         alt="Grand prix fest videoreklame thumbnail"
                                                         class="galleri-billede">
                                                 </a>
 
                                                 <a href="#vid-gpf-gulv" class="galleri-element">
-                                                    <img data-src="videoer/thumbnails/gpf-gulv-thumb.webp"
+                                                    <img src="videoer/thumbnails/gpf-gulv-thumb.webp"
                                                         alt="Grand prix fest videoreklame thumbnail"
                                                         class="galleri-billede">
                                                 </a>
 
                                                 <a href="#vid-interview" class="galleri-element">
-                                                    <img data-src="videoer/thumbnails/interview-thumb.webp"
+                                                    <img src="videoer/thumbnails/interview-thumb.webp"
                                                         alt="interview video thumbnail"
                                                         class="galleri-billede">
                                                 </a>
 
                                                 <a href="#vid-moving" class="galleri-element">
-                                                    <img data-src="videoer/thumbnails/moving-thumb.webp"
+                                                    <img src="videoer/thumbnails/moving-thumb.webp"
                                                         alt="Moving Art thumbnail"
                                                         class="galleri-billede">
                                                 </a>
 
                                                 <a href="#vid-gpf-feje" class="galleri-element">
-                                                    <img data-src="videoer/thumbnails/gpf-feje-thumb.webp"
+                                                    <img src="videoer/thumbnails/gpf-feje-thumb.webp"
                                                         alt="Grand prix fest videoreklame thumbnail"
                                                         class="galleri-billede">
                                                 </a>
 
                                                 <a href="#vid-gpf-jul" class="galleri-element">
-                                                    <img data-src="videoer/thumbnails/gpf-jul-thumb.webp"
+                                                    <img src="videoer/thumbnails/gpf-jul-thumb.webp"
                                                         alt="Grand prix fest julevideoreklame thumbnail"
                                                         class="galleri-billede">
                                                 </a> 
@@ -1292,7 +1292,7 @@
                                         <div class="side-projekt">
                                             <div class="side-projekt-billeder" >
                                             <a href="#vid-gpf-swing-zoom" class="side-projekt-billede-link">
-                                                <img data-src="videoer/thumbnails/gpf-swing-thumb.webp"
+                                                <img src="videoer/thumbnails/gpf-swing-thumb.webp"
                                                     alt="Thumbnail til GPF Swing videoen"
                                                     class="side-projekt-billede">
                                             </a>
@@ -1344,7 +1344,7 @@
                                         <div class="side-projekt">
                                             <div class="side-projekt-billeder" >
                                             <a href="#vid-interview-zoom" class="side-projekt-billede-link">
-                                                <img data-src="videoer/thumbnails/interview-thumb.webp"
+                                                <img src="videoer/thumbnails/interview-thumb.webp"
                                                     alt="Thumbnail til interview videoen"
                                                     class="side-projekt-billede">
                                             </a>
@@ -1398,7 +1398,7 @@
                                         <div class="side-projekt">
                                             <div class="side-projekt-billeder" >
                                             <a href="#vid-gpf-gulv-zoom" class="side-projekt-billede-link">
-                                                <img data-src="videoer/thumbnails/gpf-gulv-thumb.webp"
+                                                <img src="videoer/thumbnails/gpf-gulv-thumb.webp"
                                                     alt="Thumbnail til GPF gulv videoen"
                                                     class="side-projekt-billede">
                                             </a>
@@ -1450,7 +1450,7 @@
                                         <div class="side-projekt">
                                             <div class="side-projekt-billeder" >
                                             <a href="#vid-moving-zoom" class="side-projekt-billede-link">
-                                                <img data-src="videoer/thumbnails/moving-thumb.webp"
+                                                <img src="videoer/thumbnails/moving-thumb.webp"
                                                     alt="Thumbnail til Moving art videoen"
                                                     class="side-projekt-billede">
                                             </a>
@@ -1503,7 +1503,7 @@
                                         <div class="side-projekt">
                                             <div class="side-projekt-billeder" >
                                             <a href="#vid-gpf-feje-zoom" class="side-projekt-billede-link">
-                                                <img data-src="videoer/thumbnails/gpf-feje-thumb.webp"
+                                                <img src="videoer/thumbnails/gpf-feje-thumb.webp"
                                                     alt="Thumbnail til GPF Feje videoen"
                                                     class="side-projekt-billede">
                                             </a>
@@ -1559,7 +1559,7 @@
                                         <div class="side-projekt">
                                             <div class="side-projekt-billeder" >
                                             <a href="#vid-gpf-jul-zoom" class="side-projekt-billede-link">
-                                                <img data-src="videoer/thumbnails/gpf-jul-thumb.webp"
+                                                <img src="videoer/thumbnails/gpf-jul-thumb.webp"
                                                     alt="Thumbnail til GPF jul videoen"
                                                     class="side-projekt-billede">
                                             </a>
@@ -2093,40 +2093,57 @@
                                 </script>
 
 
-                                                    <script>
-                                                    function lazyLoadForHash() {
-                                                        const hash = location.hash;
-                                                        if (!hash) return;
 
-                                                        const target = document.querySelector(hash);
-                                                        if (!target) return;
+<script>
+  const TRANSPARENT_1PX =
+    "data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw==";
 
-                                                        // 1) IMG
-                                                        target.querySelectorAll("img[data-src]").forEach(img => {
-                                                        img.src = img.dataset.src;
-                                                        img.removeAttribute("data-src");
-                                                        });
+  function loadMedia(root) {
+    if (!root) return;
 
-                                                        // 2) VIDEO <source>
-                                                        target.querySelectorAll("video source[data-src]").forEach(source => {
-                                                        source.src = source.dataset.src;
-                                                        source.removeAttribute("data-src");
+    root.querySelectorAll("img[data-src]").forEach(img => {
+      if (!img.getAttribute("src")) img.src = TRANSPARENT_1PX; // undgå src=""
+      img.src = img.dataset.src;
+      img.removeAttribute("data-src");
+    });
 
-                                                        const video = source.closest("video");
-                                                        if (video) video.load();
-                                                        });
-                                                    }
+    root.querySelectorAll("video source[data-src]").forEach(source => {
+      source.src = source.dataset.src;
+      source.removeAttribute("data-src");
+      const video = source.closest("video");
+      if (video) video.load();
+    });
+  }
 
-                                                    function runLazyLoad() {
-                                                        // kør nu + efter layout (så :target er “på plads”)
-                                                        lazyLoadForHash();
-                                                        requestAnimationFrame(lazyLoadForHash);
-                                                        setTimeout(lazyLoadForHash, 50);
-                                                    }
+  function lazyLoadForCurrentHash() {
+    const hash = location.hash;
+    if (!hash) return;
 
-                                                    window.addEventListener("hashchange", runLazyLoad);
-                                                    window.addEventListener("DOMContentLoaded", runLazyLoad);
-                                                    </script>
+    // 1) det direkte target (kan være zoom overlay)
+    loadMedia(document.querySelector(hash));
+
+    // 2) alle aktive sides (.side:target)
+    document.querySelectorAll(".side:target").forEach(loadMedia);
+  }
+
+  function run() {
+    lazyLoadForCurrentHash();
+    requestAnimationFrame(lazyLoadForCurrentHash);
+    setTimeout(lazyLoadForCurrentHash, 100);
+  }
+
+  window.addEventListener("hashchange", run);
+  window.addEventListener("DOMContentLoaded", run);
+
+  // bonus: hvis man klikker hurtigt (før hashchange), så loader vi også ved klik
+  document.addEventListener("click", (e) => {
+    const a = e.target.closest('a[href^="#"]');
+    if (!a) return;
+    setTimeout(run, 0);
+  });
+</script>
+
+
 
     </body>
 </html>
