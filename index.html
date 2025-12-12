@@ -2098,49 +2098,54 @@
   const TRANSPARENT_1PX =
     "data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw==";
 
-  function loadMedia(root) {
-    if (!root) return;
-
-    root.querySelectorAll("img[data-src]").forEach(img => {
-      if (!img.getAttribute("src")) img.src = TRANSPARENT_1PX; // undgå src=""
-      img.src = img.dataset.src;
-      img.removeAttribute("data-src");
-    });
-
-    root.querySelectorAll("video source[data-src]").forEach(source => {
-      source.src = source.dataset.src;
-      source.removeAttribute("data-src");
-      const video = source.closest("video");
-      if (video) video.load();
-    });
+  function prepareImg(img) {
+    if (!img.getAttribute("src")) img.src = TRANSPARENT_1PX;
   }
 
-  function lazyLoadForCurrentHash() {
+  function loadImg(img) {
+    if (!img.dataset.src) return;
+    img.src = img.dataset.src;
+    img.removeAttribute("data-src");
+  }
+
+  function setupLazyIn(root) {
+    if (!root) return;
+
+    // billeder
+    const imgs = [...root.querySelectorAll("img[data-src]")];
+    imgs.forEach(prepareImg);
+
+    // fallback hvis IO ikke findes
+    if (!("IntersectionObserver" in window)) {
+      imgs.forEach(loadImg);
+      return;
+    }
+
+    const io = new IntersectionObserver((entries, obs) => {
+      entries.forEach(entry => {
+        if (!entry.isIntersecting) return;
+        loadImg(entry.target);
+        obs.unobserve(entry.target);
+      });
+    }, { root: root, rootMargin: "300px 0px" });
+
+    imgs.forEach(img => io.observe(img));
+  }
+
+  function onHash() {
     const hash = location.hash;
     if (!hash) return;
 
-    // 1) det direkte target (kan være zoom overlay)
-    loadMedia(document.querySelector(hash));
+    // åben side (target)
+    const target = document.querySelector(hash);
+    setupLazyIn(target);
 
-    // 2) alle aktive sides (.side:target)
-    document.querySelectorAll(".side:target").forEach(loadMedia);
+    // hvis du åbner en side der indeholder scroll-område, så er root = selve siden
+    document.querySelectorAll(".side:target").forEach(setupLazyIn);
   }
 
-  function run() {
-    lazyLoadForCurrentHash();
-    requestAnimationFrame(lazyLoadForCurrentHash);
-    setTimeout(lazyLoadForCurrentHash, 100);
-  }
-
-  window.addEventListener("hashchange", run);
-  window.addEventListener("DOMContentLoaded", run);
-
-  // bonus: hvis man klikker hurtigt (før hashchange), så loader vi også ved klik
-  document.addEventListener("click", (e) => {
-    const a = e.target.closest('a[href^="#"]');
-    if (!a) return;
-    setTimeout(run, 0);
-  });
+  window.addEventListener("hashchange", onHash);
+  window.addEventListener("DOMContentLoaded", onHash);
 </script>
 
 

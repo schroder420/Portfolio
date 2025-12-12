@@ -1282,7 +1282,9 @@ body:has(.side:target) .indhold-gitter > .indhold-boks {
 /* ====== MOBIL / SMALL WIDTH ====== */
 
 @media (max-width: 720px) {
-    video { display:none !important; }
+    .baggrund-video { 
+        display:none !important; 
+    }
     
     .app-skaerm {
         height: 80vh;
@@ -1291,14 +1293,7 @@ body:has(.side:target) .indhold-gitter > .indhold-boks {
         min-width: 90vw;
         padding: 0% 5% 10%;
         font-size: clamp(3px, 1.8vmin, 8px);
-        row-gap: 3%;
         margin-top: 0;
-    }
-
-    body {
-        align-items: flex-start;
-        padding-top: 3vh;
-        padding-top: calc(3vh + env(safe-area-inset-top));
     }
 
     .topbjaelke {
