@@ -25,6 +25,14 @@ body {
     background: #f2f2f2;
 }
 
+.baggrund-fallback{
+    position: fixed;
+    inset: 0;
+    z-index: -2;
+    background: url("billeder/moodvideo-fallback.webp") center/cover no-repeat;
+}
+
+
 .app-skaerm {
     height: 90vh;
     aspect-ratio: 16/9;
@@ -1290,19 +1298,6 @@ body:has(.side:target) .indhold-gitter > .indhold-boks {
         padding-top: 3vh;
         padding-top: calc(3vh + env(safe-area-inset-top));
     }
-
-    .baggrund-fallback{
-        position: fixed;
-        inset: 0;
-        z-index: -2;
-        background: url("billeder/moodvideo-fallback.webp") center/cover no-repeat;
-    }
-
-    /* video er default på desktop */
-    .baggrund-video{
-        z-index: -1;
-    }
-
 
     .topbjaelke {
         width: 100%;
