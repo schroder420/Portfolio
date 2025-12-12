@@ -1282,6 +1282,8 @@ body:has(.side:target) .indhold-gitter > .indhold-boks {
 /* ====== MOBIL / SMALL WIDTH ====== */
 
 @media (max-width: 720px) {
+    video { display:none !important; }
+    
     .app-skaerm {
         height: 80vh;
         aspect-ratio: 9 / 16;
@@ -1297,10 +1299,6 @@ body:has(.side:target) .indhold-gitter > .indhold-boks {
         align-items: flex-start;
         padding-top: 3vh;
         padding-top: calc(3vh + env(safe-area-inset-top));
-    }
-
-    .baggrund-video{ 
-        display:none; 
     }
 
     .topbjaelke {
