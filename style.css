@@ -1299,6 +1299,10 @@ body:has(.side:target) .indhold-gitter > .indhold-boks {
         padding-top: calc(3vh + env(safe-area-inset-top));
     }
 
+    .baggrund-video{ 
+        display:none; 
+    }
+
     .topbjaelke {
         width: 100%;
         height: 80%;
