@@ -25,30 +25,28 @@
                             </script>
 
                 <script>
-                function loadMediaInTarget() {
-                    const id = location.hash?.slice(1);
-                    if (!id) return;
+                function loadImagesInTarget() {
+                    const targetId = location.hash;
+                    if (!targetId) return;
 
-                    const target = document.getElementById(id);
-                    if (!target) return;
+                    const el = document.querySelector(targetId);
+                    if (!el) return;
 
-                    // load images
-                    target.querySelectorAll("img[data-src]").forEach(img => {
+                    el.querySelectorAll("img[data-src]").forEach(img => {
                     img.src = img.dataset.src;
                     img.removeAttribute("data-src");
                     });
 
-                    // load videos (hvis du bruger data-src på source)
-                    target.querySelectorAll("source[data-src]").forEach(s => {
-                    s.src = s.dataset.src;
-                    s.removeAttribute("data-src");
-                    const v = s.closest("video");
-                    if (v) v.load();
+                    el.querySelectorAll("video[data-src]").forEach(v => {
+                    // hvis du også vil lazyloade videoer
+                    v.src = v.dataset.src;
+                    v.removeAttribute("data-src");
+                    v.load();
                     });
                 }
 
-                window.addEventListener("hashchange", loadMediaInTarget);
-                window.addEventListener("DOMContentLoaded", loadMediaInTarget);
+                window.addEventListener("hashchange", loadImagesInTarget);
+                window.addEventListener("DOMContentLoaded", loadImagesInTarget);
                 </script>
 
 
