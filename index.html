@@ -25,7 +25,7 @@
                             </script>
 
     <body>
-        <video class="baggrund-video" autoplay muted loop playsinline>
+        <video class="baggrund-video" autoplay muted loop playsinline preload="none">
             <source src="https://upkgnvaaygedpfpw.public.blob.vercel-storage.com/moodvideo.webm" type="video/webm">
         </video>
         <div class="baggrund-fallback"></div>
@@ -164,7 +164,7 @@
                                     muted
                                     loop
                                     playsinline
-                                    preload="none"
+                                    
                                 >
                                     <source src="https://upkgnvaaygedpfpw.public.blob.vercel-storage.com/Sequence%2001_3.webm" type="video/webm">
                                 </video>
@@ -1191,10 +1191,8 @@
 
                             <div id="gd-gambling-zoom" class="billede-zoom">
                                 <a href="#gd-gambling" class="billede-zoom-luk">&times;</a>
-                                <img src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw=="
-    data-src="billeder/gambling.webp"
-                                    loading="lazy" decoding="async"
-    alt="Gambling plakat i stort format"
+                                <img src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw==" data-src="billeder/gambling.webp"
+                                    loading="lazy" decoding="async" alt="Gambling plakat i stort format"
                                     class="billede-zoom-billede">
                             </div>
 
@@ -1440,9 +1438,9 @@
                                             class="billede-zoom-billede"
                                             controls
                                             playsinline
-                                            preload="none"
+                                            
                                         >
-                                            <source src="videoer/gpf-swing.webm" type="video/webm">
+                                            <source data-src="videoer/gpf-swing.webm" type="video/webm">
                                             Din browser understøtter ikke video-tag&#39;et.
                                         </video>
                                     </div>
@@ -1496,9 +1494,9 @@
                                             class="billede-zoom-billede"
                                             controls
                                             playsinline
-                                            preload="none"
+                                            
                                         >
-                                            <source src="videoer/interview" type="video/webm">
+                                            <source data-src="videoer/interview" type="video/webm">
                                             Din browser understøtter ikke video-tag&#39;et.
                                         </video>
                                     </div>
@@ -1550,9 +1548,9 @@
                                             class="billede-zoom-billede"
                                             controls
                                             playsinline
-                                            preload="none"
+                                            
                                         >
-                                            <source src="videoer/gpf-gulv.webm" type="video/webm">
+                                            <source data-src="videoer/gpf-gulv.webm" type="video/webm">
                                             Din browser understøtter ikke video-tag&#39;et.
                                         </video>
                                     </div>
@@ -1605,9 +1603,9 @@
                                             class="billede-zoom-billede"
                                             controls
                                             playsinline
-                                            preload="none"
+                                            
                                         >
-                                            <source src="videoer/moving.webm" type="video/webm">
+                                            <source data-src="videoer/moving.webm" type="video/webm">
                                             Din browser understøtter ikke video-tag&#39;et.
                                         </video>
                                     </div>
@@ -1663,9 +1661,9 @@
                                             class="billede-zoom-billede"
                                             controls
                                             playsinline
-                                            preload="none"
+                                            
                                         >
-                                            <source src="videoer/gpf-feje.webm" type="video/webm">
+                                            <source data-src="videoer/gpf-feje.webm" type="video/webm">
                                             Din browser understøtter ikke video-tag&#39;et.
                                         </video>
                                     </div>
@@ -1717,9 +1715,9 @@
                                             class="billede-zoom-billede"
                                             controls
                                             playsinline
-                                            preload="none"
+                                            
                                         >
-                                            <source src="videoer/gpf-jul.webm" type="video/webm">
+                                            <source data-src="videoer/gpf-jul.webm" type="video/webm">
                                             Din browser understøtter ikke video-tag&#39;et.
                                         </video>
                                     </div>
@@ -2232,23 +2230,168 @@
 
 
 <script>
-  function loadDataSrc(root) {
-    if (!root) return;
-    root.querySelectorAll("img[data-src]").forEach(img => {
-      img.src = img.dataset.src;
-      img.removeAttribute("data-src");
+(() => {
+  const PLACEHOLDER =
+    'data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw==';
+
+  function activeTargetEl() {
+    if (!location.hash || location.hash === '#app') return document.getElementById('app');
+    return document.querySelector(location.hash);
+  }
+
+  function isImgAllowed(img) {
+    const active = activeTargetEl();
+
+    if (!location.hash || location.hash === '#app') {
+      return !img.closest('.side') && !img.closest('.billede-zoom');
+    }
+
+    if (!active) return false;
+    return img.closest(location.hash) === active;
+  }
+
+  // NY: samme princip for video
+  function isVideoAllowed(video) {
+    const active = activeTargetEl();
+
+    if (!location.hash || location.hash === '#app') {
+      // på app-siden vil vi ikke loade zoom-videoer eller videoer inde i .side
+      return !video.closest('.side') && !video.closest('.billede-zoom');
+    }
+
+    if (!active) return false;
+    return video.closest(location.hash) === active;
+  }
+
+  function getScrollRootForActive() {
+    const active = activeTargetEl();
+    if (!active || (!location.hash || location.hash === '#app')) return null;
+
+    // prøv først typiske scroll-containere
+    const candidates = [
+      active.querySelector('.side-kort'),
+      active.querySelector('.side-tekst'),
+      active.querySelector('.side-projekt-tekst')
+    ].filter(Boolean);
+
+    // find den første der faktisk kan scrolle
+    for (const el of candidates) {
+      const cs = getComputedStyle(el);
+      if ((cs.overflowY === 'auto' || cs.overflowY === 'scroll') && el.scrollHeight > el.clientHeight) {
+        return el;
+      }
+    }
+
+    // fallback: viewport
+    return null;
+  }
+
+  function loadImg(img) {
+    if (!img || img.dataset.loaded === '1') return;
+    const ds = img.getAttribute('data-src');
+    if (!ds) return;
+    if (!isImgAllowed(img)) return;
+
+    img.src = ds;
+    img.dataset.loaded = '1';
+    img.removeAttribute('data-src');
+  }
+
+  // NY: load video (flyt source[data-src] -> source.src)
+  function loadVideo(video) {
+    if (!video || video.dataset.loaded === '1') return;
+    if (!isVideoAllowed(video)) return;
+
+    const sources = Array.from(video.querySelectorAll('source[data-src]'));
+    if (!sources.length) return;
+
+    sources.forEach(source => {
+      source.src = source.getAttribute('data-src');
+      source.removeAttribute('data-src');
     });
+
+    // starter først fetch når vi kalder load()
+    video.load();
+    video.dataset.loaded = '1';
   }
 
-  function onHash() {
-    const id = location.hash;
-    if (!id) return;
-    loadDataSrc(document.querySelector(id)); // loader kun den target side/zoom
+  let io = null;
+
+  function setupObserver() {
+    // ryd gammel observer
+    if (io) {
+      io.disconnect();
+      io = null;
+    }
+
+    const imgs = Array.from(document.querySelectorAll('img[data-src]'));
+
+    // placeholder på dem der mangler src
+    imgs.forEach(img => {
+      if (!img.getAttribute('src')) img.src = PLACEHOLDER;
+    });
+
+    // NY: alle videoer der har source[data-src]
+    const videos = Array.from(document.querySelectorAll('video'))
+      .filter(v => v.querySelector('source[data-src]'));
+
+    // observer kun dem der er "tilladt" på aktiv side
+    const allowedImgs = imgs.filter(isImgAllowed);
+    const allowedVideos = videos.filter(isVideoAllowed);
+
+    if (!allowedImgs.length && !allowedVideos.length) return;
+
+    if (!('IntersectionObserver' in window)) {
+      // ingen IO -> load kun lidt af gangen
+      allowedImgs.slice(0, 6).forEach(loadImg);
+      allowedVideos.slice(0, 2).forEach(loadVideo);
+      return;
+    }
+
+    const root = getScrollRootForActive();
+
+    io = new IntersectionObserver((entries) => {
+      for (const e of entries) {
+        if (!e.isIntersecting) continue;
+
+        const el = e.target;
+
+        if (el.tagName === 'IMG') {
+          loadImg(el);
+          if (el.dataset.loaded === '1') io.unobserve(el);
+          continue;
+        }
+
+        if (el.tagName === 'VIDEO') {
+          loadVideo(el);
+          if (el.dataset.loaded === '1') io.unobserve(el);
+          continue;
+        }
+      }
+    }, {
+      root,
+      threshold: 0.01,
+      rootMargin: '150px'
+    });
+
+    allowedImgs.forEach(img => io.observe(img));
+    allowedVideos.forEach(video => io.observe(video));
   }
 
-  window.addEventListener("hashchange", onHash);
-  window.addEventListener("DOMContentLoaded", onHash);
+  function kick() {
+    setupObserver();
+    window.addEventListener('hashchange', setupObserver);
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', kick);
+  } else {
+    kick();
+  }
+})();
 </script>
+
+
 
 
 
