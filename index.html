@@ -24,33 +24,6 @@
                                 window.addEventListener("hashchange", stop_zoom_videoer);
                             </script>
 
-                <script>
-                function loadImagesInTarget() {
-                    const targetId = location.hash;
-                    if (!targetId) return;
-
-                    const el = document.querySelector(targetId);
-                    if (!el) return;
-
-                    el.querySelectorAll("img[data-src]").forEach(img => {
-                    img.src = img.dataset.src;
-                    img.removeAttribute("data-src");
-                    });
-
-                    el.querySelectorAll("video[data-src]").forEach(v => {
-                    // hvis du også vil lazyloade videoer
-                    v.src = v.dataset.src;
-                    v.removeAttribute("data-src");
-                    v.load();
-                    });
-                }
-
-                window.addEventListener("hashchange", loadImagesInTarget);
-                window.addEventListener("DOMContentLoaded", loadImagesInTarget);
-                </script>
-
-
-
     <body>
         <video class="baggrund-video" autoplay muted loop playsinline>
             <source src="https://upkgnvaaygedpfpw.public.blob.vercel-storage.com/moodvideo.webm" type="video/webm">
@@ -1265,37 +1238,37 @@
                                             <div class="galleri-gitter">
 
                                                 <a href="#vid-gpf-swing" class="galleri-element">
-                                                    <img src="videoer/thumbnails/gpf-swing-thumb.webp"
+                                                    <img data-src="videoer/thumbnails/gpf-swing-thumb.webp"
                                                         alt="Grand prix fest videoreklame thumbnail"
                                                         class="galleri-billede">
                                                 </a>
 
                                                 <a href="#vid-gpf-gulv" class="galleri-element">
-                                                    <img src="videoer/thumbnails/gpf-gulv-thumb.webp"
+                                                    <img data-src="videoer/thumbnails/gpf-gulv-thumb.webp"
                                                         alt="Grand prix fest videoreklame thumbnail"
                                                         class="galleri-billede">
                                                 </a>
 
                                                 <a href="#vid-interview" class="galleri-element">
-                                                    <img src="videoer/thumbnails/interview-thumb.webp"
+                                                    <img data-src="videoer/thumbnails/interview-thumb.webp"
                                                         alt="interview video thumbnail"
                                                         class="galleri-billede">
                                                 </a>
 
                                                 <a href="#vid-moving" class="galleri-element">
-                                                    <img src="videoer/thumbnails/moving-thumb.webp"
+                                                    <img data-src="videoer/thumbnails/moving-thumb.webp"
                                                         alt="Moving Art thumbnail"
                                                         class="galleri-billede">
                                                 </a>
 
                                                 <a href="#vid-gpf-feje" class="galleri-element">
-                                                    <img src="videoer/thumbnails/gpf-feje-thumb.webp"
+                                                    <img data-src="videoer/thumbnails/gpf-feje-thumb.webp"
                                                         alt="Grand prix fest videoreklame thumbnail"
                                                         class="galleri-billede">
                                                 </a>
 
                                                 <a href="#vid-gpf-jul" class="galleri-element">
-                                                    <img src="videoer/thumbnails/gpf-jul-thumb.webp"
+                                                    <img data-src="videoer/thumbnails/gpf-jul-thumb.webp"
                                                         alt="Grand prix fest julevideoreklame thumbnail"
                                                         class="galleri-billede">
                                                 </a> 
@@ -1319,7 +1292,7 @@
                                         <div class="side-projekt">
                                             <div class="side-projekt-billeder" >
                                             <a href="#vid-gpf-swing-zoom" class="side-projekt-billede-link">
-                                                <img src="videoer/thumbnails/gpf-swing-thumb.webp"
+                                                <img data-src="videoer/thumbnails/gpf-swing-thumb.webp"
                                                     alt="Thumbnail til GPF Swing videoen"
                                                     class="side-projekt-billede">
                                             </a>
@@ -1352,7 +1325,7 @@
                                             controls
                                             playsinline
                                         >
-                                            <source src="videoer/gpf-swing.webm" type="video/webm">
+                                            <source data-src="videoer/gpf-swing.webm" type="video/webm">
                                             Din browser understøtter ikke video-tag&#39;et.
                                         </video>
                                     </div>
@@ -1371,7 +1344,7 @@
                                         <div class="side-projekt">
                                             <div class="side-projekt-billeder" >
                                             <a href="#vid-interview-zoom" class="side-projekt-billede-link">
-                                                <img src="videoer/thumbnails/interview-thumb.webp"
+                                                <img data-src="videoer/thumbnails/interview-thumb.webp"
                                                     alt="Thumbnail til interview videoen"
                                                     class="side-projekt-billede">
                                             </a>
@@ -1406,7 +1379,7 @@
                                             controls
                                             playsinline
                                         >
-                                            <source src="videoer/interview" type="video/webm">
+                                            <source data-src="videoer/interview" type="video/webm">
                                             Din browser understøtter ikke video-tag&#39;et.
                                         </video>
                                     </div>
@@ -1425,7 +1398,7 @@
                                         <div class="side-projekt">
                                             <div class="side-projekt-billeder" >
                                             <a href="#vid-gpf-gulv-zoom" class="side-projekt-billede-link">
-                                                <img src="videoer/thumbnails/gpf-gulv-thumb.webp"
+                                                <img data-src="videoer/thumbnails/gpf-gulv-thumb.webp"
                                                     alt="Thumbnail til GPF gulv videoen"
                                                     class="side-projekt-billede">
                                             </a>
@@ -1458,7 +1431,7 @@
                                             controls
                                             playsinline
                                         >
-                                            <source src="videoer/gpf-gulv.webm" type="video/webm">
+                                            <source data-src="videoer/gpf-gulv.webm" type="video/webm">
                                             Din browser understøtter ikke video-tag&#39;et.
                                         </video>
                                     </div>
@@ -1477,7 +1450,7 @@
                                         <div class="side-projekt">
                                             <div class="side-projekt-billeder" >
                                             <a href="#vid-moving-zoom" class="side-projekt-billede-link">
-                                                <img src="videoer/thumbnails/moving-thumb.webp"
+                                                <img data-src="videoer/thumbnails/moving-thumb.webp"
                                                     alt="Thumbnail til Moving art videoen"
                                                     class="side-projekt-billede">
                                             </a>
@@ -1511,7 +1484,7 @@
                                             controls
                                             playsinline
                                         >
-                                            <source src="videoer/moving.webm" type="video/webm">
+                                            <source data-src="videoer/moving.webm" type="video/webm">
                                             Din browser understøtter ikke video-tag&#39;et.
                                         </video>
                                     </div>
@@ -1530,7 +1503,7 @@
                                         <div class="side-projekt">
                                             <div class="side-projekt-billeder" >
                                             <a href="#vid-gpf-feje-zoom" class="side-projekt-billede-link">
-                                                <img src="videoer/thumbnails/gpf-feje-thumb.webp"
+                                                <img data-src="videoer/thumbnails/gpf-feje-thumb.webp"
                                                     alt="Thumbnail til GPF Feje videoen"
                                                     class="side-projekt-billede">
                                             </a>
@@ -1567,7 +1540,7 @@
                                             controls
                                             playsinline
                                         >
-                                            <source src="videoer/gpf-feje.webm" type="video/webm">
+                                            <source data-src="videoer/gpf-feje.webm" type="video/webm">
                                             Din browser understøtter ikke video-tag&#39;et.
                                         </video>
                                     </div>
@@ -1586,7 +1559,7 @@
                                         <div class="side-projekt">
                                             <div class="side-projekt-billeder" >
                                             <a href="#vid-gpf-jul-zoom" class="side-projekt-billede-link">
-                                                <img src="videoer/thumbnails/gpf-jul-thumb.webp"
+                                                <img data-src="videoer/thumbnails/gpf-jul-thumb.webp"
                                                     alt="Thumbnail til GPF jul videoen"
                                                     class="side-projekt-billede">
                                             </a>
@@ -1619,7 +1592,7 @@
                                             controls
                                             playsinline
                                         >
-                                            <source src="videoer/gpf-jul.webm" type="video/webm">
+                                            <source data-src="videoer/gpf-jul.webm" type="video/webm">
                                             Din browser understøtter ikke video-tag&#39;et.
                                         </video>
                                     </div>
@@ -2118,6 +2091,42 @@
                                     }
                                 })();
                                 </script>
+
+
+                                                    <script>
+                                                    function lazyLoadForHash() {
+                                                        const hash = location.hash;
+                                                        if (!hash) return;
+
+                                                        const target = document.querySelector(hash);
+                                                        if (!target) return;
+
+                                                        // 1) IMG
+                                                        target.querySelectorAll("img[data-src]").forEach(img => {
+                                                        img.src = img.dataset.src;
+                                                        img.removeAttribute("data-src");
+                                                        });
+
+                                                        // 2) VIDEO <source>
+                                                        target.querySelectorAll("video source[data-src]").forEach(source => {
+                                                        source.src = source.dataset.src;
+                                                        source.removeAttribute("data-src");
+
+                                                        const video = source.closest("video");
+                                                        if (video) video.load();
+                                                        });
+                                                    }
+
+                                                    function runLazyLoad() {
+                                                        // kør nu + efter layout (så :target er “på plads”)
+                                                        lazyLoadForHash();
+                                                        requestAnimationFrame(lazyLoadForHash);
+                                                        setTimeout(lazyLoadForHash, 50);
+                                                    }
+
+                                                    window.addEventListener("hashchange", runLazyLoad);
+                                                    window.addEventListener("DOMContentLoaded", runLazyLoad);
+                                                    </script>
 
     </body>
 </html>
