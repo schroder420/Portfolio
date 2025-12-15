@@ -2261,7 +2261,240 @@
 
 
 
+<script>
+(() => {
+  const PLACEHOLDER =
+    'data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw==';
 
+  function activeTargetEl() {
+    if (!location.hash || location.hash === '#app') return document.getElementById('app');
+    return document.querySelector(location.hash);
+  }
+
+  function isAllowed(el) {
+    const active = activeTargetEl();
+
+    // På app-siden: vi loader kun "udenfor" .side og udenfor zoom
+    if (!location.hash || location.hash === '#app') {
+      return !el.closest('.side') && !el.closest('.billede-zoom');
+    }
+
+    // På en side: kun inde i den aktive hash-sektion
+    if (!active) return false;
+    return el.closest(location.hash) === active;
+  }
+
+  function getScrollRootForActive() {
+    const active = activeTargetEl();
+    if (!active || (!location.hash || location.hash === '#app')) return null;
+
+    const candidates = [
+      active.querySelector('.side-kort'),
+      active.querySelector('.side-tekst'),
+      active.querySelector('.side-projekt-tekst')
+    ].filter(Boolean);
+
+    for (const el of candidates) {
+      const cs = getComputedStyle(el);
+      if ((cs.overflowY === 'auto' || cs.overflowY === 'scroll') && el.scrollHeight > el.clientHeight) {
+        return el;
+      }
+    }
+    return null; // viewport
+  }
+
+  // ---------- IMG LOAD/UNLOAD (med lock så de ikke loader 2-3-4 gange) ----------
+  function loadImg(img) {
+    if (!img) return;
+    if (img.dataset.loaded === '1' || img.dataset.loading === '1') return;
+
+    const ds = img.getAttribute('data-src');
+    if (!ds) return;
+    if (!isAllowed(img)) return;
+
+    if (!img.dataset.originalSrc) img.dataset.originalSrc = ds;
+
+    img.dataset.loading = '1';
+
+    img.onload = () => {
+      img.dataset.loading = '0';
+      img.dataset.loaded = '1';
+      img.removeAttribute('data-src');
+      img.onload = null;
+      img.onerror = null;
+    };
+
+    img.onerror = () => {
+      img.dataset.loading = '0';
+      img.dataset.loaded = '0'; // behold data-src så den kan prøve igen
+      img.onload = null;
+      img.onerror = null;
+    };
+
+    img.src = ds;
+  }
+
+  function unloadImg(img) {
+    if (!img) return;
+    if (img.dataset.loading === '1') return; // unload ikke mens den loader
+
+    const original = img.dataset.originalSrc || img.getAttribute('data-src');
+    if (!original) return;
+    if (img.dataset.loaded !== '1') return;
+
+    img.src = PLACEHOLDER;
+    img.dataset.loaded = '0';
+    img.setAttribute('data-src', original);
+  }
+
+  // ---------- VIDEO LOAD/UNLOAD ----------
+  function getVideoDataSrc(video) {
+    // Understøtter begge:
+    // 1) <video data-src="...">
+    // 2) <video><source data-src="..."></video>
+    const source = video.querySelector('source[data-src]');
+    if (source) return { type: 'source', el: source, src: source.getAttribute('data-src') };
+
+    const ds = video.getAttribute('data-src');
+    if (ds) return { type: 'video', el: video, src: ds };
+
+    return null;
+  }
+
+  function loadVideo(video) {
+    if (!video) return;
+    if (video.dataset.loaded === '1' || video.dataset.loading === '1') return;
+    if (!isAllowed(video)) return;
+
+    const info = getVideoDataSrc(video);
+    if (!info || !info.src) return;
+
+    if (!video.dataset.originalSrc) video.dataset.originalSrc = info.src;
+
+    video.dataset.loading = '1';
+
+    const done = () => {
+      video.dataset.loading = '0';
+      video.dataset.loaded = '1';
+      video.removeEventListener('loadeddata', done);
+      video.removeEventListener('error', fail);
+    };
+
+    const fail = () => {
+      video.dataset.loading = '0';
+      video.dataset.loaded = '0';
+      video.removeEventListener('loadeddata', done);
+      video.removeEventListener('error', fail);
+    };
+
+    video.addEventListener('loadeddata', done, { once: true });
+    video.addEventListener('error', fail, { once: true });
+
+    if (info.type === 'video') {
+      video.src = info.src;
+      video.removeAttribute('data-src');
+    } else {
+      info.el.src = info.src;
+      info.el.removeAttribute('data-src');
+    }
+
+    try { video.load(); } catch (e) {}
+  }
+
+  function unloadVideo(video) {
+    if (!video) return;
+    if (video.dataset.loading === '1') return;
+
+    const original = video.dataset.originalSrc || video.getAttribute('data-src');
+    if (!original) return;
+    if (video.dataset.loaded !== '1') return;
+
+    try { video.pause(); } catch (e) {}
+
+    const source = video.querySelector('source');
+    if (source) {
+      source.removeAttribute('src');
+      source.setAttribute('data-src', original);
+    } else {
+      video.removeAttribute('src');
+      video.setAttribute('data-src', original);
+    }
+
+    video.dataset.loaded = '0';
+
+    try { video.load(); } catch (e) {}
+  }
+
+  // ---------- OBSERVER SETUP ----------
+  let io = null;
+
+  function setupObserver() {
+    if (io) {
+      io.disconnect();
+      io = null;
+    }
+
+    // Images
+    const imgs = Array.from(document.querySelectorAll('img[data-src]'));
+    imgs.forEach(img => {
+      if (!img.getAttribute('src')) img.src = PLACEHOLDER;
+    });
+
+    // Videos (kun dem der har data-src på video eller source)
+    const videos = Array.from(document.querySelectorAll('video[data-src], video source[data-src]'))
+      .map(el => (el.tagName === 'VIDEO' ? el : el.closest('video')))
+      .filter(Boolean);
+
+    // Unik liste (undgå dubletter hvis både video og source matches)
+    const uniqVideos = Array.from(new Set(videos));
+
+    const allowedImgs = imgs.filter(isAllowed);
+    const allowedVids = uniqVideos.filter(isAllowed);
+
+    const root = getScrollRootForActive();
+
+    // Hvis ingen IO: load et lille "første batch"
+    if (!('IntersectionObserver' in window)) {
+      allowedImgs.slice(0, 8).forEach(loadImg);
+      allowedVids.slice(0, 2).forEach(loadVideo);
+      return;
+    }
+
+    io = new IntersectionObserver((entries) => {
+      for (const e of entries) {
+        const el = e.target;
+        const isVideo = el.tagName === 'VIDEO';
+        if (e.isIntersecting) {
+          if (isVideo) loadVideo(el);
+          else loadImg(el);
+        } else {
+          // “Glem” når det ikke er synligt længere (overalt)
+          if (isVideo) unloadVideo(el);
+          else unloadImg(el);
+        }
+      }
+    }, {
+      root,
+      threshold: 0.01,
+      rootMargin: '150px'
+    });
+
+    allowedImgs.forEach(img => io.observe(img));
+    allowedVids.forEach(v => io.observe(v));
+  }
+
+  function kick() {
+    setupObserver();
+    window.addEventListener('hashchange', setupObserver);
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', kick);
+  } else {
+    kick();
+  }
+})();
+</script>
 
 
 
