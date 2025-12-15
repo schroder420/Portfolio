@@ -2263,12 +2263,54 @@
 
 <script>
 (() => {
-  // ✅ Kør kun på mobil
-  const isMobile = window.matchMedia('(max-width: 768px)').matches;
-  if (!isMobile) return;
-
   const PLACEHOLDER =
     'data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw==';
+
+  const isMobile = window.matchMedia('(max-width: 768px)').matches;
+
+  // ✅ Desktop fallback: hvis du bruger data-src placeholders, så skal desktop også "hydrate" dem
+  function desktopEagerLoad() {
+    // Images
+    document.querySelectorAll('img[data-src]').forEach(img => {
+      const ds = img.getAttribute('data-src');
+      if (!ds) return;
+      img.src = ds;
+      img.removeAttribute('data-src');
+      img.dataset.loaded = '1';
+    });
+
+    // Videos (kun hvis du også begynder at bruge data-src på dem)
+    document.querySelectorAll('video[data-src]').forEach(v => {
+      const ds = v.getAttribute('data-src');
+      if (!ds) return;
+      v.src = ds;
+      v.removeAttribute('data-src');
+      try { v.load(); } catch (e) {}
+      v.dataset.loaded = '1';
+    });
+
+    document.querySelectorAll('video source[data-src]').forEach(s => {
+      const v = s.closest('video');
+      const ds = s.getAttribute('data-src');
+      if (!v || !ds) return;
+      s.src = ds;
+      s.removeAttribute('data-src');
+      try { v.load(); } catch (e) {}
+      v.dataset.loaded = '1';
+    });
+  }
+
+  // Hvis det IKKE er mobil -> kør fallback og stop her
+  if (!isMobile) {
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', desktopEagerLoad);
+    } else {
+      desktopEagerLoad();
+    }
+    return;
+  }
+
+  // ---------------- MOBIL: dit eksisterende script ----------------
 
   function activeTargetEl() {
     if (!location.hash || location.hash === '#app') return document.getElementById('app');
@@ -2340,7 +2382,7 @@
 
   function unloadImg(img) {
     if (!img) return;
-    if (img.dataset.loading === '1') return; // unload ikke mens den loader
+    if (img.dataset.loading === '1') return;
 
     const original = img.dataset.originalSrc || img.getAttribute('data-src');
     if (!original) return;
@@ -2353,9 +2395,6 @@
 
   // ---------- VIDEO LOAD/UNLOAD ----------
   function getVideoDataSrc(video) {
-    // Understøtter begge:
-    // 1) <video data-src="...">
-    // 2) <video><source data-src="..."></video>
     const source = video.querySelector('source[data-src]');
     if (source) return { type: 'source', el: source, src: source.getAttribute('data-src') };
 
@@ -2438,18 +2477,15 @@
       io = null;
     }
 
-    // Images
     const imgs = Array.from(document.querySelectorAll('img[data-src]'));
     imgs.forEach(img => {
       if (!img.getAttribute('src')) img.src = PLACEHOLDER;
     });
 
-    // Videos (kun dem der har data-src på video eller source)
     const videos = Array.from(document.querySelectorAll('video[data-src], video source[data-src]'))
       .map(el => (el.tagName === 'VIDEO' ? el : el.closest('video')))
       .filter(Boolean);
 
-    // Unik liste (undgå dubletter hvis både video og source matches)
     const uniqVideos = Array.from(new Set(videos));
 
     const allowedImgs = imgs.filter(isAllowed);
@@ -2457,7 +2493,6 @@
 
     const root = getScrollRootForActive();
 
-    // Hvis ingen IO: load et lille "første batch"
     if (!('IntersectionObserver' in window)) {
       allowedImgs.slice(0, 8).forEach(loadImg);
       allowedVids.slice(0, 2).forEach(loadVideo);
@@ -2472,7 +2507,6 @@
           if (isVideo) loadVideo(el);
           else loadImg(el);
         } else {
-          // “Glem” når det ikke er synligt længere (overalt)
           if (isVideo) unloadVideo(el);
           else unloadImg(el);
         }
