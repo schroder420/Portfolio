@@ -1,6 +1,38 @@
 <!DOCTYPE html>
 <html lang="da">
     <head>
+
+                            
+                <script>
+                    (function () {
+                    const isMobile =
+                        window.matchMedia('(max-width: 768px)').matches ||
+                        navigator.userAgent.includes('iPhone') ||
+                        navigator.userAgent.includes('Android');
+
+                    if (!isMobile) return;
+
+                    // 🔥 1. Fjern baggrundsvideo fuldstændigt
+                    const bgVideo = document.querySelector('video.baggrund-video');
+                    if (bgVideo) {
+                        bgVideo.remove();
+                    }
+
+                    // 🔥 2. Fjern "Om mig"-video fuldstændigt
+                    const omMigVideo = document.querySelector('#ommigbillede video');
+                    if (omMigVideo) {
+                        omMigVideo.remove();
+                    }
+
+                    // 🔒 3. Ekstra sikkerhed: hvis browseren forsøger igen
+                    document.addEventListener('DOMContentLoaded', () => {
+                        document.querySelectorAll('video.baggrund-video, #ommigbillede video')
+                        .forEach(v => v.remove());
+                    });
+                    })();
+                </script>
+
+
     <meta charset="UTF-8" >
     <title>Mikkel Schrøders Portfolio</title>
     <meta name="viewport" content="width=device-width, user-scalable=no">
