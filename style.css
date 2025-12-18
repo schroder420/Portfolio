@@ -25,6 +25,14 @@ body {
     background: #f2f2f2;
 }
 
+.baggrund-fallback{
+    position: fixed;
+    inset: 0;
+    z-index: -2;
+    background: url("billeder/moodvideo-fallback.webp") center/cover no-repeat;
+}
+
+
 .app-skaerm {
     height: 90vh;
     aspect-ratio: 16/9;
@@ -318,7 +326,8 @@ body {
     inset: 0;
     background: linear-gradient(
         to bottom,
-        rgba(255, 255, 255, 0.35)
+        rgba(255, 255, 255, 0.35),
+        rgba(255, 255, 255, 0.05)
     );
     opacity: 0.5;
     pointer-events: none;
@@ -845,7 +854,7 @@ body:has(.side:target) .indhold-gitter > .indhold-boks {
     opacity: 0;
     pointer-events: none;
     transition: opacity 0.25s ease;
-    z-index: 999; /* over alt andet */
+    z-index: 999;
 }
 
 /* når zoom er trykker og hash rammer et sit target */
@@ -948,7 +957,7 @@ body:has(.side:target) .indhold-gitter > .indhold-boks {
     text-decoration: none;
     color: inherit;
     transition:
-        background 0.18s ease,
+        background-color 0.18s ease,
         transform 0.18s ease,
         box-shadow 0.18s ease;
 }
@@ -1271,9 +1280,9 @@ body:has(.side:target) .indhold-gitter > .indhold-boks {
     100% { transform: translate3d(5%, 5%, 0) scale(1.05); }
 }
 
-/* ====== MOBIL / SMALL WIDTH ====== */
 
 @media (max-width: 720px) {
+    
     .app-skaerm {
         height: 80vh;
         aspect-ratio: 9 / 16;
@@ -1282,6 +1291,16 @@ body:has(.side:target) .indhold-gitter > .indhold-boks {
         padding: 0% 5% 10%;
         font-size: clamp(3px, 1.8vmin, 8px);
         row-gap: 3%;
+        margin-top: 0;
+    }
+
+    body {
+        align-items: flex-start;
+        padding-top: 3vh;
+    }
+
+    .baggrund-video{ 
+        display:none;
     }
 
     .topbjaelke {
@@ -1378,100 +1397,100 @@ body:has(.side:target) .indhold-gitter > .indhold-boks {
     }    
 
 
-.side-om-mig-indhold{
-    display: grid;
-    grid-template-columns: minmax(0, 38%) minmax(0, 1fr);
-    grid-template-rows: auto 1fr;
-    grid-template-areas:
-      "media header"
-      "text  text";
-    column-gap: 1em;
-    row-gap: 1em;
-    align-items: start;
-    margin: auto 0.5em 0.5em auto;
+    .side-om-mig-indhold{
+        display: grid;
+        grid-template-columns: minmax(0, 38%) minmax(0, 1fr);
+        grid-template-rows: auto 1fr;
+        grid-template-areas:
+        "media header"
+        "text  text";
+        column-gap: 1em;
+        row-gap: 1em;
+        align-items: start;
+        margin: auto 0.5em 0.5em auto;
 
-  }
+    }
 
-#ommigbillede{
-    grid-area: media;
-    width: 100%;
-  }
+    #ommigbillede{
+        grid-area: media;
+        width: 100%;
+    }
 
-  /* gør at .side-overskrift og .side-tekst bliver grid-items */
-.side-om-mig-tekst-wrapper{
-    display: contents;
-  }
+    /* gør at .side-overskrift og .side-tekst bliver grid-items */
+    .side-om-mig-tekst-wrapper{
+        display: contents;
+    }
 
-.side-overskrift{
-    grid-area: header;
-    margin-bottom: 0;   /* så den ikke skubber layoutet */
-    align-self: end;
-  }
+    .side-overskrift{
+        grid-area: header;
+        margin-bottom: 0;   /* så den ikke skubber layoutet */
+        align-self: end;
+    }
 
-#side-om-mig .side-tekst{
-    grid-area: text;
-    overflow-y: auto;
-    -webkit-overflow-scrolling: touch;
-    max-height: 100%;
-    margin-bottom: 1;
-  }
+    #side-om-mig .side-tekst{
+        grid-area: text;
+        overflow-y: auto;
+        -webkit-overflow-scrolling: touch;
+        max-height: 100%;
+        margin-bottom: 1em;
+    }
 
-#ommigbillede video {
-    display: none !important;
-  }
+    #ommigbillede video {
+        display: none !important;
+    }
 
-#ommigbillede .ommig-billede-fallback {
-    display: block !important;
-  }
+    #ommigbillede .ommig-billede-fallback {
+        display: block !important;
+    }
 
-#side-om-mig .side-kort {
-    padding: 2.5em 3em;
-}
+    #side-om-mig .side-kort {
+        padding: 2.5em 3em;
+    }
 
-.side-header{
-    display: grid;
-    grid-template-columns: 1fr;
-    grid-template-rows: auto auto;
-    align-items: start;
-    justify-items: center;
-    margin-bottom: 1.5em;
-    position: relative;
-}
+    .side-header{
+        display: grid;
+        grid-template-columns: 1fr;
+        grid-template-rows: auto auto;
+        align-items: start;
+        justify-items: center;
+        margin-bottom: 1.5em;
+        position: relative;
+    }
 
-.side-tilbage{
-    position: static;
-    justify-self: start;
-    align-self: start;
-    margin-right: auto;
-}
+    .side-tilbage{
+        position: static;
+        justify-self: start;
+        align-self: start;
+        margin-right: auto;
+    }
 
-.side-header-titel{
-    margin-top: 0.1em;
-}
+    .side-header-titel{
+        margin-top: 0.1em;
+    }
 
 
-.mappe-label {
-    font-size: 2em;
-}
+    .mappe-label {
+        font-size: 2em;
+    }
 
-.mappe-titel {
-    font-size: 1.5em;
-}
+    .mappe-titel {
+        font-size: 1.5em;
+    }
 
-.mappe-tekst {
-    font-size: 1em;
-}
+    .mappe-tekst {
+        font-size: 1em;
+    }
 
-.mappe {
-    margin-top: 0;
-    border-radius: 0;
-}
+    .mappe {
+        margin-top: 0;
+        border-radius: 0;
+    }
 
-.hjemmeside-link {
-    padding: 4%;
-}
+    .hjemmeside-link {
+        padding: 4%;
+    }
 
-.side-projekt {
-    flex-direction: column;
-}
+    .side-projekt {
+        flex-direction: column;
+    }
 }

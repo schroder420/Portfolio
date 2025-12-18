@@ -1,33 +1,69 @@
 <!DOCTYPE html>
 <html lang="da">
     <head>
-    <meta charset="UTF-8" >
-    <title>Mikkel Schrøders Portfolio</title>
-    <meta name="viewport" content="width=device-width, user-scalable=no">
-    <link rel="stylesheet" href="style.css">
+        <meta charset="UTF-8" >
+        <title>Mikkel Schrøders Portfolio</title>
+        <meta name="viewport" content="width=device-width, user-scalable=no">
+        <link rel="stylesheet" href="style.css">
 
-    <link rel="stylesheet"
-            href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
-            integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA=="
-            crossorigin="anonymous" referrerpolicy="no-referrer">
+        <link rel="stylesheet"
+                href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+                integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA=="
+                crossorigin="anonymous" referrerpolicy="no-referrer">
+        
+                                
+                    <script>
+                        (function () {
+                        const isMobile =
+                            window.matchMedia('(max-width: 768px)').matches ||
+                            navigator.userAgent.includes('iPhone') ||
+                            navigator.userAgent.includes('Android');
+
+                        if (!isMobile) return;
+
+                        // 🔥 1. Fjern baggrundsvideo fuldstændigt
+                        const bgVideo = document.querySelector('video.baggrund-video');
+                        if (bgVideo) {
+                            bgVideo.remove();
+                        }
+
+                        // 🔥 2. Fjern "Om mig"-video fuldstændigt
+                        const omMigVideo = document.querySelector('#ommigbillede video');
+                        if (omMigVideo) {
+                            omMigVideo.remove();
+                        }
+
+                        // 🔒 3. Ekstra sikkerhed: hvis browseren forsøger igen
+                        document.addEventListener('DOMContentLoaded', () => {
+                            document.querySelectorAll('video.baggrund-video, #ommigbillede video')
+                            .forEach(v => v.remove());
+                        });
+                        })();
+                    </script>
+
+
+
+                                <script>
+                                    function stop_zoom_videoer() {
+                                        const zoom_videoer = document.querySelectorAll(".billede-zoom video");
+                                        zoom_videoer.forEach(function (video) {
+                                            video.pause();
+                                            video.currentTime = 0;
+                                        });
+                                    }
+
+                                    window.addEventListener("hashchange", stop_zoom_videoer);
+                                </script>    
+        
+    
     </head>
 
-                            <script>
-                                function stop_zoom_videoer() {
-                                    const zoom_videoer = document.querySelectorAll(".billede-zoom video");
-                                    zoom_videoer.forEach(function (video) {
-                                        video.pause();
-                                        video.currentTime = 0;
-                                    });
-                                }
-
-                                window.addEventListener("hashchange", stop_zoom_videoer);
-                            </script>
 
     <body>
-        <video class="baggrund-video" autoplay muted loop playsinline>
+        <video class="baggrund-video" autoplay muted loop playsinline preload="none">
             <source src="https://upkgnvaaygedpfpw.public.blob.vercel-storage.com/moodvideo.webm" type="video/webm">
         </video>
+        <div class="baggrund-fallback"></div>
 
         <!-- Hoved-skærm ovenpå baggrunden -->
         <div class="app-skaerm" id="app">
@@ -40,7 +76,9 @@
                 </div>
 
                 <div>
-                    <img src="billeder/logo-pladsholder.webp" alt="Logo" class="logo-billede">
+                    <img src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw=="
+    data-src="billeder/logo-pladsholder.webp" loading="lazy" decoding="async"
+    alt="Logo" class="logo-billede">
                 </div>
 
                 <div class="ur-tekst">
@@ -113,32 +151,35 @@
                     </div>
                 </a>
 
-                <article class="indhold-boks glas-boks">
-                    <div class="indhold-boks-indre">
-                        <i class="fa-solid fa-laptop indhold-ikon"></i>
-                        <div class="indhold-tekst">
-                        <span class="indhold-titel">Web Design</span>
-                        <span class="indhold-undertekst">Nogle af mine <br> bedste hjemmesider</span>
+                <a class="indhold-boks glas-boks">
+                <div class="indhold-boks-indre">
+                    <i class="fa-solid fa-laptop indhold-ikon"></i>
+                    <div class="indhold-tekst">
+                    <span class="indhold-titel">Web Design</span>
+                    <span class="indhold-undertekst">Nogle af mine <br> bedste hjemmesider</span>
                     </div>
-                </article>
+                </div>
+                </a>
 
-                <article class="indhold-boks glas-boks">
-                    <div class="indhold-boks-indre">
-                        <i class="fa-solid fa-palette indhold-ikon"></i>
-                        <div class="indhold-tekst">
-                        <span class="indhold-titel">Skabeloner</span>
-                        <span class="indhold-undertekst">Her kan du se og downloade <br>skabeloner jeg har lavet</span>
+                <a class="indhold-boks glas-boks">
+                <div class="indhold-boks-indre">
+                    <i class="fa-solid fa-palette indhold-ikon"></i>
+                    <div class="indhold-tekst">
+                    <span class="indhold-titel">Skabeloner</span>
+                    <span class="indhold-undertekst">Her kan du se og downloade <br>skabeloner jeg har lavet</span>
                     </div>
-                </article>
+                </div>
+                </a>
 
-                <article class="indhold-boks glas-boks">
-                    <div class="indhold-boks-indre">
-                        <i class="fa-regular fa-pen-to-square indhold-ikon"></i>
-                        <div class="indhold-tekst">
-                        <span class="indhold-titel">Blog</span>
-                        <span class="indhold-undertekst">Læs mine tanker om <br> specifikke emner</span>
+                <a class="indhold-boks glas-boks">
+                <div class="indhold-boks-indre">
+                    <i class="fa-regular fa-pen-to-square indhold-ikon"></i>
+                    <div class="indhold-tekst">
+                    <span class="indhold-titel">Blog</span>
+                    <span class="indhold-undertekst">Læs mine tanker om <br> specifikke emner</span>
                     </div>
-                </article>
+                </div>
+                </a>
 
 
 
@@ -161,13 +202,16 @@
                                     muted
                                     loop
                                     playsinline
+                                    
                                 >
                                     <source src="https://upkgnvaaygedpfpw.public.blob.vercel-storage.com/Sequence%2001_3.webm" type="video/webm">
                                 </video>
 
                                 <img
-                                    src="billeder/om-mig-side.png"
-                                    alt="Mikkel Schrøder"
+                                    src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw=="
+    data-src="billeder/om-mig-side.png"
+                                    loading="lazy" decoding="async"
+    alt="Mikkel Schrøder"
                                     class="ommig-billede-fallback"
                                 >
                             </div>
@@ -393,58 +437,86 @@
                             <div class="galleri">
                                 <div class="galleri-gitter">
                                     <a href="#gd-bellami" class="galleri-element">
-                                        <img src="billeder/bellami.webp" alt="grafisk projekt 4" class="galleri-billede">
+                                        <img src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw=="
+                                        data-src="billeder/bellami-min.webp" loading="lazy" decoding="async"
+                                        alt="grafisk projekt 4" class="galleri-billede">
                                     </a>
                                     <a href="#gd-race" class="galleri-element">
-                                        <img src="billeder/race.webp" alt="grafisk projekt 4" class="galleri-billede">
+                                        <img src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw=="
+                                        data-src="billeder/race-min.webp" loading="lazy" decoding="async"
+                                        alt="grafisk projekt 4" class="galleri-billede">
                                     </a>
 
                                     <a href="#gd-mind" class="galleri-element">
-                                        <img src="billeder/mind.webp" alt="grafisk projekt 4" class="galleri-billede">
+                                        <img src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw=="
+                                        data-src="billeder/mind-min.webp" loading="lazy" decoding="async"
+                                        alt="grafisk projekt 4" class="galleri-billede">
                                     </a>
 
                                     <a href="#gd-playboy" class="galleri-element">
-                                        <img src="billeder/playboy.webp" alt="grafisk projekt 4" class="galleri-billede">
+                                        <img src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw=="
+                                        data-src="billeder/playboy-min.webp" loading="lazy" decoding="async"
+                                        alt="grafisk projekt 4" class="galleri-billede">
                                     </a>
 
                                     <a href="#gd-nikolaj" class="galleri-element">
-                                        <img src="billeder/nikolaj.webp" alt="grafisk projekt 4" class="galleri-billede">
+                                        <img src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw=="
+                                        data-src="billeder/nikolaj-min.webp" loading="lazy" decoding="async"
+                                        alt="grafisk projekt 4" class="galleri-billede">
                                     </a>
 
                                     <a href="#gd-shubi-kvadrat" class="galleri-element">
-                                        <img src="billeder/shubi-kvadrat.webp" alt="grafisk projekt 4" class="galleri-billede">
+                                        <img src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw=="
+                                        data-src="billeder/shubi-kvadrat-min.webp" loading="lazy" decoding="async"
+                                        alt="grafisk projekt 4" class="galleri-billede">
                                     </a>
 
                                     <a href="#gd-sodavand" class="galleri-element">
-                                        <img src="billeder/sodavand.webp" alt="grafisk projekt 4" class="galleri-billede">
+                                        <img src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw=="
+                                        data-src="billeder/sodavand-min.webp" loading="lazy" decoding="async"
+                                        alt="grafisk projekt 4" class="galleri-billede">
                                     </a>
 
                                     <a href="#gd-aco-bogbind" class="galleri-element">
-                                        <img src="billeder/aco-bogbind.webp" alt="grafisk projekt 1" class="galleri-billede">
+                                        <img src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw=="
+                                        data-src="billeder/aco-bogbind-min.webp" loading="lazy" decoding="async"
+                                        alt="grafisk projekt 1" class="galleri-billede">
                                     </a>
 
                                     <a href="#gd-progression" class="galleri-element">
-                                        <img src="billeder/progression.webp" alt="grafisk projekt 4" class="galleri-billede">
+                                        <img src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw=="
+                                        data-src="billeder/progression-min.webp" loading="lazy" decoding="async"
+                                        alt="grafisk projekt 4" class="galleri-billede">
                                     </a>
 
                                     <a href="#gd-love" class="galleri-element">
-                                        <img src="billeder/love.webp" alt="grafisk projekt 4" class="galleri-billede">
+                                        <img src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw=="
+                                        data-src="billeder/love-min.webp" loading="lazy" decoding="async"
+                                        alt="grafisk projekt 4" class="galleri-billede">
                                     </a>
 
                                     <a href="#gd-ob" class="galleri-element">
-                                        <img src="billeder/ob-kampdag.webp" alt="grafisk projekt 3" class="galleri-billede">
+                                        <img src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw=="
+                                        data-src="billeder/ob-kampdag-min.webp" loading="lazy" decoding="async"
+                                        alt="grafisk projekt 3" class="galleri-billede">
                                     </a>
 
                                     <a href="#gd-gambling" class="galleri-element">
-                                        <img src="billeder/gambling.webp" alt="grafisk projekt 4" class="galleri-billede">
+                                        <img src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw=="
+                                        data-src="billeder/gambling-min.webp" loading="lazy" decoding="async"
+                                        alt="grafisk projekt 4" class="galleri-billede">
                                     </a>
 
                                     <a href="#gd-bogmærke" class="galleri-element">
-                                        <img src="billeder/bogmærke.webp" alt="grafisk projekt 3" class="galleri-billede">
+                                        <img src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw=="
+                                        data-src="billeder/bogmærke-min.webp" loading="lazy" decoding="async"
+                                        alt="grafisk projekt 3" class="galleri-billede">
                                     </a>
 
                                     <a href="#gd-waterman" class="galleri-element">
-                                        <img src="billeder/waterman.webp" alt="grafisk projekt 4" class="galleri-billede">
+                                        <img src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw=="
+                                        data-src="billeder/waterman-min.webp" loading="lazy" decoding="async"
+                                        alt="grafisk projekt 4" class="galleri-billede">
                                     </a>
                                     
                                 </div>
@@ -466,13 +538,17 @@
                                 <div class="side-projekt">
                                     <div class="side-projekt-billeder">
                                         <a href="#gd-bellami-zoom" class="side-projekt-billede-link">
-                                            <img src="billeder/bellami.webp"
-                                                alt="bellami plakat"
+                                            <img src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw=="
+                                            data-src="billeder/bellami-min.webp"
+                                                loading="lazy" decoding="async"
+                                            alt="bellami plakat"
                                                 class="side-projekt-billede">
                                         </a>
                                         <a href="#gd-bellami-kvadrat-zoom" class="side-projekt-billede-link">
-                                            <img src="billeder/bellami-kvadrat.webp"
-                                                alt="bellami kvadrat plakat"
+                                            <img src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw=="
+                                            data-src="billeder/bellami-kvadrat-min.webp"
+                                                loading="lazy" decoding="async"
+                                            alt="bellami kvadrat plakat"
                                                 class="side-projekt-billede">
                                         </a>
                                     </div>
@@ -509,14 +585,18 @@
 
                             <div id="gd-bellami-zoom" class="billede-zoom">
                                 <a href="#gd-bellami" class="billede-zoom-luk">&times;</a>
-                                <img src="billeder/bellami.webp"
-                                    alt="bellami plakat i stort format"
+                                <img src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw=="
+                                data-src="billeder/bellami.webp"
+                                    loading="lazy" decoding="async"
+                                alt="bellami plakat i stort format"
                                     class="billede-zoom-billede">
                             </div>
                             <div id="gd-bellami-kvadrat-zoom" class="billede-zoom">
                                 <a href="#gd-bellami" class="billede-zoom-luk">&times;</a>
-                                <img src="billeder/bellami-kvadrat.webp"
-                                    alt="bellami kvadrat i stort format"
+                                <img src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw=="
+                                data-src="billeder/bellami-kvadrat.webp"
+                                    loading="lazy" decoding="async"
+                                alt="bellami kvadrat i stort format"
                                     class="billede-zoom-billede">
                             </div>
 
@@ -533,8 +613,10 @@
                                 <div class="side-projekt">
                                     <div class="side-projekt-billeder" >
                                         <a href="#gd-race-zoom" class="side-projekt-billede-link">
-                                            <img src="billeder/race.webp"
-                                                alt="bellami plakat"
+                                            <img src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw=="
+                                            data-src="billeder/race-min.webp"
+                                                loading="lazy" decoding="async"
+                                            alt="bellami plakat"
                                                 class="side-projekt-billede">
                                         </a>
                                     </div>
@@ -565,8 +647,10 @@
 
                             <div id="gd-race-zoom" class="billede-zoom">
                                 <a href="#gd-race" class="billede-zoom-luk">&times;</a>
-                                <img src="billeder/race.webp"
-                                    alt="race girls plakat i stor format"
+                                <img src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw=="
+                                data-src="billeder/race.webp"
+                                    loading="lazy" decoding="async"
+                                alt="race girls plakat i stor format"
                                     class="billede-zoom-billede">
                             </div>
                         
@@ -584,8 +668,10 @@
                                 <div class="side-projekt">
                                     <div class="side-projekt-billeder" >
                                         <a href="#gd-mind-zoom" class="side-projekt-billede-link">
-                                            <img src="billeder/mind.webp"
-                                                alt="mind tegning"
+                                            <img src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw=="
+                                            data-src="billeder/mind-min.webp"
+                                                loading="lazy" decoding="async"
+                                            alt="mind tegning"
                                                 class="side-projekt-billede">
                                         </a>
                                     </div>
@@ -608,8 +694,10 @@
 
                             <div id="gd-mind-zoom" class="billede-zoom">
                                 <a href="#gd-mind" class="billede-zoom-luk">&times;</a>
-                                <img src="billeder/mind.webp"
-                                    alt="mind tegning i stort format"
+                                <img src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw=="
+                                data-src="billeder/mind.webp"
+                                    loading="lazy" decoding="async"
+                                alt="mind tegning i stort format"
                                     class="billede-zoom-billede">
                             </div>
 
@@ -627,8 +715,10 @@
                                 <div class="side-projekt">
                                     <div class="side-projekt-billeder" >
                                         <a href="#gd-playboy-zoom" class="side-projekt-billede-link">
-                                            <img src="billeder/playboy.webp"
-                                                alt="Playboy Koncept Plakat"
+                                            <img src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw=="
+                                            data-src="billeder/playboy-min.webp"
+                                                loading="lazy" decoding="async"
+                                            alt="Playboy Koncept Plakat"
                                                 class="side-projekt-billede">
                                         </a>
                                     </div>
@@ -655,8 +745,10 @@
 
                             <div id="gd-playboy-zoom" class="billede-zoom">
                                 <a href="#gd-playboy" class="billede-zoom-luk">&times;</a>
-                                <img src="billeder/playboy.webp"
-                                    alt="playboy plakat i stort format"
+                                <img src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw=="
+                                data-src="billeder/playboy.webp"
+                                    loading="lazy" decoding="async"
+                                alt="playboy plakat i stort format"
                                     class="billede-zoom-billede">
                             </div>
 
@@ -674,13 +766,17 @@
                                 <div class="side-projekt">
                                     <div class="side-projekt-billeder" >
                                         <a href="#gd-nikolaj-zoom" class="side-projekt-billede-link">
-                                            <img src="billeder/nikolaj.webp"
-                                                alt="Nikolaj Jakobsen plakat kvadrat"
+                                            <img src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw=="
+                                            data-src="billeder/nikolaj-min.webp"
+                                                loading="lazy" decoding="async"
+                                            alt="Nikolaj Jakobsen plakat kvadrat"
                                                 class="side-projekt-billede">
                                         </a>
                                         <a href="#gd-nikolaj-plakat-zoom" class="side-projekt-billede-link">
-                                            <img src="billeder/nikolaj-plakat.webp"
-                                                alt="Nikolaj Jakobsen plakat"
+                                            <img src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw=="
+                                            data-src="billeder/nikolaj-plakat-min.webp"
+                                                loading="lazy" decoding="async"
+                                            alt="Nikolaj Jakobsen plakat"
                                                 class="side-projekt-billede">
                                         </a>
                                     </div>
@@ -711,14 +807,18 @@
 
                             <div id="gd-nikolaj-zoom" class="billede-zoom">
                                 <a href="#gd-nikolaj" class="billede-zoom-luk">&times;</a>
-                                <img src="billeder/nikolaj.webp"
-                                    alt="Nikolaj Jakobsen kvadrat plakat i stort format"
+                                <img src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw=="
+                                data-src="billeder/nikolaj.webp"
+                                    loading="lazy" decoding="async"
+                                alt="Nikolaj Jakobsen kvadrat plakat i stort format"
                                     class="billede-zoom-billede">
                             </div>
                             <div id="gd-nikolaj-plakat-zoom" class="billede-zoom">
                                 <a href="#gd-nikolaj" class="billede-zoom-luk">&times;</a>
-                                <img src="billeder/nikolaj-plakat.webp"
-                                    alt="Nikolaj Jakobsen plakat i stort format"
+                                <img src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw=="
+                                data-src="billeder/nikolaj-plakat.webp"
+                                    loading="lazy" decoding="async"
+                                alt="Nikolaj Jakobsen plakat i stort format"
                                     class="billede-zoom-billede">
                             </div>
 
@@ -736,8 +836,10 @@
                                 <div class="side-projekt">
                                     <div class="side-projekt-billeder" >
                                         <a href="#gd-sodavand-zoom" class="side-projekt-billede-link">
-                                            <img src="billeder/sodavand.webp"
-                                                alt="Emballage koncept for en harboe sodavand"
+                                            <img src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw=="
+                                            data-src="billeder/sodavand-min.webp"
+                                                loading="lazy" decoding="async"
+                                            alt="Emballage koncept for en harboe sodavand"
                                                 class="side-projekt-billede">
                                         </a>
                                     </div>
@@ -768,8 +870,10 @@
 
                             <div id="gd-sodavand-zoom" class="billede-zoom">
                                 <a href="#gd-sodavand" class="billede-zoom-luk">&times;</a>
-                                <img src="billeder/sodavand.webp"
-                                    alt="Emballage koncept for en harboe sodavand i stort format"
+                                <img src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw=="
+                                data-src="billeder/sodavand.webp"
+                                    loading="lazy" decoding="async"
+                                alt="Emballage koncept for en harboe sodavand i stort format"
                                     class="billede-zoom-billede">
                             </div>
 
@@ -787,13 +891,17 @@
                                 <div class="side-projekt">
                                     <div class="side-projekt-billeder" >
                                         <a href="#gd-aco-bogbind-zoom" class="side-projekt-billede-link">
-                                            <img src="billeder/aco-bogbind.webp"
-                                                alt="A Court Of bogmærke koncept"
+                                            <img src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw=="
+                                            data-src="billeder/aco-bogbind-min.webp"
+                                                loading="lazy" decoding="async"
+                                            alt="A Court Of bogmærke koncept"
                                                 class="side-projekt-billede">
                                         </a>
                                         <a href="#gd-aco-bagside-zoom" class="side-projekt-billede-link">
-                                            <img src="billeder/aco-bagside.webp"
-                                                alt="A Court Of bogmærke bagside koncept"
+                                            <img src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw=="
+                                            data-src="billeder/aco-bagside-min.webp"
+                                                loading="lazy" decoding="async"
+                                            alt="A Court Of bogmærke bagside koncept"
                                                 class="side-projekt-billede">
                                         </a>
                                     </div>
@@ -824,14 +932,18 @@
 
                             <div id="gd-aco-bogbind-zoom" class="billede-zoom">
                                 <a href="#gd-aco-bogbind" class="billede-zoom-luk">&times;</a>
-                                <img src="billeder/aco-bogbind.webp"
-                                    alt="A Court Of bogmærke koncept i stort format"
+                                <img src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw=="
+                                data-src="billeder/aco-bogbind.webp"
+                                    loading="lazy" decoding="async"
+                                alt="A Court Of bogmærke koncept i stort format"
                                     class="billede-zoom-billede">
                             </div>
                             <div id="gd-aco-bagside-zoom" class="billede-zoom">
                                 <a href="#gd-aco-bogbind" class="billede-zoom-luk">&times;</a>
-                                <img src="billeder/aco-bagside.webp"
-                                    alt="A Court Of bogmærke bagside koncept i stort format"
+                                <img src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw=="
+                                data-src="billeder/aco-bagside.webp"
+                                    loading="lazy" decoding="async"
+                                alt="A Court Of bogmærke bagside koncept i stort format"
                                     class="billede-zoom-billede">
                             </div>
 
@@ -849,8 +961,10 @@
                                 <div class="side-projekt">
                                     <div class="side-projekt-billeder" >
                                         <a href="#gd-progression-zoom" class="side-projekt-billede-link">
-                                            <img src="billeder/progression.webp"
-                                                alt="Progression hyggetegning"
+                                            <img src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw=="
+                                            data-src="billeder/progression-min.webp"
+                                                loading="lazy" decoding="async"
+                                            alt="Progression hyggetegning"
                                                 class="side-projekt-billede">
                                         </a>
                                     </div>
@@ -878,8 +992,10 @@
 
                             <div id="gd-progression-zoom" class="billede-zoom">
                                 <a href="#gd-progression" class="billede-zoom-luk">&times;</a>
-                                <img src="billeder/progression.webp"
-                                    alt="Progression hyggetegning i stort format"
+                                <img src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw=="
+                                data-src="billeder/progression.webp"
+                                    loading="lazy" decoding="async"
+                                alt="Progression hyggetegning i stort format"
                                     class="billede-zoom-billede">
                             </div>
 
@@ -897,8 +1013,10 @@
                                 <div class="side-projekt">
                                     <div class="side-projekt-billeder" >
                                         <a href="#gd-waterman-zoom" class="side-projekt-billede-link">
-                                            <img src="billeder/waterman.webp"
-                                                alt="Waterman hyggeplakat"
+                                            <img src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw=="
+                                            data-src="billeder/waterman-min.webp"
+                                                loading="lazy" decoding="async"
+                                            alt="Waterman hyggeplakat"
                                                 class="side-projekt-billede">
                                         </a>
                                     </div>
@@ -928,8 +1046,10 @@
 
                             <div id="gd-waterman-zoom" class="billede-zoom">
                                 <a href="#gd-waterman" class="billede-zoom-luk">&times;</a>
-                                <img src="billeder/waterman.webp"
-                                    alt="Waterman hyggeplakat i stort format"
+                                <img src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw=="
+                                data-src="billeder/waterman.webp"
+                                    loading="lazy" decoding="async"
+                                alt="Waterman hyggeplakat i stort format"
                                     class="billede-zoom-billede">
                             </div>
 
@@ -947,13 +1067,17 @@
                                 <div class="side-projekt">
                                     <div class="side-projekt-billeder" >
                                         <a href="#gd-shubi-kvadrat-zoom" class="side-projekt-billede-link">
-                                            <img src="billeder/shubi-kvadrat.webp"
-                                                alt="Shu Bi Dua 2.0 kvadrat plakat"
+                                            <img src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw=="
+                                            data-src="billeder/shubi-kvadrat-min.webp"
+                                                loading="lazy" decoding="async"
+                                            alt="Shu Bi Dua 2.0 kvadrat plakat"
                                                 class="side-projekt-billede">
                                         </a>
                                         <a href="#gd-shubi-plakat-zoom" class="side-projekt-billede-link">
-                                            <img src="billeder/shubi-plakat.webp"
-                                                alt="Shu Bi Dua 2.0 plakat"
+                                            <img src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw=="
+                                            data-src="billeder/shubi-plakat-min.webp"
+                                                loading="lazy" decoding="async"
+                                            alt="Shu Bi Dua 2.0 plakat"
                                                 class="side-projekt-billede">
                                         </a>
                                     </div>
@@ -984,14 +1108,18 @@
 
                             <div id="gd-shubi-kvadrat-zoom" class="billede-zoom">
                                 <a href="#gd-shubi-kvadrat" class="billede-zoom-luk">&times;</a>
-                                <img src="billeder/shubi-kvadrat.webp"
+                                <img src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw=="
+                                data-src="billeder/shubi-kvadrat.webp"
+                                    loading="lazy" decoding="async"
                                     alt="Shu Bi Dua 2.0 kvadrat plakat i stort format"
                                     class="billede-zoom-billede">
                             </div>
                             <div id="gd-shubi-plakat-zoom" class="billede-zoom">
                                 <a href="#gd-shubi-plakat" class="billede-zoom-luk">&times;</a>
-                                <img src="billeder/shubi-plakat.webp"
-                                    alt="Shu Bi Dua 2.0 plakat i stort format"
+                                <img src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw=="
+                                data-src="billeder/shubi-plakat.webp"
+                                    loading="lazy" decoding="async"
+                                alt="Shu Bi Dua 2.0 plakat i stort format"
                                     class="billede-zoom-billede">
                             </div>
 
@@ -1009,8 +1137,10 @@
                                 <div class="side-projekt">
                                     <div class="side-projekt-billeder" >
                                         <a href="#gd-love-zoom" class="side-projekt-billede-link">
-                                            <img src="billeder/love.webp"
-                                                alt="En illustration af 2 mennesker der kigger på stjerner"
+                                            <img src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw=="
+                                            data-src="billeder/love-min.webp"
+                                                loading="lazy" decoding="async"
+                                            alt="En illustration af 2 mennesker der kigger på stjerner"
                                                 class="side-projekt-billede">
                                         </a>
                                     </div>
@@ -1039,8 +1169,10 @@
 
                             <div id="gd-love-zoom" class="billede-zoom">
                                 <a href="#gd-love" class="billede-zoom-luk">&times;</a>
-                                <img src="billeder/love.webp"
-                                    alt="Love i stort format"
+                                <img src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw=="
+                                data-src="billeder/love.webp"
+                                    loading="lazy" decoding="async"
+                                alt="Love i stort format"
                                     class="billede-zoom-billede">
                             </div>
 
@@ -1058,8 +1190,10 @@
                                 <div class="side-projekt">
                                     <div class="side-projekt-billeder" >
                                         <a href="#gd-gambling-zoom" class="side-projekt-billede-link">
-                                            <img src="billeder/gambling.webp"
-                                                alt="En plakat der illustrerer det farlige ved gambling"
+                                            <img src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw=="
+                                            data-src="billeder/gambling-min.webp"
+                                                loading="lazy" decoding="async"
+                                            alt="En plakat der illustrerer det farlige ved gambling"
                                                 class="side-projekt-billede">
                                         </a>
                                     </div>
@@ -1095,8 +1229,8 @@
 
                             <div id="gd-gambling-zoom" class="billede-zoom">
                                 <a href="#gd-gambling" class="billede-zoom-luk">&times;</a>
-                                <img src="billeder/gambling.webp"
-                                    alt="Gambling plakat i stort format"
+                                <img src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw==" data-src="billeder/gambling.webp"
+                                    loading="lazy" decoding="async" alt="Gambling plakat i stort format"
                                     class="billede-zoom-billede">
                             </div>
 
@@ -1114,13 +1248,17 @@
                                 <div class="side-projekt">
                                     <div class="side-projekt-billeder" >
                                         <a href="#gd-bogmærke-zoom" class="side-projekt-billede-link">
-                                            <img src="billeder/bogmærke.webp"
-                                                alt="5 Tegn selv bogmærker, de første 5 er mal selv og sidste 3 er tegn selv"
+                                            <img src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw=="
+                                            data-src="billeder/bogmærke.webp"
+                                                loading="lazy" decoding="async"
+                                            alt="5 Tegn selv bogmærker, de første 5 er mal selv og sidste 3 er tegn selv"
                                                 class="side-projekt-billede">
                                         </a>
                                         <a href="#gd-bogmærke-bagside-zoom" class="side-projekt-billede-link">
-                                            <img src="billeder/bogmærke-bagside.webp"
-                                                alt="Bagsiden af bogmærkerne"
+                                            <img src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw=="
+                                                data-src="billeder/bogmærke-bagside.webp"
+                                                loading="lazy" decoding="async"
+                                            alt="Bagsiden af bogmærkerne"
                                                 class="side-projekt-billede">
                                         </a>
                                     </div>
@@ -1150,14 +1288,18 @@
 
                             <div id="gd-bogmærke-zoom" class="billede-zoom">
                                 <a href="#gd-bogmærke" class="billede-zoom-luk">&times;</a>
-                                <img src="billeder/bogmærke.webp"
-                                    alt="Bogmærke illustration i stort format"
+                                <img src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw=="
+                                    data-src="billeder/bogmærke.webp"
+                                    loading="lazy" decoding="async"
+                                alt="Bogmærke illustration i stort format"
                                     class="billede-zoom-billede">
                             </div>
                             <div id="gd-bogmærke-bagside-zoom" class="billede-zoom">
                                 <a href="#gd-bogmærke" class="billede-zoom-luk">&times;</a>
-                                <img src="billeder/bogmærke-bagside.webp"
-                                    alt="Bogmærke illustrations bagside i stort format"
+                                <img src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw=="
+                                data-src="billeder/bogmærke-bagside.webp"
+                                    loading="lazy" decoding="async"
+                                alt="Bogmærke illustrations bagside i stort format"
                                     class="billede-zoom-billede">
                             </div>
 
@@ -1175,8 +1317,10 @@
                                 <div class="side-projekt">
                                     <div class="side-projekt-billeder" >
                                         <a href="#gd-ob-zoom" class="side-projekt-billede-link">
-                                            <img src="billeder/ob-kampdag.webp"
-                                                alt="OB Kampdag instagram opslag"
+                                            <img src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw=="
+                                            data-src="billeder/ob-kampdag-min.webp"
+                                                loading="lazy" decoding="async"
+                                            alt="OB Kampdag instagram opslag"
                                                 class="side-projekt-billede">
                                         </a>
                                     </div>
@@ -1208,8 +1352,10 @@
 
                             <div id="gd-ob-zoom" class="billede-zoom">
                                 <a href="#gd-ob" class="billede-zoom-luk">&times;</a>
-                                <img src="billeder/ob-kampdag.webp"
-                                    alt="OB Kampdag instagram opslag i stort format"
+                                <img src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw=="
+                                data-src="billeder/ob-kampdag.webp"
+                                    loading="lazy" decoding="async"
+                                alt="OB Kampdag instagram opslag i stort format"
                                     class="billede-zoom-billede">
                             </div>
 
@@ -1238,37 +1384,43 @@
 
                                                 <a href="#vid-gpf-swing" class="galleri-element">
                                                     <img src="videoer/thumbnails/gpf-swing-thumb.webp"
+                                                        loading="lazy" decoding="async"
                                                         alt="Grand prix fest videoreklame thumbnail"
                                                         class="galleri-billede">
                                                 </a>
 
                                                 <a href="#vid-gpf-gulv" class="galleri-element">
                                                     <img src="videoer/thumbnails/gpf-gulv-thumb.webp"
+                                                        loading="lazy" decoding="async"
                                                         alt="Grand prix fest videoreklame thumbnail"
                                                         class="galleri-billede">
                                                 </a>
 
                                                 <a href="#vid-interview" class="galleri-element">
                                                     <img src="videoer/thumbnails/interview-thumb.webp"
+                                                        loading="lazy" decoding="async"
                                                         alt="interview video thumbnail"
                                                         class="galleri-billede">
                                                 </a>
 
                                                 <a href="#vid-moving" class="galleri-element">
                                                     <img src="videoer/thumbnails/moving-thumb.webp"
+                                                        loading="lazy" decoding="async"
                                                         alt="Moving Art thumbnail"
                                                         class="galleri-billede">
                                                 </a>
 
                                                 <a href="#vid-gpf-feje" class="galleri-element">
                                                     <img src="videoer/thumbnails/gpf-feje-thumb.webp"
-                                                        alt="Grand prix fest videoreklame thumbnail"
+                                                        loading="lazy" decoding="async"
+                                                    alt="Grand prix fest videoreklame thumbnail"
                                                         class="galleri-billede">
                                                 </a>
 
                                                 <a href="#vid-gpf-jul" class="galleri-element">
                                                     <img src="videoer/thumbnails/gpf-jul-thumb.webp"
-                                                        alt="Grand prix fest julevideoreklame thumbnail"
+                                                        loading="lazy" decoding="async"
+                                                    alt="Grand prix fest julevideoreklame thumbnail"
                                                         class="galleri-billede">
                                                 </a> 
 
@@ -1292,7 +1444,8 @@
                                             <div class="side-projekt-billeder" >
                                             <a href="#vid-gpf-swing-zoom" class="side-projekt-billede-link">
                                                 <img src="videoer/thumbnails/gpf-swing-thumb.webp"
-                                                    alt="Thumbnail til GPF Swing videoen"
+                                                    loading="lazy" decoding="async"
+                                                alt="Thumbnail til GPF Swing videoen"
                                                     class="side-projekt-billede">
                                             </a>
                                             </div>
@@ -1323,8 +1476,9 @@
                                             class="billede-zoom-billede"
                                             controls
                                             playsinline
+                                            
                                         >
-                                            <source src="videoer/gpf-swing.webm" type="video/webm">
+                                            <source src="about:blank" data-src="videoer/gpf-swing.webm" type="video/webm">
                                             Din browser understøtter ikke video-tag&#39;et.
                                         </video>
                                     </div>
@@ -1344,7 +1498,8 @@
                                             <div class="side-projekt-billeder" >
                                             <a href="#vid-interview-zoom" class="side-projekt-billede-link">
                                                 <img src="videoer/thumbnails/interview-thumb.webp"
-                                                    alt="Thumbnail til interview videoen"
+                                                    loading="lazy" decoding="async"
+                                                alt="Thumbnail til interview videoen"
                                                     class="side-projekt-billede">
                                             </a>
                                             </div>
@@ -1377,8 +1532,9 @@
                                             class="billede-zoom-billede"
                                             controls
                                             playsinline
+                                            
                                         >
-                                            <source src="videoer/interview" type="video/webm">
+                                            <source src="about:blank" data-src="videoer/interview" type="video/webm">
                                             Din browser understøtter ikke video-tag&#39;et.
                                         </video>
                                     </div>
@@ -1398,7 +1554,8 @@
                                             <div class="side-projekt-billeder" >
                                             <a href="#vid-gpf-gulv-zoom" class="side-projekt-billede-link">
                                                 <img src="videoer/thumbnails/gpf-gulv-thumb.webp"
-                                                    alt="Thumbnail til GPF gulv videoen"
+                                                    loading="lazy" decoding="async"
+                                                alt="Thumbnail til GPF gulv videoen"
                                                     class="side-projekt-billede">
                                             </a>
                                             </div>
@@ -1429,8 +1586,9 @@
                                             class="billede-zoom-billede"
                                             controls
                                             playsinline
+                                            
                                         >
-                                            <source src="videoer/gpf-gulv.webm" type="video/webm">
+                                            <source src="about:blank" data-src="videoer/gpf-gulv.webm" type="video/webm">
                                             Din browser understøtter ikke video-tag&#39;et.
                                         </video>
                                     </div>
@@ -1450,6 +1608,7 @@
                                             <div class="side-projekt-billeder" >
                                             <a href="#vid-moving-zoom" class="side-projekt-billede-link">
                                                 <img src="videoer/thumbnails/moving-thumb.webp"
+                                                    loading="lazy" decoding="async"
                                                     alt="Thumbnail til Moving art videoen"
                                                     class="side-projekt-billede">
                                             </a>
@@ -1482,8 +1641,9 @@
                                             class="billede-zoom-billede"
                                             controls
                                             playsinline
+                                            
                                         >
-                                            <source src="videoer/moving.webm" type="video/webm">
+                                            <source src="about:blank" data-src="videoer/moving.webm" type="video/webm">
                                             Din browser understøtter ikke video-tag&#39;et.
                                         </video>
                                     </div>
@@ -1503,6 +1663,7 @@
                                             <div class="side-projekt-billeder" >
                                             <a href="#vid-gpf-feje-zoom" class="side-projekt-billede-link">
                                                 <img src="videoer/thumbnails/gpf-feje-thumb.webp"
+                                                    loading="lazy" decoding="async"
                                                     alt="Thumbnail til GPF Feje videoen"
                                                     class="side-projekt-billede">
                                             </a>
@@ -1538,8 +1699,9 @@
                                             class="billede-zoom-billede"
                                             controls
                                             playsinline
+                                            
                                         >
-                                            <source src="videoer/gpf-feje.webm" type="video/webm">
+                                            <source src="about:blank" data-src="videoer/gpf-feje.webm" type="video/webm">
                                             Din browser understøtter ikke video-tag&#39;et.
                                         </video>
                                     </div>
@@ -1559,6 +1721,7 @@
                                             <div class="side-projekt-billeder" >
                                             <a href="#vid-gpf-jul-zoom" class="side-projekt-billede-link">
                                                 <img src="videoer/thumbnails/gpf-jul-thumb.webp"
+                                                    loading="lazy" decoding="async"
                                                     alt="Thumbnail til GPF jul videoen"
                                                     class="side-projekt-billede">
                                             </a>
@@ -1590,8 +1753,9 @@
                                             class="billede-zoom-billede"
                                             controls
                                             playsinline
+                                            
                                         >
-                                            <source src="videoer/gpf-jul.webm" type="video/webm">
+                                            <source src="about:blank" data-src="videoer/gpf-jul.webm" type="video/webm">
                                             Din browser understøtter ikke video-tag&#39;et.
                                         </video>
                                     </div>
@@ -1621,7 +1785,9 @@
 
                                         <div class="musik-track-main">
                                             <div class="musik-track-top">
-                                                <img src="billeder/i-would.webp"
+                                                <img src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw=="
+                                                data-src="billeder/i-would.webp"
+                                                    loading="lazy" decoding="async"
                                                     alt="Beats & produktion"
                                                     class="musik-track-cover">
                                                 <div class="musik-track-tekst">
@@ -1639,8 +1805,10 @@
 
                                         <div class="musik-track-main">
                                             <div class="musik-track-top">
-                                                <img src="billeder/want-you.webp"
-                                                    alt="Beats & produktion"
+                                                <img src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw=="
+                                                    data-src="billeder/want-you.webp"
+                                                    loading="lazy" decoding="async"
+                                                alt="Beats & produktion"
                                                     class="musik-track-cover">
                                                 <div class="musik-track-tekst">
                                                     <span class="musik-track-titel">I Want You (I Miss You)</span>
@@ -1692,12 +1860,11 @@
 
 
             </main>
-
-
+            
             <footer class="bund-omraade">
                 <div class="bund-dock glas-pill">
                     <a href="#" class="dock-knap glas-indre" id="ob-knap">
-                        <img src="billeder/ob-logo.webp" alt="ob logo" class="dock-billede">
+                        <img src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw==" data-src="billeder/ob-logo.webp" loading="lazy" decoding="async" alt="OB logo" class="dock-billede">
                     </a>
 
                     <a href="#" class="dock-knap glas-indre dock-musik-knap" id="musik-knap">
@@ -1712,6 +1879,8 @@
                         <i class="fa-solid fa-globe dock-ikon"></i>
                     </a>
                 </div>
+            </footer>
+        </div>
 
 
 <!-- Spotify popup -->
@@ -1721,7 +1890,7 @@
 
                                     <div class="musik-popup-indhold">
                                         <div class="musik-popup-cover-wrapper">
-                                            <img id="musik-popup-cover" src="" alt="Cover" class="musik-popup-cover" />
+                                            <img id="musik-popup-cover" src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw==" loading="lazy" decoding="async" alt="Cover" class="musik-popup-cover">
                                         </div>
 
                                         <div class="musik-popup-tekst">
@@ -1750,7 +1919,7 @@
 
                                     <div class="musik-popup-indhold">
                                         <div class="musik-popup-cover-wrapper">
-                                            <img src="billeder/ob-logo.webp" alt="OB logo" class="musik-popup-cover" />
+                                            <img src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw==" data-src="billeder/ob-logo.webp" loading="lazy" decoding="async" alt="OB logo" class="musik-popup-cover">
                                         </div>
 
                                         <div class="musik-popup-tekst">
@@ -1814,18 +1983,10 @@
                                                         <span>Spotify</span>
                                                     </a>
                                                 </div>
-                                                </a>
-                                            </div>
-
                                         </div>
-                                    </div>
+
                                 </div>
                             </div>
-
-
-
-            </footer>
-        </div>
 
 
 
@@ -2090,6 +2251,285 @@
                                     }
                                 })();
                                 </script>
+
+
+
+
+<script>
+(() => {
+  const PLACEHOLDER =
+    'data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw==';
+
+  const isMobile = window.matchMedia('(max-width: 768px)').matches;
+
+  // ✅ Desktop fallback: hvis du bruger data-src placeholders, så skal desktop også "hydrate" dem
+  function desktopEagerLoad() {
+    // Images
+    document.querySelectorAll('img[data-src]').forEach(img => {
+      const ds = img.getAttribute('data-src');
+      if (!ds) return;
+      img.src = ds;
+      img.removeAttribute('data-src');
+      img.dataset.loaded = '1';
+    });
+
+    // Videos (kun hvis du også begynder at bruge data-src på dem)
+    document.querySelectorAll('video[data-src]').forEach(v => {
+      const ds = v.getAttribute('data-src');
+      if (!ds) return;
+      v.src = ds;
+      v.removeAttribute('data-src');
+      try { v.load(); } catch (e) {}
+      v.dataset.loaded = '1';
+    });
+
+    document.querySelectorAll('video source[data-src]').forEach(s => {
+      const v = s.closest('video');
+      const ds = s.getAttribute('data-src');
+      if (!v || !ds) return;
+      s.src = ds;
+      s.removeAttribute('data-src');
+      try { v.load(); } catch (e) {}
+      v.dataset.loaded = '1';
+    });
+  }
+
+  // Hvis det IKKE er mobil -> kør fallback og stop her
+  if (!isMobile) {
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', desktopEagerLoad);
+    } else {
+      desktopEagerLoad();
+    }
+    return;
+  }
+
+
+  function activeTargetEl() {
+    if (!location.hash || location.hash === '#app') return document.getElementById('app');
+    return document.querySelector(location.hash);
+  }
+
+  function isAllowed(el) {
+    const active = activeTargetEl();
+
+    // På app-siden: vi loader kun "udenfor" .side og udenfor zoom
+    if (!location.hash || location.hash === '#app') {
+      return !el.closest('.side') && !el.closest('.billede-zoom');
+    }
+
+    // På en side: kun inde i den aktive hash-sektion
+    if (!active) return false;
+    return el.closest(location.hash) === active;
+  }
+
+  function getScrollRootForActive() {
+    const active = activeTargetEl();
+    if (!active || (!location.hash || location.hash === '#app')) return null;
+
+    const candidates = [
+      active.querySelector('.side-kort'),
+      active.querySelector('.side-tekst'),
+      active.querySelector('.side-projekt-tekst')
+    ].filter(Boolean);
+
+    for (const el of candidates) {
+      const cs = getComputedStyle(el);
+      if ((cs.overflowY === 'auto' || cs.overflowY === 'scroll') && el.scrollHeight > el.clientHeight) {
+        return el;
+      }
+    }
+    return null; // viewport
+  }
+
+  // ---------- IMG LOAD/UNLOAD (med lock så de ikke loader 2-3-4 gange) ----------
+  function loadImg(img) {
+    if (!img) return;
+    if (img.dataset.loaded === '1' || img.dataset.loading === '1') return;
+
+    const ds = img.getAttribute('data-src');
+    if (!ds) return;
+    if (!isAllowed(img)) return;
+
+    if (!img.dataset.originalSrc) img.dataset.originalSrc = ds;
+
+    img.dataset.loading = '1';
+
+    img.onload = () => {
+      img.dataset.loading = '0';
+      img.dataset.loaded = '1';
+      img.removeAttribute('data-src');
+      img.onload = null;
+      img.onerror = null;
+    };
+
+    img.onerror = () => {
+      img.dataset.loading = '0';
+      img.dataset.loaded = '0'; // behold data-src så den kan prøve igen
+      img.onload = null;
+      img.onerror = null;
+    };
+
+    img.src = ds;
+  }
+
+  function unloadImg(img) {
+    if (!img) return;
+    if (img.dataset.loading === '1') return;
+
+    const original = img.dataset.originalSrc || img.getAttribute('data-src');
+    if (!original) return;
+    if (img.dataset.loaded !== '1') return;
+
+    img.src = PLACEHOLDER;
+    img.dataset.loaded = '0';
+    img.setAttribute('data-src', original);
+  }
+
+  // ---------- VIDEO LOAD/UNLOAD ----------
+  function getVideoDataSrc(video) {
+    const source = video.querySelector('source[data-src]');
+    if (source) return { type: 'source', el: source, src: source.getAttribute('data-src') };
+
+    const ds = video.getAttribute('data-src');
+    if (ds) return { type: 'video', el: video, src: ds };
+
+    return null;
+  }
+
+  function loadVideo(video) {
+    if (!video) return;
+    if (video.dataset.loaded === '1' || video.dataset.loading === '1') return;
+    if (!isAllowed(video)) return;
+
+    const info = getVideoDataSrc(video);
+    if (!info || !info.src) return;
+
+    if (!video.dataset.originalSrc) video.dataset.originalSrc = info.src;
+
+    video.dataset.loading = '1';
+
+    const done = () => {
+      video.dataset.loading = '0';
+      video.dataset.loaded = '1';
+      video.removeEventListener('loadeddata', done);
+      video.removeEventListener('error', fail);
+    };
+
+    const fail = () => {
+      video.dataset.loading = '0';
+      video.dataset.loaded = '0';
+      video.removeEventListener('loadeddata', done);
+      video.removeEventListener('error', fail);
+    };
+
+    video.addEventListener('loadeddata', done, { once: true });
+    video.addEventListener('error', fail, { once: true });
+
+    if (info.type === 'video') {
+      video.src = info.src;
+      video.removeAttribute('data-src');
+    } else {
+      info.el.src = info.src;
+      info.el.removeAttribute('data-src');
+    }
+
+    try { video.load(); } catch (e) {}
+  }
+
+  function unloadVideo(video) {
+    if (!video) return;
+    if (video.dataset.loading === '1') return;
+
+    const original = video.dataset.originalSrc || video.getAttribute('data-src');
+    if (!original) return;
+    if (video.dataset.loaded !== '1') return;
+
+    try { video.pause(); } catch (e) {}
+
+    const source = video.querySelector('source');
+    if (source) {
+      source.removeAttribute('src');
+      source.setAttribute('data-src', original);
+    } else {
+      video.removeAttribute('src');
+      video.setAttribute('data-src', original);
+    }
+
+    video.dataset.loaded = '0';
+
+    try { video.load(); } catch (e) {}
+  }
+
+  // ---------- OBSERVER SETUP ----------
+  let io = null;
+
+  function setupObserver() {
+    if (io) {
+      io.disconnect();
+      io = null;
+    }
+
+    const imgs = Array.from(document.querySelectorAll('img[data-src]'));
+    imgs.forEach(img => {
+      if (!img.getAttribute('src')) img.src = PLACEHOLDER;
+    });
+
+    const videos = Array.from(document.querySelectorAll('video[data-src], video source[data-src]'))
+      .map(el => (el.tagName === 'VIDEO' ? el : el.closest('video')))
+      .filter(Boolean);
+
+    const uniqVideos = Array.from(new Set(videos));
+
+    const allowedImgs = imgs.filter(isAllowed);
+    const allowedVids = uniqVideos.filter(isAllowed);
+
+    const root = getScrollRootForActive();
+
+    if (!('IntersectionObserver' in window)) {
+      allowedImgs.slice(0, 8).forEach(loadImg);
+      allowedVids.slice(0, 2).forEach(loadVideo);
+      return;
+    }
+
+    io = new IntersectionObserver((entries) => {
+      for (const e of entries) {
+        const el = e.target;
+        const isVideo = el.tagName === 'VIDEO';
+        if (e.isIntersecting) {
+          if (isVideo) loadVideo(el);
+          else loadImg(el);
+        } else {
+          if (isVideo) unloadVideo(el);
+          else unloadImg(el);
+        }
+      }
+    }, {
+      root,
+      threshold: 0.01,
+      rootMargin: '150px'
+    });
+
+    allowedImgs.forEach(img => io.observe(img));
+    allowedVids.forEach(v => io.observe(v));
+  }
+
+  function kick() {
+    setupObserver();
+    window.addEventListener('hashchange', setupObserver);
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', kick);
+  } else {
+    kick();
+  }
+})();
+</script>
+
+
+
+
 
     </body>
 </html>
