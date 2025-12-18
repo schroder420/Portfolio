@@ -326,7 +326,8 @@ body {
     inset: 0;
     background: linear-gradient(
         to bottom,
-        rgba(255, 255, 255, 0.35)
+        rgba(255, 255, 255, 0.35),
+        rgba(255, 255, 255, 0.05)
     );
     opacity: 0.5;
     pointer-events: none;
@@ -853,7 +854,7 @@ body:has(.side:target) .indhold-gitter > .indhold-boks {
     opacity: 0;
     pointer-events: none;
     transition: opacity 0.25s ease;
-    z-index: 999; /* over alt andet */
+    z-index: 999;
 }
 
 /* når zoom er trykker og hash rammer et sit target */
@@ -956,7 +957,7 @@ body:has(.side:target) .indhold-gitter > .indhold-boks {
     text-decoration: none;
     color: inherit;
     transition:
-        background 0.18s ease,
+        background-color 0.18s ease,
         transform 0.18s ease,
         box-shadow 0.18s ease;
 }
@@ -1279,7 +1280,6 @@ body:has(.side:target) .indhold-gitter > .indhold-boks {
     100% { transform: translate3d(5%, 5%, 0) scale(1.05); }
 }
 
-/* ====== MOBIL / SMALL WIDTH ====== */
 
 @media (max-width: 720px) {
     
@@ -1297,7 +1297,6 @@ body:has(.side:target) .indhold-gitter > .indhold-boks {
     body {
         align-items: flex-start;
         padding-top: 3vh;
-        padding-top: calc(3vh + env(safe-area-inset-top));
     }
 
     .baggrund-video{ 
@@ -1433,7 +1432,7 @@ body:has(.side:target) .indhold-gitter > .indhold-boks {
         overflow-y: auto;
         -webkit-overflow-scrolling: touch;
         max-height: 100%;
-        margin-bottom: 1;
+        margin-bottom: 1em;
     }
 
     #ommigbillede video {
