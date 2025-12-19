@@ -1115,6 +1115,21 @@ body:has(.side:target) .indhold-gitter > .indhold-boks {
 
                                     /* Spotify og OB popup */
 
+.musik-popup,
+.social-popup,
+.ob-popup {
+  color: #f2f2f2;
+  font-size: min(1.4vmin, 18px);
+}
+
+.musik-popup-kort,
+.social-popup-kort,
+.ob-popup-kort {
+  max-width: min(32em, calc(100% - 3rem)); 
+  width: 100%;
+  margin-bottom: 3%;
+}
+
 .musik-popup {
     position: absolute;
     inset: 0;
